@@ -864,6 +864,73 @@ td.empty::after,div.empty::after{content:"";position:absolute;left:50%;top:20px;
 @media(max-width:600px){.settool [data-act="setAll"]{display:none}.setq{min-width:0}}
 @media(min-width:861px){#nav.scrolly{-webkit-mask-image:linear-gradient(to bottom,#000 calc(100% - 28px),transparent);mask-image:linear-gradient(to bottom,#000 calc(100% - 28px),transparent)}}
 @media (prefers-reduced-motion:no-preference){.btn,.nav{transition:background .15s}}
+/* ===== v6 styles start ===== */
+.click{cursor:pointer}
+.btn.busy{opacity:.6;pointer-events:none}
+.x6tabs{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 12px}
+.x6tabs .cnt{margin-left:4px}
+.x6load{padding:18px}
+.x6bar{position:fixed;right:18px;bottom:18px;z-index:30;display:flex;align-items:center;gap:8px;max-width:calc(100vw - 36px);background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:8px 10px;box-shadow:0 8px 28px rgba(15,17,21,.16)}
+.x6bar[hidden]{display:none}
+.x6bt{display:flex;flex-direction:column;min-width:0;max-width:220px}.x6bt b{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.x6bt small{color:var(--muted);font-size:12px}
+.x6clk{font-variant-numeric:tabular-nums;min-width:64px;text-align:right}
+.x6dot{width:10px;height:10px;border-radius:50%;background:var(--warn);flex:none;display:inline-block}
+.x6dot.on{background:var(--good);animation:x6pulse 1.6s infinite}
+@keyframes x6pulse{0%{box-shadow:0 0 0 0 rgba(22,131,79,.45)}70%{box-shadow:0 0 0 8px rgba(22,131,79,0)}100%{box-shadow:0 0 0 0 rgba(22,131,79,0)}}
+@media(prefers-reduced-motion:reduce){.x6dot.on{animation:none}}
+@media(max-width:860px){.x6bar{left:8px;right:8px;bottom:calc(72px + env(safe-area-inset-bottom,0px));max-width:none}.x6bt{flex:1;max-width:none}}
+.x6time{display:flex;align-items:center;flex-wrap:wrap;gap:6px 8px;margin-top:8px;font-size:12px}
+.x6meter{flex:1 1 80px;min-width:60px;height:6px;border-radius:6px;background:var(--surface-2);overflow:hidden}
+.x6meter i{display:block;height:100%;background:var(--accent);border-radius:6px}
+.x6meter.over i{background:var(--bad)}
+.x6td{margin-top:10px}
+.x6m{display:flex;align-items:flex-start;gap:10px;padding:9px 6px;border-bottom:1px solid var(--line)}
+.x6m:last-child{border-bottom:0}.x6m.click:hover{background:var(--surface-2);border-radius:10px}
+.x6mt{display:flex;flex-direction:column;min-width:52px;font-weight:600}.x6mt small{color:var(--muted);font-weight:400;font-size:12px}
+.x6mb{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px}.x6mb b{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.x6ma{display:flex;flex-wrap:wrap;align-items:center;gap:6px;justify-content:flex-end}
+.x6rs{display:inline-flex;gap:4px}
+.x6avs{display:flex;margin-top:2px}
+.x6av{width:24px;height:24px;border-radius:50%;background:var(--accent-soft);color:var(--accent);font-size:10px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;border:2px solid var(--surface);margin-left:-6px}
+.x6av:first-child{margin-left:0}
+.x6day{margin-bottom:8px}
+.x6cal{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px}
+.x6cal .dow{font-size:12px;color:var(--muted);text-align:center;padding:4px 0}
+.x6cd{min-height:88px;border:1px solid var(--line);border-radius:10px;padding:4px;display:flex;flex-direction:column;gap:2px;cursor:pointer;background:var(--surface);overflow:hidden}
+.x6cd.dim{opacity:.55}.x6cd.today{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+.x6cd b{font-size:12px}.x6cd small{font-size:11px}
+.x6hol{font-style:normal;font-size:11px;color:var(--bad);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.x6ci{font-size:11px;border-radius:6px;padding:1px 4px;background:var(--accent-soft);color:var(--fg);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.x6ci.c-good{background:var(--good-soft)}.x6ci.c-warn{background:var(--warn-soft)}.x6ci.c-bad{background:var(--bad-soft)}.x6ci.c-gray{background:var(--surface-2)}
+@media(max-width:560px){.x6cd{min-height:58px}.x6ci{font-size:0;height:6px;padding:0}}
+.x6chips{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.x6pick{max-height:220px;overflow:auto;border:1px solid var(--line);border-radius:10px;margin-top:6px}
+.x6pp{display:flex;gap:8px;align-items:flex-start;padding:7px 10px;border-bottom:1px solid var(--line);cursor:pointer}
+.x6pp:last-child{border-bottom:0}.x6pp[hidden]{display:none}.x6pp span{display:flex;flex-direction:column}.x6pp small{color:var(--muted);font-size:12px}
+.x6mform .xr,.mn_a{display:grid;grid-template-columns:2fr 2fr 1.4fr auto;gap:6px;margin-bottom:6px;align-items:center}
+.mn_a{grid-template-columns:2.2fr 1.6fr 1.2fr .8fr auto}
+@media(max-width:560px){.x6mform .xr,.mn_a{grid-template-columns:1fr}}
+.x6conf{border-radius:10px;font-size:13px}
+.x6conf:not(:empty){background:var(--warn-soft);border:1px solid var(--line);padding:10px 12px;margin:8px 0}
+.x6conf ul{margin:6px 0 0;padding-left:18px}.x6conf li.bad{color:var(--bad)}
+.x6ol{margin:0;padding-left:20px}
+.x6cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+.x6cards .panel{margin:0}
+.x6rgrid{grid-template-columns:240px minmax(0,1fr);align-items:start}
+.x6rlist{display:flex;flex-direction:column;gap:2px;padding:8px}
+.x6rlist .nav{width:100%;text-align:left}
+.x6rlist hr{border:0;border-top:1px solid var(--line);margin:6px 0}
+@media(max-width:860px){.x6rgrid{grid-template-columns:1fr}}
+.x6tot td{background:var(--surface-2)}
+.x6dash{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;margin-bottom:14px}
+.x6dash .panel{margin:0}
+.x6wfoot{grid-column:1/-1;display:flex;justify-content:flex-end;margin-top:-6px}
+.x6wx{display:inline-flex;gap:6px;align-items:center}
+.x6next{display:flex;align-items:center;gap:6px;flex-wrap:wrap;background:var(--accent-soft);border-radius:10px;padding:8px 10px;margin-bottom:10px;font-size:13px}
+.x6row{display:flex;align-items:baseline;gap:8px;margin:10px 0 4px}.x6row span{flex:1}
+.x6un b{color:var(--accent)}
+.x6pb .actions{display:flex;gap:6px;flex-wrap:wrap}
+/* ===== v6 styles end ===== */
 </style>
 </head>
 <body>
@@ -3963,6 +4030,864 @@ document.addEventListener("submit",function(ev){
   }
 });
 
+/* ===== v6 start: branches, meetings, task time, notifications (docs/release-v6). Server enforces every rule; this only draws. ===== */
+var X6={off:0,state:null,inbox:{items:[],unread:0},wtab:"today",ttab:"board",mtab:"my",empBranch:"",pend:null,timerT:null,pollT:null,rooms:{}};
+function v6on(m){return !!(db&&db.v6&&db.v6[m])}
+function v6can(c){return !!(db&&db.v6caps&&db.v6caps.indexOf(c)>-1)}
+function v6branches(){return (db&&db.branches||[]).filter(function(b){return b.status==="active"})}
+function v6rep(){return ["meetings","timetrack","branches","notify"].some(v6on)}
+function v6multi(){return v6on("branches")&&v6branches().length>1}
+function bname(id){var b=(db.branches||[]).filter(function(x){return x.id===String(id)})[0];return b?b.name:""}
+function peerName(id){var p=(db.peers||[]).filter(function(x){return x.id===id})[0]||emp(id);return p?p.name:""}
+function api6(a,body,method){
+  var get=method==="GET"||body===undefined,url="api/?a="+encodeURIComponent(a);
+  var o={method:get?"GET":"POST",credentials:"same-origin",headers:{"X-Requested-With":"staffroom"}};
+  if(get&&body)Object.keys(body).forEach(function(k){var v=body[k];if(v===undefined||v===null||v==="")return;url+="&"+encodeURIComponent(k)+"="+encodeURIComponent(v)});
+  else if(!get){o.headers["Content-Type"]="application/json";o.body=JSON.stringify(body||{})}
+  return fetch(url,o).then(function(r){return r.json().catch(function(){return {ok:false,error:"The server did not answer."}}).then(function(j){j._status=r.status;
+    if(j.now)X6.off=Date.parse(j.now)-Date.now();
+    if(r.status===401){halted=true;stopBox("You were signed out","Your session ended. Reload and sign in again.")}return j})})
+   .catch(function(){return {ok:false,error:"Cannot reach the server. Check your internet connection."}});
+}
+function v6download(a,q,name){
+  var url="api/?a="+a;Object.keys(q||{}).forEach(function(k){if(q[k]!==""&&q[k]!=null)url+="&"+encodeURIComponent(k)+"="+encodeURIComponent(q[k])});
+  fetch(url,{credentials:"same-origin",headers:{"X-Requested-With":"staffroom"}}).then(function(r){if(!r.ok)throw 0;return r.blob()}).then(function(b){
+    var l=document.createElement("a");l.href=URL.createObjectURL(b);l.download=name;document.body.appendChild(l);l.click();setTimeout(function(){URL.revokeObjectURL(l.href);l.remove()},500)}).catch(function(){toast("Download failed")});
+}
+function snow(){return Date.now()+X6.off}
+function dur(s){if(s==null)return "—";var neg=s<0;s=Math.round(Math.abs(s)/60);var h=Math.floor(s/60),m=s%60;return (neg?"−":"")+(h?h+"h "+pad(m)+"m":m+"m")}
+function clk(s){s=Math.max(0,Math.floor(s));return Math.floor(s/3600)+":"+pad(Math.floor(s%3600/60))+":"+pad(s%60)}
+function hmIn(min){return min?Math.floor(min/60)+":"+pad(min%60):""}
+function hmParse(v){var m=/^(\d{1,3}):([0-5]\d)$/.exec(String(v||"").trim());return m?+m[1]*60+ +m[2]:null}
+function hhmm(iso){if(!iso)return "";var d=new Date(iso);return pad(d.getHours())+":"+pad(d.getMinutes())}
+function dshort(iso){if(!iso)return "";var d=new Date(iso);return d.toLocaleDateString("en-IN",{day:"numeric",month:"short"})}
+function rid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,10)}
+function errTo(r,el){var m=(r&&r.error)||"Something went wrong.";if(el){el.textContent=m}else toast(m);return m}
+function busy(b,on){if(b){b.disabled=on;b.classList.toggle("busy",on)}}
+function chk(id,label,on,extra){return '<label class="modrow"><input type="checkbox" id="'+id+'"'+(on?' checked':'')+(extra||'')+'><span><b>'+label+'</b></span></label>'}
+function sel(id,opts,val,extra){return '<select class="input" id="'+id+'" '+(extra||'')+'>'+opts.map(function(o){return '<option value="'+esc(o[0])+'"'+(String(o[0])===String(val)?' selected':'')+'>'+esc(o[1])+'</option>'}).join("")+'</select>'}
+function lbl(t,inner){return '<label class="field"><span>'+t+'</span>'+inner+'</label>'}
+function tabs6(name,cur,list){return '<div class="x6tabs" role="tablist">'+list.map(function(t){return '<button class="btn sm'+(cur===t[0]?' primary':'')+'" role="tab" aria-selected="'+(cur===t[0])+'" data-act="x6tab" data-g="'+name+'" data-t="'+t[0]+'">'+esc(t[1])+(t[2]!=null?' <span class="cnt">'+t[2]+'</span>':'')+'</button>'}).join("")+'</div>'}
+function loading6(){return '<div class="panel x6load"><span class="muted">Loading…</span></div>'}
+
+/* ---------- modules, roles, navigation ---------- */
+MODS.push({id:"meetings",label:"Meetings",desc:"Schedule meetings, invitations, reminders, minutes and action items",def:0},
+ {id:"timetrack",label:"Task time tracking",desc:"Timers on tasks, manual time with approval, estimated vs actual",def:0},
+ {id:"branches",label:"Branches",desc:"Several offices: branch admins, transfers, branch reports",def:0},
+ {id:"notify",label:"WhatsApp and SMS alerts",desc:"Automatic messages for attendance, leave, tasks and meetings",def:0},
+ {id:"calsync",label:"Calendar sync",desc:"Meetings in Google and Outlook calendars",def:0});
+VMOD.meetings="meetings";VMOD.branches="branches";VMOD.comms="notify";
+RK.hradmin=3;RK.branchadmin=3;RK.branchmgr=2;RL.hradmin="HR admin";RL.branchadmin="Branch admin";RL.branchmgr="Branch manager";RC.hradmin="cyan";RC.branchadmin="cyan";RC.branchmgr="warn";
+ICONS.meetings=svg('<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/><circle cx="9" cy="15" r="1.4"/><circle cx="15" cy="15" r="1.4"/>');
+ICONS.branches=svg('<path d="M3 21h18M5 21V8l7-4 7 4v13"/><path d="M9 21v-5h6v5M9 11h.01M15 11h.01"/>');
+ICONS.comms=svg('<path d="M4 5h16v11H8l-4 4z"/><path d="M8 10h8M8 13h5"/>');
+ICONS.reports6=svg('<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/><circle cx="16" cy="6" r="2"/>');
+NAVG[0][1].splice(NAVG[0][1].indexOf("calendar")+1,0,"meetings");NAVG[1][1].push("reports6");NAVG[2][1].splice(NAVG[2][1].indexOf("users"),0,"branches","comms");
+(function(){
+  var oNav=navFor;navFor=function(){var l=oNav(),ids=l.map(function(n){return n[0]});
+    function ins(after,item){var i=ids.indexOf(after);l.splice(i<0?l.length:i+1,0,item);ids=l.map(function(n){return n[0]})}
+    if(v6on("meetings"))ins(ids.indexOf("calendar")>-1?"calendar":"tasks",["meetings","Meetings"]);
+    if(v6rep())ins(ids.indexOf("workrep")>-1?"workrep":"tasks",["reports6","Reports"]);
+    var before=ids.indexOf("users")>-1?"users":"settings",i=ids.indexOf(before);
+    var adds=[];if(v6on("branches")&&v6can("branch.view"))adds.push(["branches","Branches"]);
+    if(v6on("notify")&&(v6can("notify.send")||v6can("notify.templates.view")))adds.push(["comms","Messages"]);
+    Array.prototype.splice.apply(l,[i<0?l.length:i,0].concat(adds));return l};
+  var oAl=allowed;allowed=function(v){
+    if(v==="meetings")return v6on("meetings");if(v==="branches")return v6on("branches")&&v6can("branch.view");
+    if(v==="comms")return v6on("notify")&&(v6can("notify.send")||v6can("notify.templates.view"));if(v==="reports6")return v6rep();return oAl(v)};
+  var oSec=secOf;secOf=function(v){return ["meetings","branches","comms","reports6"].indexOf(v)>-1||oSec(v)};
+})();
+
+/* ---------- task timer: persistent bar + actions ---------- */
+var PAUSE_R=[["break","Break"],["meeting","Meeting"],["client_call","Client call"],["waiting","Waiting for input"],["system","System issue"],["switched","Switched task"],["other","Other"]];
+function tOpen(tid){var s=X6.state;return s&&s.open?s.open.filter(function(x){return x.taskId===tid})[0]:null}
+function tLive(s){if(!s)return 0;var w=s.work;if(s.status==="running")w+=Math.max(0,(snow()-Date.parse(s.lastAt))/1000);return w}
+function timerLoad(){
+  if(!db||!me||!me.empId||!v6on("timetrack"))return Promise.resolve();
+  return api6("time.state").then(function(r){if(r.ok){X6.state=r;drawTimer();refreshTaskTimes()}});
+}
+function drawTimer(){
+  var b=$("#x6bar");if(!b){b=document.createElement("div");b.id="x6bar";b.className="x6bar";b.setAttribute("aria-live","polite");$("#app").appendChild(b)}
+  var s=X6.state&&(X6.state.running||(X6.state.open||[])[0]);
+  if(!s||!v6on("timetrack")){b.hidden=true;return}
+  b.hidden=false;var run=s.status==="running";
+  b.innerHTML='<span class="x6dot'+(run?' on':'')+'"></span><span class="x6bt"><b>'+esc(s.task||"Task")+'</b><small>'+(run?"Working":"Paused")+'</small></span><b class="num x6clk" data-sid="'+s.id+'">'+clk(tLive(s))+'</b>'+
+    (run?'<button class="btn sm" data-act="t6pause" data-sid="'+s.id+'">Pause</button>':'<button class="btn sm primary" data-act="t6resume" data-sid="'+s.id+'">Resume</button>')+
+    '<button class="btn sm" data-act="t6stop" data-sid="'+s.id+'">Stop</button><button class="btn sm ghost" data-act="t6complete" data-id="'+esc(s.taskId)+'">Done</button>';
+}
+setInterval(function(){
+  var s=X6.state;if(!s)return;
+  document.querySelectorAll(".x6clk").forEach(function(el){var o=(s.open||[]).filter(function(x){return x.id===el.dataset.sid})[0];if(o)el.textContent=clk(tLive(o))});
+},1000);
+function refreshTaskTimes(){document.querySelectorAll("[data-tt]").forEach(function(el){var t=db.tasks.filter(function(x){return x.id===el.dataset.tt})[0];if(t)el.outerHTML=timeStrip(t)})}
+function tTotals(t){var tt=(db.taskTime||{})[t.id]||[0,0,null],o=tOpen(t.id),a=tt[0];if(o&&o.status==="running")a+=Math.max(0,(snow()-Date.parse(o.lastAt))/1000);return {a:a,p:tt[1],open:o?o.status:tt[2]}}
+function timeStrip(t){
+  if(!v6on("timetrack"))return "";
+  var x=tTotals(t),e=t.est?t.est*60:0,pc=e?Math.min(100,Math.round(x.a/e*100)):0,over=e&&x.a>e,mine=me.empId&&t.eid===me.empId,o=tOpen(t.id),btn="";
+  if(mine&&t.status!=="done"){
+    if(o&&o.status==="running")btn='<button class="btn sm" data-act="t6pause" data-sid="'+o.id+'">Pause</button>';
+    else if(o)btn='<button class="btn sm primary" data-act="t6resume" data-sid="'+o.id+'">Resume</button>';
+    else btn='<button class="btn sm primary" data-act="t6start" data-id="'+t.id+'">Start work</button>';
+  }
+  return '<div class="x6time" data-tt="'+t.id+'"><div class="x6meter'+(over?' over':'')+'"><i style="width:'+pc+'%"></i></div><span class="num muted">'+dur(x.a)+(e?' / '+dur(e):'')+(x.p?' · '+dur(x.p)+' pending':'')+'</span>'+(over?pill("bad","Over"):'')+btn+'</div>';
+}
+(function(){var o=taskCard;taskCard=function(t){var h=o(t);return v6on("timetrack")?h.replace(/<\/div>$/,timeStrip(t)+'</div>'):h}})();
+function timerAct(action,body,btn){
+  busy(btn,true);body.reqId=rid();body.clientTs=new Date().toISOString();
+  return api6(action,body).then(function(r){busy(btn,false);
+    if(r.code==="TIMER_ACTIVE"&&!body.switch){var s=(r.details||{}).session||{};
+      openModal('<h2>Switch task?</h2><p class="muted" style="margin:0 0 14px">You are working on <b>'+esc(s.task||"another task")+'</b> ('+dur(s.work)+'). Stop it and start this one?</p><div class="foot"><button class="btn" data-act="close">Cancel</button><button class="btn primary" id="x6sw">Stop and switch</button></div>');
+      $("#x6sw").onclick=function(){closeModal();body.switch=true;timerAct(action,body)};return r}
+    if(!r.ok){errTo(r);return r}
+    afterTime();return r});
+}
+function afterTime(){timerLoad().then(function(){if(!dirty&&!saving)api("load").then(function(r){if(r.ok&&!dirty){serverRev=r.rev;applyData(r.data)}})})}
+function pauseForm(sid){
+  openModal('<h2>Pause work</h2><form id="x6pause" data-sid="'+sid+'">'+lbl("Why are you pausing?",sel("x6pr",PAUSE_R,"break"))+lbl("Note (needed for Other)",'<input class="input" id="x6pn" maxlength="300">')+
+   '<div class="foot"><button type="button" class="btn" data-act="close">Cancel</button><button class="btn primary" type="submit">Pause</button></div></form>');
+}
+function stopForm(sid){
+  openModal('<h2>Stop work</h2><form id="x6stop" data-sid="'+sid+'">'+lbl("What did you do? (optional)",'<textarea class="input" id="x6sr" maxlength="500"></textarea>')+
+   '<div class="foot"><button type="button" class="btn" data-act="close">Cancel</button><button class="btn primary" type="submit">Stop timer</button></div></form>');
+}
+function manualForm(tid,sess){
+  var adj=!!sess,t=db.tasks.filter(function(x){return x.id===tid})[0]||{title:sess?sess.task:""};
+  var d=adj?new Date(sess.startedAt):new Date(),e=adj&&sess.endedAt?new Date(sess.endedAt):null;
+  openModal('<h2>'+(adj?"Correct this session":"Add time manually")+'</h2><p class="muted" style="margin:0 0 12px">'+esc(t.title)+'. Your manager approves it before it counts.</p><form id="x6man" data-id="'+esc(tid)+'" data-sid="'+(adj?sess.id:"")+'">'+
+   '<div class="grid2">'+fld("Date","x6md",iso(d),"date","required")+(adj?'':'<label class="field"><span>Category</span>'+sel("x6mc",[["offline","Worked offline"],["client_site","At client site"],["forgot_timer","Forgot the timer"],["meeting","Meeting"],["other","Other"]],"forgot_timer")+'</label>')+
+   fld("Start","x6ms",adj?hhmm(sess.startedAt):"","time","required")+fld("End","x6me",e?hhmm(sess.endedAt):"","time","required")+'</div>'+
+   '<label class="field"><span>Reason (at least 10 characters)</span><textarea class="input" id="x6mr" minlength="10" maxlength="300" required></textarea></label><div class="err" id="x6merr"></div>'+
+   '<div class="foot"><button type="button" class="btn" data-act="close">Cancel</button><button class="btn primary" type="submit">Send for approval</button></div></form>');
+}
+/* task detail: time panel, sessions, attachments */
+(function(){var o=taskDetail;taskDetail=function(id){o(id);var t=db.tasks.filter(function(x){return x.id===id})[0];if(!t)return;
+  var ft=$("#modalBox .foot");if(!ft)return;
+  var h='<div id="x6td" class="x6td">';
+  if(v6on("timetrack"))h+='<h3 class="subh">Time</h3><div id="x6tsum" class="muted">Loading…</div>'+timeStrip(t)+
+    (me.empId===t.eid&&t.status!=="done"&&t.allowManual!==false?'<div style="margin-top:8px"><button class="btn sm" data-act="t6manual" data-id="'+t.id+'">Add time manually</button></div>':'')+'<div id="x6tlog"></div>';
+  h+='<h3 class="subh">Files</h3><div id="x6att" data-ot="task" data-oid="'+t.id+'"></div></div>';
+  ft.insertAdjacentHTML("beforebegin",h);
+  if(v6on("timetrack")){
+    api6("time.summary",{taskId:id}).then(function(r){var m=r.ok&&r.tasks&&r.tasks[id];var el=$("#x6tsum");if(!el)return;if(!m){el.textContent="";return}
+      el.innerHTML='<dl class="dl"><dt>Estimated</dt><dd>'+dur(m.est)+'</dd><dt>Actual</dt><dd>'+dur(m.actual)+'</dd><dt>Pending approval</dt><dd>'+dur(m.pending)+'</dd><dt>'+(m.over?'Over by':'Remaining')+'</dt><dd>'+dur(m.over||m.remaining)+'</dd><dt>Variance</dt><dd>'+(m.variance==null?'—':dur(m.variance)+' ('+m.variancePct+'%)')+'</dd><dt>Efficiency</dt><dd>'+(m.efficiency==null?'—':m.efficiency+'%')+'</dd></dl>'});
+    api6("time.logs",{taskId:id,size:50}).then(function(r){var el=$("#x6tlog");if(!el||!r.ok)return;el.innerHTML=sessTable(r.items,false)});
+  }
+  attList("task",id);
+}})();
+function sessTable(items,showTask){
+  if(!items||!items.length)return '<div class="empty" style="padding:10px">No time logged yet.</div>';
+  return '<div class="tablewrap"><table class="stk"><thead><tr>'+(showTask?'<th>Task</th>':'')+'<th>Who</th><th>When</th><th>Work</th><th>Paused</th><th>Type</th><th>Status</th><th></th></tr></thead><tbody>'+items.map(function(s){
+    var st=s.approval==="pending"?pill("warn","Waiting for approval"):s.approval==="rejected"?pill("bad","Rejected"):s.status==="auto_stopped"?pill("warn","Stopped automatically"):s.status==="running"?pill("good","Running"):s.status==="paused"?pill("cyan","Paused"):s.status==="void"?pill("gray","Void"):pill("gray","Done");
+    var canFix=me.empId===s.empId&&s.kind==="timer"&&(s.status==="stopped"||s.status==="auto_stopped")&&!(s.adjustments||[]).some(function(a){return a.status==="pending"});
+    return '<tr>'+(showTask?'<td class="first"><b>'+esc(s.task)+'</b></td>':'')+'<td data-label="Who">'+esc(s.name||peerName(s.empId))+'</td><td data-label="When" class="num">'+dshort(s.startedAt)+' '+hhmm(s.startedAt)+(s.endedAt?'–'+hhmm(s.endedAt):'')+'</td><td data-label="Work" class="num">'+dur(s.work)+'</td><td data-label="Paused" class="num">'+dur(s.pause)+'</td><td data-label="Type">'+(s.kind==="manual"?"Manual":"Timer")+'</td><td data-label="Status">'+st+(s.reason?'<div class="muted" style="font-size:12px">'+esc(s.reason)+'</div>':'')+(s.decisionNote?'<div class="muted" style="font-size:12px">'+esc(s.decisionNote)+'</div>':'')+'</td>'+
+      '<td>'+(canFix?'<button class="btn sm ghost" data-act="t6adjust" data-sid="'+s.id+'">Correct</button>':'')+(s.approval==="pending"&&me.empId===s.empId?'<button class="btn sm ghost" data-act="t6withdraw" data-sid="'+s.id+'">Withdraw</button>':'')+'</td></tr>'}).join("")+'</tbody></table></div>';
+}
+X6.sessCache={};
+/* task form: estimate, daily hours, start date, tracking options */
+(function(){var o=taskForm;taskForm=function(t,eid,cid){o(t,eid,cid);var f=$("#taskForm");if(!f||!v6on("timetrack"))return;t=t||{};
+  f.querySelector(".foot").insertAdjacentHTML("beforebegin",'<h3 class="subh">Time</h3><div class="grid2">'+fld("Estimated time (h:mm)","x6est",hmIn(t.est),"text",'placeholder="5:00" inputmode="numeric"')+fld("Planned hours per day (h:mm)","x6daily",hmIn(t.dailyMin),"text",'placeholder="2:00"')+fld("Start date","x6start",t.start||"","date")+'</div>'+
+    chk("x6treq","Time tracking expected on this task",t.timeRequired)+chk("x6tman","Allow manual time entries",t.allowManual!==false)+'<div class="err" id="x6terr"></div>');
+}})();
+/* ---------- tasks page tabs ---------- */
+(function(){var o=vTasks;vTasks=function(){if(X6.ttab==="board"||!v6on("timetrack"))return o();return head("Tasks","Time tracking",'')+'<div id="x6tasks">'+loading6()+'</div>'}})();
+function tasksTabs(){
+  var l=[["board","Board"],["tracker","Time tracker"],["logs","Work logs"]];if(v6can("time.approve"))l.push(["approvals","Approvals"]);
+  return tabs6("tasks",X6.ttab,l);
+}
+function fillTasksTab(){
+  var box=$("#x6tasks");if(!box)return;
+  if(X6.ttab==="tracker"){api6("time.logs",{from:addDays(today(),-7),size:100}).then(function(r){
+      var s=X6.state||{},open=s.open||[];
+      box.innerHTML='<div class="panel"><div class="panel-h"><h2>Working now</h2></div>'+(open.length?sessTable(open,true):'<div class="empty">No timer running. Press Start work on a task.</div>')+'</div>'+
+        (s.needsReview?'<div class="panel" style="margin-top:12px"><b>'+s.needsReview+' session'+(s.needsReview>1?'s were':' was')+' stopped automatically.</b> <span class="muted">Check them below and press Correct if the time is wrong.</span></div>':'')+
+        '<div class="panel" style="margin-top:12px"><div class="panel-h"><h2>Last 7 days</h2></div>'+(r.ok?sessTable(r.items,true):'')+'</div>'})}
+  else if(X6.ttab==="logs"){var who=X6.logEmp||me.empId||"";
+    var opts=v6can("time.view_scope")?'<select class="input" id="x6logemp" style="max-width:260px">'+db.employees.map(function(e){return '<option value="'+e.id+'"'+(e.id===who?' selected':'')+'>'+esc(e.name)+'</option>'}).join("")+'</select>':'';
+    api6("time.logs",{empId:who,from:X6.logFrom||addDays(today(),-30),size:200}).then(function(r){
+      box.innerHTML='<div class="toolbar">'+opts+'<input class="input" type="date" id="x6logfrom" value="'+(X6.logFrom||addDays(today(),-30))+'" style="width:auto"></div><div class="panel">'+(r.ok?sessTable(r.items,true):errTo(r))+'</div>'})}
+  else if(X6.ttab==="approvals"){api6("time.approvals.list").then(function(r){
+      if(!r.ok){box.innerHTML='<div class="panel">'+esc(errTo(r))+'</div>';return}
+      box.innerHTML='<div class="panel"><div class="panel-h"><h2>Time waiting for you</h2>'+(r.items.length?'<button class="btn sm primary" data-act="t6approveAll">Approve all</button>':'')+'</div>'+(r.items.length?'<div class="tablewrap"><table class="stk"><thead><tr><th>Employee</th><th>Task</th><th>Time</th><th>Reason</th><th></th></tr></thead><tbody>'+r.items.map(function(x){
+        var a=x.adjustment,t=a?(hhmm(a.oldStart)+'–'+hhmm(a.oldEnd)+' → '+hhmm(a.newStart)+'–'+hhmm(a.newEnd)+' ('+dur(a.newWork-a.oldWork)+')'):(dshort(x.startedAt)+' '+hhmm(x.startedAt)+'–'+hhmm(x.endedAt)+' ('+dur(x.work)+')');
+        return '<tr data-key="'+x.key+'"><td class="first"><b>'+esc(x.name)+'</b></td><td data-label="Task">'+esc(x.task)+'<div class="muted" style="font-size:12px">'+(a?"Correction":"Manual entry")+'</div></td><td data-label="Time" class="num">'+t+'</td><td data-label="Reason">'+esc(a?a.reason:x.reason)+'</td><td style="white-space:nowrap"><button class="btn sm primary" data-act="t6dec" data-k="'+x.key+'" data-d="approve">Approve</button><button class="btn sm ghost" data-act="t6dec" data-k="'+x.key+'" data-d="reject">Reject</button></td></tr>'}).join("")+'</tbody></table></div>':'<div class="empty">Nothing to approve.</div>')+'</div>';
+      X6.appr=r.items})}
+}
+function decide(keys,d,comment){api6("time.approvals.decide",{ids:keys,decision:d,comment:comment||""}).then(function(r){if(!r.ok){errTo(r);return}
+  toast((r.done.length)+' '+(d==="approve"?"approved":"rejected")+(r.refused.length?', '+r.refused.length+' skipped: '+r.refused[0].reason:''));fillTasksTab()})}
+/* ---------- meetings ---------- */
+var MCAT=[["online","Online meeting"],["direct","Direct meeting"],["client","Client meeting"],["team","Team meeting"],["management","Management meeting"],["one_to_one","One-to-one"],["interview","Interview"],["training","Training session"],["vendor","Vendor meeting"],["other","Other"]];
+var MCOL={online:"cyan",direct:"good",client:"violet",team:"accent",management:"warn",one_to_one:"gray",interview:"violet",training:"good",vendor:"warn",other:"gray"};
+var MLOC={online:"online",direct:"office",client:"office",team:"office",management:"office",one_to_one:"office",interview:"office",training:"office",vendor:"office",other:"office"};
+var PLAT=[["google_meet","Google Meet"],["teams","Microsoft Teams"],["zoom","Zoom"],["webex","Webex"],["other","Other"]];
+var REM=[[1440,"1 day before"],[60,"1 hour before"],[15,"15 minutes before"],[5,"5 minutes before"]];
+function catLabel(c){var x=MCAT.filter(function(m){return m[0]===c})[0];return x?x[1]:c}
+function mStatus(m){return {scheduled:pill("cyan","Scheduled"),in_progress:pill("good","In progress"),completed:pill("gray","Completed"),cancelled:pill("bad","Cancelled"),awaiting_update:pill("warn","Awaiting update")}[m.status]||""}
+function canJoin(m){if(!m.joinUrl||m.status==="cancelled")return false;var s=Date.parse(m.start),e=Date.parse(m.end),n=snow();return n>=s-600000&&n<=e}
+function mPlace(m){return m.locationType==="online"?"Online"+(m.platform?" · "+catLabel2(m.platform):""):(m.room||m.location||"Office")}
+function catLabel2(p){var x=PLAT.filter(function(a){return a[0]===p})[0];return x?x[1]:p}
+function mItem(m,compact){
+  if(m.private)return '<div class="x6m"><span class="x6mt num">'+esc(m.startLocal)+'</span><div><b>Busy</b><small class="muted">'+m.duration+' min</small></div></div>';
+  var ppl=(m.people||[]).slice(0,4).map(function(p){return '<span class="x6av" title="'+esc(p.name)+'">'+esc(initials(p.name||"?"))+'</span>'}).join("")+((m.count||0)>4?'<span class="x6av">+'+(m.count-4)+'</span>':'');
+  var rsvp=m.myRsvp&&m.myRsvp!=="accepted"&&m.status==="scheduled"&&m.organizer!==me.empId?'<span class="x6rs"><button class="btn sm" data-act="m6rsvp" data-id="'+m.id+'" data-r="accepted">Accept</button><button class="btn sm ghost" data-act="m6rsvp" data-id="'+m.id+'" data-r="declined">Decline</button></span>':'';
+  return '<div class="x6m click" data-act="m6open" data-id="'+m.id+'"><span class="x6mt num">'+esc(m.startLocal)+'<small>'+m.duration+'m</small></span><div class="x6mb"><b>'+esc(m.title)+'</b><small class="muted">'+pill(MCOL[m.category]||"gray",catLabel(m.category))+' '+esc(mPlace(m))+(m.myRsvp==="declined"?' · You declined':'')+'</small>'+
+    (compact?'':'<div class="x6avs">'+ppl+'</div>')+'</div><span class="x6ma">'+(canJoin(m)?'<a class="btn sm primary" href="'+esc(m.joinUrl)+'" target="_blank" rel="noopener noreferrer" data-stop="1">Join</a>':'')+mStatus(m)+rsvp+'</span></div>';
+}
+function groupByDay(items){var g={},o=[];items.forEach(function(m){if(!g[m.date]){g[m.date]=[];o.push(m.date)}g[m.date].push(m)});
+  return o.map(function(d){return '<div class="x6day"><h3 class="subh">'+fmtLong(d)+'</h3>'+g[d].map(function(m){return mItem(m)}).join("")+'</div>'}).join("")}
+function vMeetings(){
+  var l=[["my","My meetings"]];if(v6can("meeting.view_scope"))l.push(["all","All meetings"]);l.push(["calendar","Calendar"],["past","Past"]);
+  var f=X6.mf||{};
+  var filt='<div class="toolbar">'+sel("x6mcat",[["","All categories"]].concat(MCAT),f.category||"")+(v6multi()&&X6.mtab==="all"?sel("x6mbr",[["","All branches"]].concat(v6branches().map(function(b){return [b.id,b.name]})),f.branchId||""):'')+
+    (X6.mtab==="all"?sel("x6memp",[["","Everyone"]].concat(db.employees.map(function(e){return [e.id,e.name]})),f.empId||""):'')+'</div>';
+  return head("Meetings","Plan, attend and follow up",'<button class="btn primary" data-act="m6new">New meeting</button>')+tabs6("meet",X6.mtab,l)+filt+'<div id="x6meet">'+loading6()+'</div>';
+}
+VIEWS.meetings=vMeetings;
+function fillMeetings(){
+  var box=$("#x6meet");if(!box)return;var f=X6.mf||{},t=today();
+  if(X6.mtab==="calendar")return fillMeetCal(box);
+  var q={view:X6.mtab==="all"?"all":"my",category:f.category,branchId:f.branchId,empId:f.empId,size:200};
+  if(X6.mtab==="past"){q.from=addDays(t,-60);q.to=addDays(t,-1);q.order="desc"}else{q.from=t;q.to=addDays(t,60)}
+  api6("meetings.list",q).then(function(r){if(!r.ok){box.innerHTML='<div class="panel">'+esc(errTo(r))+'</div>';return}
+    box.innerHTML=r.items.length?'<div class="panel">'+groupByDay(r.items)+'</div>':'<div class="panel empty">No meetings here. Press New meeting to plan one.</div>'});
+}
+function fillMeetCal(box){
+  var ym=X6.calM||today().slice(0,7),y=+ym.slice(0,4),mo=+ym.slice(5,7)-1,first=new Date(y,mo,1),lead=first.getDay(),dim=new Date(y,mo+1,0).getDate();
+  var from=iso(new Date(y,mo,1-lead)),to=iso(new Date(y,mo,dim+(6-new Date(y,mo,dim).getDay())));
+  api6("meetings.calendar",{from:from,to:to,view:v6can("meeting.view_scope")?"all":"my",category:(X6.mf||{}).category}).then(function(r){
+    if(!r.ok){box.innerHTML='<div class="panel">'+esc(errTo(r))+'</div>';return}
+    var by={};r.items.forEach(function(m){(by[m.date]=by[m.date]||[]).push(m)});
+    var cells=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"].map(function(d){return '<div class="dow">'+d+'</div>'}).join(""),d=from;
+    while(d<=to){var L=by[d]||[],hol=r.holidays.filter(function(h){return h.from<=d&&d<=h.to}),lv=r.leave.filter(function(x){return x.from<=d&&d<=x.to});
+      cells+='<div class="x6cd'+(d.slice(0,7)!==ym?' dim':'')+(d===today()?' today':'')+'" data-act="m6day" data-d="'+d+'"><b>'+(+d.slice(8))+'</b>'+hol.map(function(h){return '<i class="x6hol">'+esc(h.title)+'</i>'}).join("")+
+        L.slice(0,3).map(function(m){return '<span class="x6ci c-'+(MCOL[m.category]||"gray")+'" data-act="m6open" data-id="'+m.id+'">'+esc(m.startLocal)+' '+esc(m.title)+'</span>'}).join("")+(L.length>3?'<small>+'+(L.length-3)+' more</small>':'')+
+        (lv.length?'<small class="muted">'+lv.length+' on leave</small>':'')+'</div>';d=addDays(d,1)}
+    box.innerHTML='<div class="panel"><div class="panel-h"><button class="btn sm" data-act="m6cal" data-n="-1">‹</button><h2>'+monthLabel(ym)+'</h2><button class="btn sm" data-act="m6cal" data-n="1">›</button></div><div class="x6cal">'+cells+'</div></div>';
+    X6.calDays=by});
+}
+/* ---------- meeting form ---------- */
+function myPeers(){var s=db.myScope||{};if(s.all||rk()>=3)return db.peers||[];var mine={};(s.branches||[]).forEach(function(b){mine[b]=1});var me_=myEmp();if(me_&&me_.branchId)mine[me_.branchId]=1;
+  return (db.peers||[]).filter(function(p){return !p.branchId||mine[p.branchId]||db.employees.some(function(e){return e.id===p.id})})}
+function meetingForm(m,day){
+  m=m||{title:"",category:"team",date:day||today(),startLocal:"",endLocal:"",locationType:"office",participants:[],reminders:[1440,15],agenda:[],visibility:"normal",departments:[]};
+  var st=m.startLocal||(function(){var d=new Date(snow()+3600000);return pad(d.getHours())+":00"})(),en=m.endLocal||(function(){var x=hmParse(st)+30;return pad(Math.floor(x/60)%24)+":"+pad(x%60)})();
+  var chosen={};(m.participants||[]).forEach(function(p){if(p.empId&&p.role!=="organizer")chosen[p.empId]=p.role});
+  var exts=(m.participants||[]).filter(function(p){return !p.empId});
+  var peers=myPeers().filter(function(p){return p.id!==me.empId}),depts=[];peers.forEach(function(p){if(p.dept&&depts.indexOf(p.dept)<0)depts.push(p.dept)});depts.sort();
+  var br=v6multi()?lbl("Branch",sel("mf_br",v6branches().map(function(b){return [b.id,b.name]}),m.branchId||(myEmp()||{}).branchId||"")):'';
+  openModal('<h2>'+(m.id?"Edit meeting":"New meeting")+'</h2><form id="x6mf" data-id="'+(m.id||"")+'" data-series="'+(m.seriesId||"")+'" class="x6mform">'+
+   fld("Title","mf_title",m.title,"text",'required minlength="3" maxlength="150"')+
+   '<div class="grid2">'+lbl("Category",sel("mf_cat",MCAT,m.category))+'<label class="field" data-show="other"><span>What kind of meeting?</span><input class="input" id="mf_custom" maxlength="50" value="'+esc(m.customType||"")+'"></label>'+
+   fld("Date","mf_date",m.date,"date","required")+'<div class="grid2" style="gap:8px">'+fld("Start","mf_start",st,"time","required")+fld("End","mf_end",en,"time","required")+'</div>'+br+
+   lbl("Where",sel("mf_loc",[["office","In the office"],["online","Online"],["external","Outside venue"],["hybrid","Office and online"]],m.locationType))+'</div>'+
+   '<div class="grid2"><label class="field" data-loc="office hybrid"><span>Room</span><select class="input" id="mf_room"><option value="">No room</option></select></label>'+
+   '<label class="field" data-loc="external hybrid office"><span>Address or venue</span><input class="input" id="mf_place" maxlength="200" value="'+esc(m.location||"")+'"></label>'+
+   '<label class="field" data-loc="online hybrid"><span>Platform</span>'+sel("mf_plat",PLAT,m.platform||"google_meet")+'</label>'+
+   '<label class="field" data-loc="online hybrid"><span>Meeting link (https://)</span><input class="input" id="mf_url" type="url" maxlength="500" value="'+esc(m.joinUrl||"")+'" placeholder="https://meet.google.com/…"></label></div>'+
+   (v6on("calsync")?'<div data-loc="online hybrid">'+chk("mf_gen","No link yet: create one in my connected calendar",false)+'</div>':'')+
+   '<div class="grid2" data-show="client"><label class="field"><span>Client</span><select class="input" id="mf_cid"><option value="">Type the name below</option>'+db.clients.map(function(c){return '<option value="'+c.id+'"'+(c.id===m.clientId?' selected':'')+'>'+esc(c.name)+'</option>'}).join("")+'</select></label>'+
+   fld("Client name","mf_cname",m.clientName||"","text",'maxlength="120"')+fld("Client company","mf_cco",m.clientCompany||"","text",'maxlength="120"')+fld("Client location","mf_cloc",m.clientLocation||"","text",'maxlength="120"')+'</div>'+
+   '<div class="field" data-show="team"><span>Team or department (adds its people)</span><div class="x6chips">'+depts.map(function(d){return '<label class="chip"><input type="checkbox" class="mf_dept" value="'+esc(d)+'"'+((m.departments||[]).indexOf(d)>-1?' checked':'')+'><span>'+esc(d)+'</span></label>'}).join("")+'</div></div>'+
+   '<div class="field"><span>People</span><input class="input" id="mf_q" placeholder="Search people" autocomplete="off"><div class="x6pick" id="mf_people">'+peers.map(function(p){return '<label class="x6pp" data-n="'+esc((p.name+" "+p.dept+" "+p.designation).toLowerCase())+'" data-dept="'+esc(p.dept)+'"><input type="checkbox" class="mf_p" value="'+p.id+'"'+(chosen[p.id]?' checked':'')+'><span><b>'+esc(p.name)+'</b><small>'+esc(p.designation||"")+' · '+esc(p.dept||"")+'</small></span></label>'}).join("")+'</div></div>'+
+   '<div class="field"><span>Outside guests (client, vendor, candidate)</span><div id="mf_ext">'+exts.map(extRow).join("")+'</div><div><button type="button" class="btn sm" data-act="m6ext">Add guest</button></div></div>'+
+   '<label class="field"><span>Agenda (one item per line)</span><textarea class="input" id="mf_agenda" rows="3">'+esc((m.agenda||[]).map(function(a){return a.title}).join("\n"))+'</textarea></label>'+
+   '<label class="field"><span>Description</span><textarea class="input" id="mf_desc" rows="3" maxlength="5000">'+esc(m.description||"")+'</textarea></label>'+
+   '<div class="field"><span>Reminders</span><div class="x6chips">'+REM.map(function(r){return '<label class="chip"><input type="checkbox" class="mf_rem" value="'+r[0]+'"'+((m.reminders||[]).indexOf(r[0])>-1?' checked':'')+'><span>'+r[1]+'</span></label>'}).join("")+'</div></div>'+
+   (m.id?'':'<div class="grid2">'+lbl("Repeat",sel("mf_rep",[["","Does not repeat"],["daily","Every day"],["weekly","Every week"],["monthly","Every month"]],""))+fld("Number of meetings","mf_cnt","8","number",'min="2" max="52"')+'</div>')+
+   (m.seriesId?lbl("Change",sel("mf_scope",[["this","Only this meeting"],["following","This and the following"],["series","All meetings in the series"]],"this")):'')+
+   chk("mf_priv","Private (others see only that you are busy)",m.visibility==="private")+
+   '<div id="mf_past" hidden>'+chk("mf_rec","Record only: this meeting already happened (no invitations)",false)+'</div>'+
+   '<div id="mf_conf" class="x6conf" hidden></div><div class="err" id="mf_err"></div>'+
+   '<div class="foot"><button type="button" class="btn" data-act="close">Cancel</button><button class="btn primary" type="submit">'+(m.id?"Save changes":"Schedule")+'</button></div></form>');
+  X6.mfRoom=m.roomId||"";mfSync(true);
+}
+function extRow(x){x=x||{};return '<div class="xr mf_x"><input class="input mfx_n" placeholder="Name" value="'+esc(x.name||"")+'"><input class="input mfx_e" type="email" placeholder="E-mail" value="'+esc(x.email||"")+'"><input class="input mfx_c" placeholder="Company" value="'+esc(x.company||"")+'"><button type="button" class="btn sm ghost" data-act="rmExp" aria-label="Remove">×</button></div>'}
+function mfSync(first){
+  var f=$("#x6mf");if(!f)return;var cat=$("#mf_cat").value,loc=$("#mf_loc");
+  if(!first&&mfSync.lastCat!==cat){loc.value=MLOC[cat]||"office";if(cat==="one_to_one"||cat==="interview")$("#mf_priv").checked=true}
+  if(cat==="online"&&loc.value!=="online"&&loc.value!=="hybrid")loc.value="online";
+  mfSync.lastCat=cat;
+  f.querySelectorAll("[data-show]").forEach(function(el){el.hidden=el.dataset.show.split(" ").indexOf(cat)<0});
+  f.querySelectorAll("[data-loc]").forEach(function(el){el.hidden=el.dataset.loc.split(" ").indexOf(loc.value)<0});
+  $("#mf_past").hidden=!($("#mf_date").value<today());
+  var bid=$("#mf_br")?$("#mf_br").value:((myEmp()||{}).branchId||"");
+  if(X6.rooms[bid])fillRooms(bid);else api6("rooms.list",{branchId:bid}).then(function(r){if(r.ok){X6.rooms[bid]=r.items;fillRooms(bid)}});
+  clearTimeout(X6.confT);X6.confT=setTimeout(mfConflicts,500);
+}
+function fillRooms(bid){var s=$("#mf_room");if(!s)return;var v=s.value||X6.mfRoom;s.innerHTML='<option value="">No room</option>'+(X6.rooms[bid]||[]).filter(function(r){return r.status==="active"}).map(function(r){return '<option value="'+r.id+'"'+(r.id===v?' selected':'')+'>'+esc(r.name)+' ('+r.capacity+')</option>'}).join("")}
+function mfData(){
+  var g=function(id){var e=$("#"+id);return e?e.value.trim():""},cat=g("mf_cat"),loc=g("mf_loc");
+  var parts=[].slice.call(document.querySelectorAll(".mf_p:checked")).map(function(x){return {empId:x.value}});
+  [].slice.call(document.querySelectorAll(".mf_x")).forEach(function(r){var n=r.querySelector(".mfx_n").value.trim(),e=r.querySelector(".mfx_e").value.trim();if(n||e)parts.push({name:n,email:e,company:r.querySelector(".mfx_c").value.trim()})});
+  var d={title:g("mf_title"),category:cat,customType:g("mf_custom"),date:g("mf_date"),start:g("mf_start"),end:g("mf_end"),locationType:loc,roomId:g("mf_room"),location:g("mf_place"),
+    platform:g("mf_plat"),joinUrl:g("mf_url"),generateLink:!!($("#mf_gen")&&$("#mf_gen").checked),clientId:g("mf_cid"),clientName:g("mf_cname"),clientCompany:g("mf_cco"),clientLocation:g("mf_cloc"),
+    departments:[].slice.call(document.querySelectorAll(".mf_dept:checked")).map(function(x){return x.value}),participants:parts,
+    agenda:g("mf_agenda").split("\n").map(function(x){return x.trim()}).filter(Boolean).map(function(t){return {title:t}}),description:g("mf_desc"),
+    reminders:[].slice.call(document.querySelectorAll(".mf_rem:checked")).map(function(x){return +x.value}),visibility:$("#mf_priv").checked?"private":"normal",
+    recordOnly:!!($("#mf_rec")&&$("#mf_rec").checked&&!$("#mf_past").hidden),branchId:g("mf_br")};
+  if(cat==="client"&&!d.clientName&&d.clientId){var c=db.clients.filter(function(x){return x.id===d.clientId})[0];if(c)d.clientName=c.name}
+  var rep=g("mf_rep");if(rep){var wd=new Date(d.date+"T00:00").getDay();d.recurrence={freq:rep,count:Math.max(2,Math.min(52,+g("mf_cnt")||8)),byweekday:[wd]}}
+  if($("#mf_scope"))d.scope=g("mf_scope");
+  return d;
+}
+function confHtml(c){var L=[];(c.room||[]).forEach(function(x){L.push('<li class="bad">The room is booked '+hhmm(x.start)+'–'+hhmm(x.end)+'</li>')});
+  (c.people||c||[]).forEach&&(c.people||[]).forEach(function(x){L.push('<li>'+esc(x.name)+': '+esc(x.detail)+(x.date?' ('+fmtDate(x.date)+')':'')+'</li>')});return L.length?'<b>Not everyone is free</b><ul>'+L.join("")+'</ul>':''}
+function mfConflicts(){
+  var f=$("#x6mf");if(!f)return;var d=mfData();if(!d.date||!d.start||!d.end)return;
+  api6("meetings.conflicts",{date:d.date,start:d.start,end:d.end,participants:d.participants.filter(function(p){return p.empId}),roomId:d.roomId,excludeId:f.dataset.id}).then(function(r){
+    var box=$("#mf_conf");if(!box||!r.ok)return;var h=confHtml(r.conflicts);box.innerHTML=h;box.hidden=!h});
+}
+function saveMeeting(f,confirmed){
+  var d=mfData(),btn=f.querySelector('button[type="submit"]');if(f.dataset.id)d.id=f.dataset.id;if(confirmed)d.confirmConflicts=true;
+  busy(btn,true);api6("meetings.save",d).then(function(r){busy(btn,false);
+    if(r.code==="CONFLICTS"){var box=$("#mf_conf");box.innerHTML=confHtml({people:(r.details||{}).conflicts||[]})+'<button type="button" class="btn sm primary" id="mf_anyway">Schedule anyway</button>';box.hidden=false;
+      $("#mf_anyway").onclick=function(){saveMeeting(f,true)};box.scrollIntoView({block:"nearest"});return}
+    if(!r.ok){errTo(r,$("#mf_err"));return}
+    closeModal();toast(r.count>1?r.count+" meetings scheduled":"Meeting saved");if(view==="meetings")fillMeetings();loadWidgets()});
+}
+/* ---------- meeting detail ---------- */
+function openMeeting(id){
+  api6("meetings.get",{id:id}).then(function(r){if(!r.ok){errTo(r);return}var m=r.meeting;X6.cur=m;
+    if(m.private){openModal('<h2>Busy</h2><p class="muted">'+fmtLong(m.date)+' '+esc(m.startLocal)+'–'+esc(m.endLocal)+'</p><div class="foot"><button class="btn primary" data-act="close">Close</button></div>');return}
+    var org=m.canManage,started=Date.parse(m.start)<=snow(),me_=me.empId;
+    var ppl=(m.participants||[]).map(function(p){return '<tr><td class="first"><b>'+esc(p.name)+'</b>'+(p.role==="organizer"?' '+pill("violet","Organizer"):p.role==="optional"?' <span class="muted">optional</span>':'')+(p.empId?'':' <span class="muted">'+esc(p.email)+'</span>')+'</td><td>'+({accepted:pill("good","Accepted"),declined:pill("bad","Declined"),tentative:pill("warn","Maybe"),pending:pill("gray","No reply")}[p.rsvp]||"")+'</td>'+
+      '<td>'+(org&&started&&m.status!=="cancelled"?sel("ma_"+p.id,[["unknown","Attendance?"],["present","Present"],["late","Late"],["absent","Absent"]],p.attendance,'class="input ma"'):(p.attendance!=="unknown"?esc(p.attendance):''))+'</td></tr>'}).join("");
+    var mine=(m.participants||[]).filter(function(p){return p.empId===me_})[0];
+    var h='<h2>'+esc(m.title)+'</h2><div class="x6chips">'+pill(MCOL[m.category]||"gray",catLabel(m.category)+(m.customType?": "+m.customType:""))+mStatus(m)+(m.visibility==="private"?pill("gray","Private"):"")+(m.seriesId?pill("cyan","Repeats"):"")+'</div>'+
+      '<dl class="dl"><dt>When</dt><dd>'+fmtLong(m.date)+', '+esc(m.startLocal)+'–'+esc(m.endLocal)+' ('+m.duration+' min)</dd><dt>Where</dt><dd>'+esc(mPlace(m))+(m.location&&m.locationType!=="online"?' · '+esc(m.location):'')+'</dd><dt>Organizer</dt><dd>'+esc(m.organizerName)+'</dd>'+
+      (m.clientName?'<dt>Client</dt><dd>'+esc(m.clientName)+(m.clientCompany?' · '+esc(m.clientCompany):'')+'</dd>':'')+(m.cancelReason?'<dt>Cancelled</dt><dd>'+esc(m.cancelReason)+'</dd>':'')+
+      ((m.sync||[]).length?'<dt>Calendar</dt><dd>'+m.sync.map(function(s){return esc(s.provider)+': '+esc(s.status)+(s.error?' ('+esc(s.error)+')':'')}).join(", ")+'</dd>':'')+'</dl>'+
+      (canJoin(m)?'<a class="btn primary" href="'+esc(m.joinUrl)+'" target="_blank" rel="noopener noreferrer">Join meeting</a> ':(m.joinUrl?'<div class="muted" style="font-size:13px">Link: '+esc(m.joinUrl)+'</div>':''))+
+      (mine&&mine.role!=="organizer"&&m.status==="scheduled"?'<div class="x6chips" style="margin:10px 0">Your reply: '+[["accepted","Accept"],["tentative","Maybe"],["declined","Decline"]].map(function(x){return '<button class="btn sm'+(mine.rsvp===x[0]?' primary':'')+'" data-act="m6rsvp" data-id="'+m.id+'" data-r="'+x[0]+'">'+x[1]+'</button>'}).join("")+'</div>':'')+
+      ((m.agenda||[]).length?'<h3 class="subh">Agenda</h3><ol class="x6ol">'+m.agenda.map(function(a){return '<li>'+esc(a.title)+'</li>'}).join("")+'</ol>':'')+(m.description?'<div class="quote">'+esc(m.description)+'</div>':'')+
+      '<h3 class="subh">People ('+(m.participants||[]).length+')</h3><div class="tablewrap"><table><tbody>'+ppl+'</tbody></table></div>'+(org&&started&&m.status!=="cancelled"?'<button class="btn sm" data-act="m6att" data-id="'+m.id+'">Save attendance</button>':'')+
+      '<h3 class="subh">Files</h3><div id="x6att" data-ot="meeting" data-oid="'+m.id+'"></div>'+
+      (started&&m.status!=="cancelled"?minutesHtml(m,org):'')+
+      '<div class="foot">'+(org&&m.status==="scheduled"?'<button class="btn danger" data-act="m6cancel" data-id="'+m.id+'" style="margin-right:auto">Cancel meeting</button><button class="btn" data-act="m6edit" data-id="'+m.id+'">Edit</button>':'')+
+      (org&&m.status==="scheduled"&&started?'<button class="btn" data-act="m6done" data-id="'+m.id+'">Mark completed</button>':'')+(org&&m.status!=="cancelled"?'<button class="btn" data-act="m6follow" data-id="'+m.id+'">Follow-up meeting</button>':'')+'<button class="btn primary" data-act="close">Close</button></div>';
+    openModal(h);attList("meeting",m.id,org);
+  });
+}
+function minutesHtml(m,org){
+  var mn=m.minutes||{},ro=!org||mn.locked;
+  var ta=function(id,v,ph){return '<textarea class="input" id="'+id+'" rows="3" placeholder="'+ph+'"'+(ro?' readonly':'')+'>'+esc(v)+'</textarea>'};
+  var acts=(m.actions||[]).map(function(a){return actRow(a,ro)}).join("");
+  return '<h3 class="subh">Minutes '+(mn.status==="published"?pill("good","Published"):mn.status?pill("gray","Draft"):"")+(mn.locked?' '+pill("gray","Locked"):'')+'</h3>'+
+    lbl("Summary",ta("mn_sum",mn.summary||"","What happened"))+lbl("Discussion points (one per line)",ta("mn_dis",(mn.discussion||[]).join("\n"),""))+lbl("Decisions (one per line)",ta("mn_dec",(mn.decisions||[]).join("\n"),""))+
+    fld("Follow-up date","mn_fu",mn.followUp||"","date",ro?"readonly":"")+
+    '<h3 class="subh">Action items</h3><div id="mn_acts">'+acts+'</div>'+(ro?'':'<div class="x6chips"><button type="button" class="btn sm" data-act="m6addact">Add action item</button><button type="button" class="btn sm" data-act="m6saveacts" data-id="'+m.id+'">Save action items</button><button type="button" class="btn sm primary" data-act="m6tasks" data-id="'+m.id+'">Create tasks</button></div>')+
+    (ro?'':'<div class="x6chips" style="margin-top:10px"><button class="btn sm" data-act="m6min" data-id="'+m.id+'" data-p="0">Save draft</button><button class="btn sm primary" data-act="m6min" data-id="'+m.id+'" data-p="1">Publish minutes</button></div>');
+}
+function actRow(a,ro){a=a||{};var pe=myPeers();
+  return '<div class="xr mn_a" data-id="'+(a.id||"")+'">'+'<input class="input mna_t" placeholder="What needs doing" value="'+esc(a.title||"")+'"'+(a.taskId||ro?' readonly':'')+'>'+
+    '<select class="input mna_w"'+(a.taskId||ro?' disabled':'')+'><option value="">Who</option>'+pe.map(function(p){return '<option value="'+p.id+'"'+(p.id===a.assignee?' selected':'')+'>'+esc(p.name)+'</option>'}).join("")+'</select>'+
+    '<input class="input mna_d" type="date" value="'+esc(a.due||"")+'"'+(a.taskId||ro?' readonly':'')+'><input class="input mna_e" placeholder="Est. h:mm" value="'+esc(hmIn(a.estMin))+'"'+(a.taskId||ro?' readonly':'')+'>'+
+    (a.taskId?pill(a.taskStatus==="done"?"good":"cyan","Task: "+(a.taskStatus||"open")):'<span></span>')+'</div>'}
+function actData(){return [].slice.call(document.querySelectorAll(".mn_a")).map(function(r){return {id:r.dataset.id,title:r.querySelector(".mna_t").value.trim(),assignee:r.querySelector(".mna_w").value,due:r.querySelector(".mna_d").value,estMin:hmParse(r.querySelector(".mna_e").value)||""}}).filter(function(x){return x.title})}
+function attList(ot,oid,canAdd){
+  api6("att.list",{ownerType:ot,ownerId:oid}).then(function(r){var box=$("#x6att");if(!box||!r.ok)return;
+    var w=canAdd!==false&&(ot==="meeting"?canAdd:(rk()>=2||(db.tasks.filter(function(t){return t.id===oid})[0]||{}).eid===me.empId));
+    box.innerHTML=(r.items.length?r.items.map(function(a){return '<div class="celeb"><a href="'+esc(a.url)+'" rel="noopener">'+esc(a.name)+'</a><span class="muted num">'+Math.round(a.size/1024)+' KB'+(w?' <button class="btn sm ghost" data-act="a6del" data-id="'+a.id+'">Remove</button>':'')+'</span></div>'}).join(""):'<div class="muted" style="font-size:13px">No files.</div>')+
+      (w?'<label class="btn sm" style="margin-top:6px">Attach a file<input type="file" id="x6file" hidden data-ot="'+ot+'" data-oid="'+esc(oid)+'"></label>':'')});
+}
+/* ---------- branches page ---------- */
+var DAYN6=[[1,"Mon"],[2,"Tue"],[3,"Wed"],[4,"Thu"],[5,"Fri"],[6,"Sat"],[0,"Sun"]];
+function vBranches(){
+  var l=[["list","Branches"]];if(v6can("emp.transfer"))l.push(["transfers","Transfers"]);l.push(["org","Departments"]);
+  X6.btab=X6.btab||"list";
+  return head("Branches","Offices, branch admins and transfers",v6can("branch.manage")?'<button class="btn primary" data-act="b6new">Add branch</button>':'')+tabs6("br",X6.btab,l)+'<div id="x6br">'+loading6()+'</div>';
+}
+VIEWS.branches=vBranches;
+function fillBranches(){
+  var box=$("#x6br");if(!box)return;
+  if(X6.btab==="transfers")return api6("transfers.list",{size:100}).then(function(r){box.innerHTML='<div class="panel">'+(r.ok&&r.items.length?'<div class="tablewrap"><table class="stk"><thead><tr><th>Employee</th><th>From</th><th>To</th><th>Starts</th><th>Status</th><th>Reason</th><th></th></tr></thead><tbody>'+r.items.map(function(t){return '<tr><td class="first"><b>'+esc(t.name)+'</b></td><td>'+esc(t.from)+'</td><td>'+esc(t.to)+'</td><td class="num">'+fmtDate(t.effective)+'</td><td>'+pill(t.status==="applied"?"good":t.status==="scheduled"?"cyan":"gray",t.status)+'</td><td>'+esc(t.reason)+'</td><td>'+(t.status==="scheduled"?'<button class="btn sm ghost" data-act="b6tcancel" data-id="'+t.id+'">Cancel</button>':'')+'</td></tr>'}).join("")+'</tbody></table></div>':'<div class="empty">No transfers yet. Open an employee profile to transfer them.</div>')+'</div>'});
+  if(X6.btab==="org")return Promise.all([api6("org.departments.list"),api6("org.designations.list")]).then(function(rs){var d=rs[0],g=rs[1],ed=v6can("org.master");
+    box.innerHTML='<div class="dgrid two"><div class="panel"><div class="panel-h"><h2>Departments</h2>'+(ed?'<button class="btn sm" data-act="b6dept">Add</button>':'')+'</div>'+(d.items||[]).map(function(x){return '<div class="celeb"><b>'+esc(x.name)+'</b><span class="muted">'+x.employees+' people '+(ed?'<button class="btn sm ghost" data-act="b6dept" data-id="'+x.id+'" data-n="'+esc(x.name)+'">Rename</button>':'')+'</span></div>'}).join("")+'</div>'+
+      '<div class="panel"><div class="panel-h"><h2>Designations</h2>'+(ed?'<button class="btn sm" data-act="b6desig">Add</button>':'')+'</div>'+(g.items||[]).map(function(x){return '<div class="celeb"><b>'+esc(x.name)+'</b><span class="muted">'+esc(x.dept)+'</span></div>'}).join("")+'</div></div>'});
+  api6("branches.list").then(function(r){if(!r.ok){box.innerHTML='<div class="panel">'+esc(errTo(r))+'</div>';return}
+    box.innerHTML=(r.items.length<2?'<div class="panel muted" style="margin-bottom:12px">Your company has one branch. Add a branch to manage several offices.</div>':'')+'<div class="x6cards">'+r.items.map(function(b){return '<div class="panel click" data-act="b6open" data-id="'+b.id+'"><div class="panel-h"><h2>'+esc(b.name)+'</h2>'+(b.ho?pill("violet","Head office"):'')+(b.status!=="active"?pill("gray","Inactive"):'')+'</div><div class="muted">'+esc(b.code)+(b.city?' · '+esc(b.city):'')+(b.state?', '+esc(b.state):'')+'</div><div style="margin-top:8px"><b class="num">'+b.headcount+'</b> people · '+esc(b.workStart)+'–'+esc(b.workEnd)+'</div></div>'}).join("")+'</div>'+(r.limit?'<p class="muted">Your plan allows '+r.limit+' branches.</p>':'')});
+}
+function branchForm(b){
+  b=b||{name:"",code:"",workStart:"09:00",workEnd:"18:00",breakMin:60,workDays:[1,2,3,4,5],tz:"Asia/Kolkata",country:"IN"};
+  openModal('<h2>'+(b.id?"Edit branch":"Add branch")+'</h2><form id="x6bf" data-id="'+(b.id||"")+'"><div class="grid2">'+fld("Branch name","bf_name",b.name,"text",'required maxlength="80"')+fld("Branch code","bf_code",b.code,"text",'required maxlength="10" placeholder="BLR"'+(b.used?' readonly title="Cannot change once used"':''))+
+   fld("Address","bf_a1",b.address1||"","text")+fld("Address line 2","bf_a2",b.address2||"","text")+fld("City","bf_city",b.city||"","text")+fld("State","bf_state",b.state||"","text")+fld("PIN code","bf_pin",b.postal||"","text")+fld("Country (2 letters)","bf_cty",b.country||"IN","text",'maxlength="2"')+
+   fld("Contact number","bf_ph",b.phone||"","tel")+fld("Branch e-mail","bf_em",b.email||"","email")+
+   lbl("Branch manager",'<select class="input" id="bf_mgr"><option value="">None</option>'+(db.peers||[]).map(function(p){return '<option value="'+p.id+'"'+(p.id===b.manager?' selected':'')+'>'+esc(p.name)+'</option>'}).join("")+'</select>')+fld("Time zone","bf_tz",b.tz||"Asia/Kolkata","text")+
+   fld("Day starts","bf_ws",b.workStart,"time","required")+fld("Day ends","bf_we",b.workEnd,"time","required")+fld("Break (minutes)","bf_brk",b.breakMin,"number",'min="0" max="240"')+'</div>'+
+   '<div class="field"><span>Working days</span><div class="x6chips">'+DAYN6.map(function(d){return '<label class="chip"><input type="checkbox" class="bf_d" value="'+d[0]+'"'+(b.workDays.indexOf(d[0])>-1?' checked':'')+'><span>'+d[1]+'</span></label>'}).join("")+'</div></div>'+
+   '<div class="err" id="bf_err"></div><div class="foot"><button type="button" class="btn" data-act="close">Cancel</button><button class="btn primary" type="submit">Save branch</button></div></form>');
+}
+function openBranch(id){
+  api6("branches.get",{id:id}).then(function(r){if(!r.ok){errTo(r);return}var b=r.branch,sa=v6can("branch.manage");X6.curB=b;
+    openModal('<h2>'+esc(b.name)+' <span class="muted">'+esc(b.code)+'</span></h2><dl class="dl"><dt>Address</dt><dd>'+esc([b.address1,b.address2,b.city,b.state,b.postal].filter(Boolean).join(", ")||"—")+'</dd><dt>Hours</dt><dd>'+esc(b.workStart)+'–'+esc(b.workEnd)+' · '+DAYN6.filter(function(d){return b.workDays.indexOf(d[0])>-1}).map(function(d){return d[1]}).join(", ")+'</dd><dt>Manager</dt><dd>'+esc(peerName(b.manager)||"—")+'</dd><dt>People</dt><dd>'+b.headcount+'</dd><dt>Status</dt><dd>'+esc(b.status)+(b.reason?' ('+esc(b.reason)+')':'')+'</dd></dl>'+
+      '<h3 class="subh">Admins and managers</h3>'+(b.admins.length?b.admins.map(function(a){return '<div class="celeb"><b>'+esc(a.user)+'</b>'+pill("cyan",RL[a.role]||a.role)+'</div>'}).join(""):'<div class="muted">Nobody yet. Give a login the HR admin, Branch admin or Branch manager role on the Users page and choose this branch.</div>')+
+      '<h3 class="subh">Meeting rooms</h3><div id="b6rooms">'+b.rooms.map(function(x){return '<div class="celeb"><b>'+esc(x.name)+'</b><span class="muted">'+x.capacity+' seats '+(v6can("room.manage")?'<button class="btn sm ghost" data-act="b6room" data-id="'+x.id+'">Edit</button>':'')+'</span></div>'}).join("")+'</div>'+(v6can("room.manage")?'<button class="btn sm" data-act="b6room">Add room</button>':'')+
+      '<div class="err" id="b6err"></div><div class="foot">'+(sa&&b.status==="active"&&!b.ho?'<button class="btn danger" data-act="b6deact" style="margin-right:auto">Deactivate</button>':'')+(sa&&b.status!=="active"?'<button class="btn" data-act="b6react">Reactivate</button>':'')+(sa&&!b.ho&&b.status==="active"?'<button class="btn" data-act="b6ho">Make head office</button>':'')+(sa?'<button class="btn" data-act="b6edit">Edit</button>':'')+'<button class="btn primary" data-act="close">Close</button></div>')});
+}
+function transferForm(eid){
+  var e=emp(eid);if(!e)return;
+  openModal('<h2>Transfer '+esc(e.name)+'</h2><p class="muted" style="margin:0 0 10px">Now in '+esc(bname(e.branchId))+'. Records before the start date stay with the old branch.</p><form id="x6tf" data-eid="'+eid+'"><div class="grid2">'+
+   lbl("New branch",sel("tf_to",v6branches().filter(function(b){return b.id!==String(e.branchId)}).map(function(b){return [b.id,b.name]}),""))+fld("Starts on","tf_date",today(),"date","required")+
+   fld("New department (optional)","tf_dept","","text",'list="deptlist"')+fld("New designation (optional)","tf_des","","text")+
+   lbl("New reporting manager (optional)",'<select class="input" id="tf_rep"><option value="">Keep the same</option>'+(db.peers||[]).filter(function(p){return p.id!==eid}).map(function(p){return '<option value="'+p.id+'">'+esc(p.name)+'</option>'}).join("")+'</select>')+'</div>'+
+   '<label class="field"><span>Reason</span><input class="input" id="tf_reason" required minlength="3" maxlength="300"></label><div id="tf_prev" class="x6conf"></div><div class="err" id="tf_err"></div>'+
+   '<div class="foot"><button type="button" class="btn" data-act="close">Cancel</button><button type="button" class="btn" data-act="t6prev">Check what changes</button><button class="btn primary" type="submit">Transfer</button></div></form>');
+}
+/* ---------- messages (WhatsApp / SMS) page ---------- */
+function vComms(){
+  var l=[];if(v6can("notify.send"))l.push(["send","Send"],["sent","Sent"]);if(v6can("notify.history"))l.push(["history","History"]);if(v6can("notify.templates.view"))l.push(["templates","Templates"],["events","Automatic messages"]);if(v6can("notify.config"))l.push(["setup","WhatsApp and SMS set-up"]);
+  if(!X6.ctab||!l.some(function(x){return x[0]===X6.ctab}))X6.ctab=l[0]?l[0][0]:"send";
+  return head("Messages","WhatsApp, SMS and in-app alerts","")+tabs6("cm",X6.ctab,l)+'<div id="x6cm">'+loading6()+'</div>';
+}
+VIEWS.comms=vComms;
+var CH6=[["whatsapp","WhatsApp"],["sms","SMS"]];
+var SKIP6={no_number:"no phone number",not_verified:"phone not verified",no_consent:"not opted in",opted_out:"opted out",channel_off:"channel switched off",no_template:"no approved template",cap_reached:"monthly limit reached",pref_off:"switched off by the person",quiet_delayed:"waiting for quiet hours to end",not_relevant:"no longer needed",inactive:"inactive"};
+function fillComms(){
+  var box=$("#x6cm");if(!box)return;var t=X6.ctab;
+  if(t==="send")return api6("notify.templates.list").then(function(r){if(!r.ok){box.innerHTML=errTo(r);return}X6.tpls=r.items;
+    box.innerHTML='<div class="panel"><form id="x6send"><div class="grid2">'+lbl("Send by",sel("cs_ch",CH6,"whatsapp"))+lbl("Message template",'<select class="input" id="cs_tpl"></select>')+
+     (v6branches().length>1?'<div class="field"><span>Branches</span><div class="x6chips">'+v6branches().filter(function(b){return (db.myScope||{}).all||(db.myScope.branches||[]).indexOf(b.id)>-1}).map(function(b){return '<label class="chip"><input type="checkbox" class="cs_b" value="'+b.id+'"><span>'+esc(b.name)+'</span></label>'}).join("")+'</div></div>':'')+
+     lbl("Department (optional)",sel("cs_dept",[["","All departments"]].concat(deptList().map(function(d){return [d,d]})),""))+lbl("Only these people (optional)",'<select class="input" id="cs_emps" multiple size="4">'+db.employees.map(function(e){return '<option value="'+e.id+'">'+esc(e.name)+'</option>'}).join("")+'</select>')+
+     fld("Title (for your records)","cs_title","","text",'maxlength="150"')+'</div><div id="cs_vars"></div>'+fld("Send later (optional)","cs_when","","datetime-local")+
+     '<div id="cs_prev" class="x6conf"></div><div class="err" id="cs_err"></div><div class="foot"><button type="button" class="btn" data-act="c6prev">Check recipients</button><button class="btn primary" type="submit">Send</button></div></form></div>';
+    csTpl()});
+  if(t==="sent")return api6("notify.campaigns.list",{size:50}).then(function(r){box.innerHTML='<div class="panel">'+(r.ok&&r.items.length?'<div class="tablewrap"><table class="stk"><thead><tr><th>Message</th><th>Channel</th><th>People</th><th>Status</th><th>Progress</th><th></th></tr></thead><tbody>'+r.items.map(function(c){return '<tr><td class="first"><b>'+esc(c.title)+'</b><div class="muted" style="font-size:12px">'+esc(c.by)+' · '+dshort(c.created)+(c.scheduledFor?' · for '+dshort(c.scheduledFor)+' '+hhmm(c.scheduledFor):'')+'</div></td><td>'+esc(c.channel)+'</td><td class="num">'+c.count+'</td><td>'+esc(c.status)+'</td><td class="muted" style="font-size:12px">'+esc(Object.keys(c.progress).map(function(k){return c.progress[k]+' '+k}).join(", "))+'</td><td>'+(c.status==="scheduled"?'<button class="btn sm ghost" data-act="c6cancel" data-id="'+c.id+'">Cancel</button>':'')+'</td></tr>'}).join("")+'</tbody></table></div>':'<div class="empty">Nothing sent yet.</div>')+'</div>'});
+  if(t==="history"){var f=X6.hf||{};return api6("notify.deliveries.list",{status:f.status,channel:f.channel,from:f.from,to:f.to,size:100}).then(function(r){
+    box.innerHTML='<div class="toolbar">'+sel("ch_st",[["","All statuses"],["failed","Failed"],["delivered","Delivered"],["read","Read"],["sent","Sent"],["queued","Waiting"],["skipped","Skipped"]],f.status||"")+sel("ch_ch",[["","All channels"]].concat(CH6).concat([["email","E-mail"]]),f.channel||"")+'<input class="input" type="date" id="ch_from" value="'+(f.from||"")+'" style="width:auto"><button class="btn" data-act="c6retry">Retry failed</button><button class="btn" data-act="c6export">Download CSV</button></div>'+
+     '<div class="panel">'+(r.ok&&r.items.length?'<div class="tablewrap"><table class="stk"><thead><tr><th>When</th><th>To</th><th>Message</th><th>Channel</th><th>Status</th></tr></thead><tbody>'+r.items.map(function(d){return '<tr class="click" data-act="c6d" data-id="'+d.id+'"><td class="num">'+dshort(d.queued)+' '+hhmm(d.queued)+'</td><td><b>'+esc(d.name)+'</b><div class="muted mono" style="font-size:12px">'+esc(d.to)+'</div></td><td>'+esc(d.label)+'</td><td>'+esc(d.channel)+(d.fallbackOf?' (fallback)':'')+'</td><td>'+pill(/fail/.test(d.status)?"bad":d.status==="skipped"?"gray":/deliv|read/.test(d.status)?"good":"cyan",d.status)+(d.skip?'<div class="muted" style="font-size:12px">'+esc(SKIP6[d.skip]||d.skip)+'</div>':'')+(d.error?'<div class="muted" style="font-size:12px">'+esc(d.error)+'</div>':'')+'</td></tr>'}).join("")+'</tbody></table></div><p class="muted">'+r.total+' messages</p>':'<div class="empty">No messages match.</div>')+'</div>';X6.hist=r.items||[]})}
+  if(t==="templates")return api6("notify.templates.list").then(function(r){X6.tpls=r.items;X6.tvars=r.variables;var ed=v6can("notify.templates");
+    box.innerHTML='<div class="panel">'+(ed&&v6can("notify.config")?'<div class="toolbar"><button class="btn" data-act="c6sync">Get approval status from WhatsApp</button></div>':'')+'<div class="tablewrap"><table class="stk"><thead><tr><th>Message</th><th>Channel</th><th>Text</th><th>Status</th><th></th></tr></thead><tbody>'+r.items.filter(function(x){return x.channel!=="email"}).map(function(x){var ev=(r.events[x.event]||{}).label||x.event;
+      return '<tr><td class="first"><b>'+esc(ev)+'</b></td><td>'+esc(x.channel)+'</td><td class="muted" style="font-size:12px;max-width:420px">'+esc(x.body)+'</td><td>'+pill(x.status==="approved"?"good":x.status==="rejected"?"bad":"warn",x.channel==="sms"&&!x.providerId?"needs DLT ID":x.status)+'</td><td>'+(ed?'<button class="btn sm ghost" data-act="c6tpl" data-id="'+x.id+'">Edit</button>':'')+'</td></tr>'}).join("")+'</tbody></table></div></div>'});
+  if(t==="events")return api6("notify.events.list").then(function(r){var ed=v6can("notify.templates");
+    box.innerHTML='<div class="panel"><p class="muted">In-app alerts are always on. WhatsApp and SMS need an approved template and the person\'s consent.</p><div class="tablewrap"><table class="stk"><thead><tr><th>Message</th><th>On</th><th>WhatsApp</th><th>SMS</th><th>SMS if WhatsApp fails</th><th>Quiet hours</th></tr></thead><tbody>'+r.items.map(function(e){var c=function(k,on,dis){return '<input type="checkbox" class="ev6" data-k="'+e.key+'" data-f="'+k+'"'+(on?' checked':'')+(dis||!ed?' disabled':'')+'>'};
+      return '<tr><td class="first"><b>'+esc(e.label)+'</b>'+(e.mandatory?' <span class="muted">(always sent)</span>':'')+(e.category==="marketing"?'<div class="muted" style="font-size:12px">WhatsApp may class this as marketing (higher price).</div>':'')+'</td><td>'+c("enabled",e.enabled,e.mandatory)+'</td><td>'+c("whatsapp",e.channels.indexOf("whatsapp")>-1)+'</td><td>'+c("sms",e.channels.indexOf("sms")>-1)+'</td><td>'+c("fallbackSms",e.fallbackSms)+'</td><td>'+c("quietHours",e.quietHours)+'</td></tr>'}).join("")+'</tbody></table></div></div>';X6.evs=r.items});
+  if(t==="setup")return api6("notify.providers.list").then(function(r){if(!r.ok){box.innerHTML=errTo(r);return}
+    var by={};r.items.forEach(function(p){by[p.channel]=p});X6.prov=by;var s=r.settings||{};
+    var card=function(ch,kind,pub,sec){var p=by[ch]||{config:{},secrets:{}};
+      return '<div class="panel"><div class="panel-h"><h2>'+(ch==="whatsapp"?"WhatsApp (Meta Cloud API)":"SMS (MSG91, India DLT)")+'</h2>'+(p.id?pill(p.status==="verified"?"good":p.status==="error"?"bad":"warn",p.status)+(p.enabled?pill("good","On"):pill("gray","Off")):'')+'</div><form class="x6prov" data-ch="'+ch+'" data-kind="'+kind+'"><div class="grid2">'+
+        pub.map(function(k){return fld(k[1],"pv_"+ch+"_"+k[0],(p.config||{})[k[0]]||"","text")}).join("")+sec.map(function(k){return fld(k[1]+((p.secrets||{})[k[0]]?' (saved '+esc(p.secrets[k[0]])+', leave empty to keep)':''),"ps_"+ch+"_"+k[0],"","password",'autocomplete="off"')}).join("")+'</div>'+
+        (p.id?'<p class="muted" style="font-size:13px">Webhook address: <span class="mono">'+esc(p.webhookUrl)+'</span>'+(p.verifyToken?'<br>Verify token: <span class="mono">'+esc(p.verifyToken)+'</span>':'')+'</p>':'')+(p.lastError?'<div class="err">'+esc(p.lastError)+'</div>':'')+
+        '<div class="foot"><button class="btn" type="submit">Save</button>'+(p.id?'<button type="button" class="btn" data-act="c6test" data-ch="'+ch+'">Test connection</button><button type="button" class="btn '+(p.enabled?'':'primary')+'" data-act="c6toggle" data-ch="'+ch+'" data-on="'+(p.enabled?0:1)+'">'+(p.enabled?"Switch off":"Switch on")+'</button>':'')+'</div></form></div>'};
+    box.innerHTML='<div class="dgrid two">'+card("whatsapp","meta_cloud",[["phone_number_id","Phone number ID"],["waba_id","WhatsApp business account ID"]],[["token","Permanent access token"],["app_secret","App secret"]])+card("sms","msg91",[["sender","Sender ID (header)"],["dlt_entity_id","DLT entity ID"]],[["authkey","Auth key"]])+'</div>'+
+      '<div class="panel" style="margin-top:12px"><h2>Limits</h2><form id="x6ncfg"><div class="grid2">'+fld("WhatsApp messages per month (empty = no limit)","nc_wa",(s.caps||{}).whatsapp||"","number")+fld("SMS per month","nc_sms",(s.caps||{}).sms||"","number")+fld("Quiet hours from","nc_qf",(s.quiet||{}).from||"21:00","time")+fld("Quiet hours to","nc_qt",(s.quiet||{}).to||"08:00","time")+'</div><div class="foot"><button class="btn primary" type="submit">Save limits</button></div></form></div>'});
+}
+function csTpl(){var ch=$("#cs_ch").value,ts=(X6.tpls||[]).filter(function(x){return x.channel===ch&&(x.event==="branch.announcement"||x.event==="campaign")});
+  $("#cs_tpl").innerHTML=ts.map(function(x){return '<option value="'+x.id+'">'+esc(x.name)+(x.status!=="approved"&&ch==="whatsapp"?' (not approved)':'')+'</option>'}).join("");csVars()}
+function csVars(){var t=(X6.tpls||[]).filter(function(x){return x.id===$("#cs_tpl").value})[0],auto=["recipient_name","employee_name","company_name","branch_name"];
+  $("#cs_vars").innerHTML=t?'<div class="quote">'+esc(t.body)+'</div>'+(t.variables||[]).filter(function(v){return auto.indexOf(v)<0}).map(function(v){return fld(v.replace(/_/g," "),"csv_"+v,"","text",'maxlength="200" data-var="'+v+'"')}).join(""):'<p class="muted">No template for this channel yet. Add one on the Templates tab.</p>'}
+function csData(){var aud={branches:[].slice.call(document.querySelectorAll(".cs_b:checked")).map(function(x){return x.value}),depts:$("#cs_dept").value?[$("#cs_dept").value]:[],empIds:[].slice.call($("#cs_emps").selectedOptions).map(function(o){return o.value})};
+  var vars={};document.querySelectorAll("#cs_vars [data-var]").forEach(function(i){vars[i.dataset.var]=i.value.trim()});
+  var w=$("#cs_when").value;return {audience:aud,channel:$("#cs_ch").value,templateId:$("#cs_tpl").value,variables:vars,title:$("#cs_title").value.trim(),scheduledFor:w||""}}
+function prevHtml(p){return '<b>'+p.total+' people</b> · '+(p.willReceive.whatsapp||p.willReceive.sms||0)+' will get it by phone, all '+p.total+' in the app.'+(Object.keys(p.skipped||{}).length?' Not by phone: '+Object.keys(p.skipped).map(function(k){return p.skipped[k]+' '+(SKIP6[k]||k)}).join(", "):'')}
+function tplForm(id){var t=(X6.tpls||[]).filter(function(x){return x.id===id})[0];if(!t)return;
+  openModal('<h2>Edit template</h2><form id="x6tpl" data-id="'+id+'" data-ev="'+esc(t.event)+'" data-ch="'+t.channel+'">'+(t.channel==="inapp"?fld("Title","tp_sub",t.subject,"text",'maxlength="150"'):'')+
+   '<label class="field"><span>Text. Use {{variable}} for names, dates and so on.</span><textarea class="input" id="tp_body" rows="5" maxlength="1024" required>'+esc(t.body)+'</textarea></label><div class="x6chips">'+(X6.tvars||[]).map(function(v){return '<button type="button" class="chip" data-act="c6var" data-v="'+v+'">{{'+v+'}}</button>'}).join("")+'</div>'+
+   (t.channel==="whatsapp"?fld("WhatsApp template name","tp_pn",t.providerName,"text",'pattern="[a-z0-9_]+"')+lbl("Category",sel("tp_cat",[["utility","Utility"],["marketing","Marketing"]],t.category))+chk("tp_ok","Already approved in Meta Business Manager",t.status==="approved"):'')+
+   (t.channel==="sms"?fld("DLT template ID","tp_pid",t.providerId,"text"):'')+'<div class="quote" id="tp_prev"></div><div class="err" id="tp_err"></div>'+
+   '<div class="foot">'+(t.channel==="whatsapp"&&v6can("notify.config")?'<button type="button" class="btn" data-act="c6submit" data-id="'+id+'" style="margin-right:auto">Send to WhatsApp for approval</button>':'')+'<button type="button" class="btn" data-act="close">Cancel</button><button class="btn primary" type="submit">Save</button></div></form>');tpPrev()}
+function tpPrev(){var b=$("#tp_body");if(!b)return;api6("notify.templates.preview",{body:b.value,subject:$("#tp_sub")?$("#tp_sub").value:""}).then(function(r){var p=$("#tp_prev");if(p&&r.ok)p.textContent="Example: "+r.text})}
+/* ---------- reports page ---------- */
+function vReports6(){return head("Reports","Task time, meetings, branches and messages",'')+'<div id="x6rp">'+loading6()+'</div>'}
+VIEWS.reports6=vReports6;
+function fillReports(){var box=$("#x6rp");if(!box)return;
+  api6("reports.catalog").then(function(r){if(!r.ok){box.innerHTML=errTo(r);return}X6.rcat=r.items;var cur=X6.rp||{};
+    if(!cur.report&&r.items[0])cur.report=r.items[0].id;X6.rp=cur;
+    var t=today();cur.from=cur.from||t.slice(0,8)+"01";cur.to=cur.to||t;
+    box.innerHTML='<div class="dgrid x6rgrid"><div class="panel x6rlist">'+r.items.map(function(x){return '<button class="nav'+(x.id===cur.report?' on':'')+'" data-act="r6pick" data-id="'+x.id+'"><span>'+esc(x.title)+(x.self?' <small class="muted">(yours)</small>':'')+'</span></button>'}).join("")+
+      '<hr><button class="nav" data-act="nav" data-v="workrep"><span>Work report (attendance hours)</span></button></div><div><div class="toolbar">'+fld("From","r6from",cur.from,"date")+fld("To","r6to",cur.to,"date")+
+      (v6multi()?lbl("Branch",sel("r6br",[["","All branches"]].concat(v6branches().map(function(b){return [b.id,b.name]})),cur.branchId||"")):'')+lbl("Department",sel("r6dept",[["","All"]].concat(deptList().map(function(d){return [d,d]})),cur.dept||""))+
+      '<button class="btn" data-act="r6export">Download CSV</button></div><div id="x6rt">'+loading6()+'</div></div></div>';runReport()})}
+function runReport(){var c=X6.rp,box=$("#x6rt");if(!box||!c.report)return;
+  api6("reports.run",{report:c.report,from:c.from,to:c.to,branchId:c.branchId,dept:c.dept,sort:c.sort,page:c.page||1,size:100}).then(function(r){
+    if(!r.ok){box.innerHTML='<div class="panel">'+esc(errTo(r))+'</div>';return}
+    var th=r.columns.map(function(k){return '<th class="click" data-act="r6sort" data-k="'+k.key+'">'+esc(k.label)+(c.sort===k.key?' ▲':c.sort==="-"+k.key?' ▼':'')+'</th>'}).join("");
+    var fmt=function(v){return v==null?'<span class="muted">—</span>':esc(v)};
+    var rows=r.rows.map(function(x){return '<tr>'+r.columns.map(function(k,i){return '<td'+(i?' data-label="'+esc(k.label)+'"':' class="first"')+(typeof x[k.key]==="number"?' class="num"':'')+'>'+fmt(x[k.key])+'</td>'}).join("")+'</tr>'}).join("");
+    var tot=Object.keys(r.totals||{}).length?'<tr class="x6tot">'+r.columns.map(function(k,i){return '<td'+(i?'':' class="first"')+'>'+(i===0?'<b>Total</b>':(r.totals[k.key]!=null?'<b>'+r.totals[k.key]+'</b>':''))+'</td>'}).join("")+'</tr>':'';
+    var sm=r.summary?'<div class="tiles" style="grid-template-columns:repeat(auto-fit,minmax(140px,1fr))">'+tile("Estimated",(r.summary.estHours||0)+" h","completed tasks")+tile("Actual",(r.summary.actualHours||0)+" h","task time")+tile("Efficiency",r.summary.efficiency==null?"—":r.summary.efficiency+"%","estimated ÷ actual")+tile("Within ±10%",r.summary.withinTenPct==null?"—":r.summary.withinTenPct+"%",(r.summary.noEstimate||0)+" without estimate")+'</div>':'';
+    box.innerHTML=sm+'<div class="panel"><div class="panel-h"><h2>'+esc(r.title)+'</h2><span class="muted">'+r.total+' rows</span></div><p class="muted" style="font-size:12px">'+esc(r.note)+'</p>'+(r.rows.length?'<div class="tablewrap"><table class="stk"><thead><tr>'+th+'</tr></thead><tbody>'+rows+tot+'</tbody></table></div>':'<div class="empty">No data for these filters.</div>')+
+      (r.total>r.size?'<div class="x6chips">'+(r.page>1?'<button class="btn sm" data-act="r6page" data-n="-1">Previous</button>':'')+'<span class="muted">Page '+r.page+' of '+Math.ceil(r.total/r.size)+'</span>'+(r.page*r.size<r.total?'<button class="btn sm" data-act="r6page" data-n="1">Next</button>':'')+'</div>':'')+'</div>'})}
+/* ---------- reload helper: fetch the dataset again after a server-side change ---------- */
+function reload6(){if(dirty||saving)return Promise.resolve();return api("load").then(function(r){if(r.ok&&!dirty){serverRev=r.rev;applyData(r.data)}})}
+function q6(sel){return [].slice.call(document.querySelectorAll(sel))}
+function vals6(sel){return q6(sel+":checked").map(function(x){return x.value})}
+function lines6(id){var e=$("#"+id);return e?e.value.split("\n").map(function(x){return x.trim()}).filter(Boolean):[]}
+function form6(id,title,inner,btn){openModal('<h2>'+esc(title)+'</h2><form id="'+id+'">'+inner+'<div class="err" id="'+id+'_err"></div><div class="foot"><button type="button" class="btn" data-act="close">Cancel</button><button class="btn primary" type="submit">'+esc(btn||"Save")+'</button></div></form>')}
+/* cache sessions shown in tables so Correct can open them */
+(function(){var o=sessTable;sessTable=function(items,showTask){(items||[]).forEach(function(s){X6.sessCache[s.id]=s});return o(items,showTask)}})();
+
+/* ---------- employees: branch filter ---------- */
+(function(){var o=empRows;empRows=function(){if(!X6.empBranch)return o();var all=db.employees;db.employees=all.filter(function(e){return String(e.branchId||"")===X6.empBranch});try{return o()}finally{db.employees=all}}})();
+
+/* ---------- logins: new roles and branch access ---------- */
+var V6ROLES=["hradmin","branchadmin","branchmgr"];
+(function(){var o=userForm;userForm=function(id,eid){o(id,eid);var f=$("#userForm");if(!f||!v6on("branches"))return;
+  var u=id?(usersList||[]).filter(function(x){return x.id===id})[0]:null,cur=u?u.role:"employee";
+  var roles=isSup()?["employee","manager","branchmgr","hradmin","branchadmin","admin","superadmin"]:["employee","manager","branchmgr"];
+  $("#u_role").innerHTML=roles.map(function(r){return '<option value="'+r+'"'+(r===cur?' selected':'')+'>'+esc(RL[r]||r)+'</option>'}).join("");
+  var mine=(db.myScope||{}).all?v6branches():v6branches().filter(function(b){return (db.myScope.branches||[]).indexOf(b.id)>-1}),have=(u&&u.branches)||[];
+  $("#u_role").closest(".field").insertAdjacentHTML("afterend",'<div class="field" id="u_brs"><span>Branches this login looks after</span><div class="x6chips">'+mine.map(function(b){return '<label class="chip"><input type="checkbox" class="u_b" value="'+b.id+'"'+(have.indexOf(b.id)>-1?' checked':'')+'><span>'+esc(b.name)+'</span></label>'}).join("")+'</div><small class="muted">HR admin, Branch admin and Branch manager see only these branches.</small></div>');
+  uBrSync();
+}})();
+function uBrSync(){var b=$("#u_brs");if(b)b.hidden=V6ROLES.indexOf($("#u_role").value)<0}
+function userSave6(f){
+  var pass=$("#u_pass").value,user=$("#u_user").value.trim(),role=$("#u_role").value,brs=vals6(".u_b");
+  if(V6ROLES.indexOf(role)>-1&&!brs.length){$("#uerr").textContent="Choose at least one branch for this role.";return}
+  api("user_save",{id:f.dataset.id,user:user,role:role,empId:$("#u_emp").value,pass:pass,active:$("#u_active").checked,branches:brs}).then(function(r){
+    if(!r.ok){$("#uerr").textContent=r.error||"Could not save.";return}
+    closeModal();loadUsers();
+    if(pass)openModal('<h2>Login saved</h2><p class="muted" style="margin:0 0 12px">Give these details to the person. The password cannot be shown again, but you can always set a new one.</p><dl class="dl"><dt>Username</dt><dd class="mono">'+esc(user)+'</dd><dt>Password</dt><dd class="mono">'+esc(pass)+'</dd></dl><div class="foot"><button class="btn primary" data-act="close">Done</button></div>');
+    else toast("Login saved")});
+}
+
+/* ---------- extra fields on existing forms ---------- */
+(function(){var o=empForm;empForm=function(e){o(e);var f=$("#empForm");if(!f||!v6multi()||(e&&e.id))return;
+  var mine=myEmp(),def=(mine&&mine.branchId)||((db.myScope||{}).branches||[])[0]||"";
+  var L=(db.myScope||{}).all?v6branches():v6branches().filter(function(b){return (db.myScope.branches||[]).indexOf(b.id)>-1});
+  f.querySelector(".foot").insertAdjacentHTML("beforebegin",lbl("Branch",sel("f_br",L.map(function(b){return [b.id,b.name]}),def)));
+}})();
+(function(){var o=noticeForm;noticeForm=function(id){o(id);var f=$("#noticeForm");if(!f||id)return;var h="";
+  if(v6multi())h+='<div class="field"><span>Only for these branches (leave empty for everyone)</span><div class="x6chips">'+v6branches().filter(function(b){return (db.myScope||{}).all||(db.myScope.branches||[]).indexOf(b.id)>-1}).map(function(b){return '<label class="chip"><input type="checkbox" class="n_b" value="'+b.id+'"><span>'+esc(b.name)+'</span></label>'}).join("")+'</div></div>';
+  if(v6on("notify")&&v6can("notify.send"))h+='<div class="field"><span>Also send by phone</span><div class="x6chips"><label class="chip"><input type="checkbox" class="n_via" value="whatsapp"><span>WhatsApp</span></label><label class="chip"><input type="checkbox" class="n_via" value="sms"><span>SMS</span></label></div><small class="muted">Only people who opted in get it. Everyone sees it in the app.</small></div>';
+  if(h)f.querySelector(".foot").insertAdjacentHTML("beforebegin",h);
+}})();
+(function(){var o=eventForm;eventForm=function(id,date){o(id,date);var f=$("#eventForm");if(!f||!v6multi())return;
+  var ev=id?db.events.filter(function(x){return x.id===id})[0]:null,have=(ev&&ev.branchIds)||[];
+  f.querySelector(".foot").insertAdjacentHTML("beforebegin",'<div class="field"><span>Only for these branches (leave empty for all)</span><div class="x6chips">'+v6branches().map(function(b){return '<label class="chip"><input type="checkbox" class="e_b" value="'+b.id+'"'+(have.indexOf(b.id)>-1?' checked':'')+'><span>'+esc(b.name)+'</span></label>'}).join("")+'</div></div>');
+}})();
+/* apply the extra values after the original submit handler has saved the record */
+function later6(coll,id,fn){var n=db[coll].length;setTimeout(function(){
+  if(!$("#modal").hidden&&$("#modalBox form"))return; /* original handler refused (validation); nothing saved */
+  var r=id?db[coll].filter(function(x){return x.id===id})[0]:(db[coll].length>n?db[coll][db[coll].length-1]:null);
+  if(r){fn(r);save()}},0)}
+
+/* ---------- submit: own forms and hooks (window capture runs before the app's own handlers) ---------- */
+window.addEventListener("submit",function(ev){
+  var f=ev.target,id=f.id;if(!f||f.tagName!=="FORM")return;
+  function own(){ev.preventDefault();ev.stopImmediatePropagation()}
+  var btn=f.querySelector('button[type="submit"],button:not([type])');
+  if(id==="userForm"&&v6on("branches")){own();userSave6(f);return}
+  if(id==="empForm"&&$("#f_br")){var br=$("#f_br").value;later6("employees","",function(r){r.branchId=br});return}
+  if(id==="taskForm"&&$("#x6est")){
+    var est=$("#x6est").value.trim(),dm=$("#x6daily").value.trim(),e1=est?hmParse(est):0,e2=dm?hmParse(dm):0,er=$("#x6terr");
+    if(e1===null||e2===null){own();er.textContent="Write times as hours:minutes, for example 5:00 or 0:45.";return}
+    if(e1&&e1>60000){own();er.textContent="The estimate is too large.";return}
+    var st=$("#x6start").value,due=$("#t_due")?$("#t_due").value:"";
+    if(st&&due&&st>due){own();er.textContent="The start date cannot be after the due date.";return}
+    var vals={est:e1||null,dailyMin:e2||null,start:st||"",timeRequired:$("#x6treq").checked,allowManual:$("#x6tman").checked};
+    later6("tasks",f.dataset.id,function(r){Object.keys(vals).forEach(function(k){if(vals[k]===null||vals[k]==="")delete r[k];else r[k]=vals[k]})});return}
+  if(id==="noticeForm"&&!f.dataset.id&&(q6(".n_b").length||q6(".n_via").length)){var nb=vals6(".n_b"),via=vals6(".n_via");
+    later6("notices","",function(r){if(nb.length)r.audience={branches:nb};if(via.length)r.sendVia=via});return}
+  if(id==="eventForm"&&q6(".e_b").length){var eb=vals6(".e_b");later6("events",f.dataset.id,function(r){if(eb.length)r.branchIds=eb;else delete r.branchIds});return}
+  var H=SUB6[id]||(f.classList.contains("x6prov")?SUB6.x6prov:null);
+  if(H){own();H(f,btn)}
+},true);
+function done6(btn,errEl,okMsg,then){return function(r){busy(btn,false);if(!r.ok){errTo(r,errEl);return r}closeModal();if(okMsg)toast(okMsg);if(then)then(r);return r}}
+var SUB6={
+  x6pause:function(f,b){var r=$("#x6pr").value,n=$("#x6pn").value.trim();if(r==="other"&&!n){toast("Please write a note");return}closeModal();timerAct("time.pause",{sessionId:f.dataset.sid,reason:r,note:n})},
+  x6stop:function(f,b){var rm=$("#x6sr").value.trim();closeModal();timerAct("time.stop",{sessionId:f.dataset.sid,remarks:rm})},
+  x6man:function(f,b){var d=$("#x6md").value,s=$("#x6ms").value,e=$("#x6me").value,rs=$("#x6mr").value.trim(),el=$("#x6merr");
+    if(rs.length<10){el.textContent="Please write a reason of at least 10 characters.";return}
+    busy(b,true);
+    var p=f.dataset.sid?api6("time.adjust.create",{sessionId:f.dataset.sid,newStart:d+"T"+s,newEnd:d+"T"+e,reason:rs})
+      :api6("time.manual.create",{taskId:f.dataset.id,date:d,start:s,end:e,category:$("#x6mc").value,reason:rs,reqId:rid()});
+    p.then(done6(b,el,"Sent for approval",function(){afterTime();if(view==="tasks")fillTasksTab()}))},
+  x6mf:function(f){saveMeeting(f)},
+  x6bf:function(f,b){var g=function(i){return $("#"+i).value.trim()};
+    var d={id:f.dataset.id,name:g("bf_name"),code:g("bf_code").toUpperCase(),address1:g("bf_a1"),address2:g("bf_a2"),city:g("bf_city"),state:g("bf_state"),postal:g("bf_pin"),country:g("bf_cty").toUpperCase(),phone:g("bf_ph"),email:g("bf_em"),manager:$("#bf_mgr").value,tz:g("bf_tz"),workStart:g("bf_ws"),workEnd:g("bf_we"),breakMin:+g("bf_brk")||0,workDays:vals6(".bf_d").map(Number)};
+    busy(b,true);api6("branches.save",d).then(done6(b,$("#bf_err"),"Branch saved",function(){reload6().then(fillBranches)}))},
+  x6tf:function(f,b){busy(b,true);api6("transfers.create",tfData(f)).then(done6(b,$("#tf_err"),"",function(r){toast(r.transfer.status==="applied"?"Transfer done":"Transfer scheduled for "+fmtDate(r.transfer.effective));reload6()}))},
+  x6send:function(f,b){var d=csData();if(!d.templateId){errTo({error:"Choose a message template."},$("#cs_err"));return}
+    if(d.scheduledFor)d.scheduledFor=new Date(d.scheduledFor).toISOString();
+    busy(b,true);api6("notify.audience.preview",d).then(function(p){busy(b,false);if(!p.ok){errTo(p,$("#cs_err"));return}
+      confirmBox("Send this message?",prevHtmlText(p)+(d.scheduledFor?" It will go out at the time you chose.":""),d.scheduledFor?"Schedule":"Send now",function(){
+        d.confirmed=true;api6("notify.campaigns.create",d).then(function(r){if(!r.ok){errTo(r);return}toast(d.scheduledFor?"Message scheduled":"Message is being sent");X6.ctab="sent";render()})})})},
+  x6tpl:function(f,b){var g=function(i){var e=$("#"+i);return e?e.value.trim():""};
+    var d={event:f.dataset.ev,channel:f.dataset.ch,body:g("tp_body"),subject:g("tp_sub"),providerName:g("tp_pn"),category:g("tp_cat")||"utility",providerId:g("tp_pid"),approved:!!($("#tp_ok")&&$("#tp_ok").checked)};
+    busy(b,true);api6("notify.templates.save",d).then(done6(b,$("#tp_err"),"Template saved",function(){fillComms()}))},
+  x6prov:function(f,b){var ch=f.dataset.ch,cfg={},sec={};
+    q6('.x6prov[data-ch="'+ch+'"] [id^="pv_'+ch+'_"]').forEach(function(i){cfg[i.id.slice(4+ch.length)]=i.value.trim()});
+    q6('.x6prov[data-ch="'+ch+'"] [id^="ps_'+ch+'_"]').forEach(function(i){if(i.value.trim())sec[i.id.slice(4+ch.length)]=i.value.trim()});
+    busy(b,true);api6("notify.providers.save",{channel:ch,provider:f.dataset.kind,config:cfg,secrets:sec}).then(function(r){busy(b,false);if(!r.ok){errTo(r);return}toast("Saved. Press Test connection to check it.");fillComms()})},
+  x6ncfg:function(f,b){var n=function(i){var v=$("#"+i).value.trim();return v===""?null:Math.max(0,parseInt(v,10)||0)};
+    busy(b,true);api6("notify.settings.save",{caps:{whatsapp:n("nc_wa"),sms:n("nc_sms")},quiet:{from:$("#nc_qf").value,to:$("#nc_qt").value}}).then(function(r){busy(b,false);if(!r.ok){errTo(r);return}toast("Limits saved")})},
+  x6pol:function(f,b){var v={};q6("#x6pol [data-k]").forEach(function(i){v[i.dataset.k]=i.type==="checkbox"?i.checked:(+i.value||0)});
+    busy(b,true);api6("time.policy.save",{branchId:f.dataset.b||"",values:v}).then(function(r){busy(b,false);if(!r.ok){errTo(r,$("#x6pol_err"));return}toast("Time rules saved")})},
+  x6sec:function(f,b){busy(b,true);api6("emp.secondary.save",{empId:f.dataset.eid,branchId:$("#sc_b").value,from:$("#sc_f").value,to:$("#sc_t").value,reason:$("#sc_r").value.trim()}).then(done6(b,$("#x6sec_err"),"Access added",fillProfBranch))},
+  x6room:function(f,b){busy(b,true);api6("rooms.save",{id:f.dataset.id,branchId:f.dataset.b,name:$("#rm_n").value.trim(),capacity:+$("#rm_c").value||0,facilities:$("#rm_f").value.split(",").map(function(x){return x.trim()}).filter(Boolean),status:$("#rm_s")?$("#rm_s").value:"active"}).then(done6(b,$("#x6room_err"),"Room saved",function(){X6.rooms={};openBranch(f.dataset.b)}))},
+  x6dept:function(f,b){busy(b,true);api6("org.departments.save",{id:f.dataset.id,name:$("#dp_n").value.trim()}).then(done6(b,$("#x6dept_err"),"Saved",function(r){if(r.affected)toast(r.affected+" employee records updated");reload6().then(fillBranches)}))},
+  x6desig:function(f,b){busy(b,true);api6("org.designations.save",{name:$("#dg_n").value.trim(),deptId:$("#dg_d").value}).then(done6(b,$("#x6desig_err"),"Saved",fillBranches))},
+  x6deact:function(f,b){busy(b,true);api6("branches.deactivate",{id:f.dataset.id,reason:$("#bd_r").value.trim()}).then(function(r){busy(b,false);
+    if(r.code==="BRANCH_IN_USE"){var k=(r.details||{}).blockers||{};$("#x6deact_err").textContent=r.error+" "+Object.keys(k).filter(function(x){return k[x]}).map(function(x){return k[x]+" "+x}).join(", ");return}
+    if(!r.ok){errTo(r,$("#x6deact_err"));return}closeModal();toast("Branch deactivated");reload6().then(fillBranches)})},
+  x6mcan:function(f,b){busy(b,true);api6("meetings.cancel",{id:f.dataset.id,reason:$("#mc_r").value.trim(),scope:$("#mc_s")?$("#mc_s").value:"this"}).then(done6(b,$("#x6mcan_err"),"Meeting cancelled",function(){if(view==="meetings")fillMeetings();loadWidgets()}))},
+  x6rej:function(f,b){var c=$("#rj6").value.trim();if(c.length<3){$("#x6rej_err").textContent="Please write a reason.";return}closeModal();decide([f.dataset.k],"reject",c)},
+  x6phf:function(f,b){var p=$("#al_ph").value.trim();busy(b,true);api6("notify.contact.sendOtp",{phone:p}).then(function(r){busy(b,false);if(!r.ok){errTo(r,$("#al_err"));return}
+    $("#x6otp").hidden=false;$("#al_err").textContent="";toast("Code sent to "+r.sentTo);$("#al_code").focus()})},
+  x6otp:function(f,b){busy(b,true);api6("notify.contact.verify",{code:$("#al_code").value.trim()}).then(function(r){busy(b,false);if(!r.ok){errTo(r,$("#al_err"));return}toast("Phone verified");fillAlerts()})},
+  x6pref:function(f,b){var g={};q6(".al_g").forEach(function(i){g[i.value]=i.checked});
+    busy(b,true);api6("notify.prefs.save",{groups:g,order:[$("#al_first").value,$("#al_first").value==="sms"?"whatsapp":"sms"],quiet:{from:$("#al_qf").value,to:$("#al_qt").value}}).then(function(r){busy(b,false);if(!r.ok){errTo(r,$("#al_err"));return}toast("Alert settings saved")})},
+  x6cust:function(f){var hid=q6(".wc6").filter(function(i){return !i.checked}).map(function(i){return i.value});
+    var p=me.prefs||(me.prefs={});p.dash=p.dash||{};p.dash.hidden=hid;api("prefs",{dash:{order:p.dash.order||[],hidden:hid}});closeModal();loadWidgets()}
+};
+function tfData(f){return {empId:f.dataset.eid,toBranchId:$("#tf_to").value,effectiveDate:$("#tf_date").value,dept:$("#tf_dept").value.trim(),designation:$("#tf_des").value.trim(),reportsTo:$("#tf_rep").value,reason:$("#tf_reason").value.trim()}}
+function prevHtmlText(p){var d=document.createElement("div");d.innerHTML=prevHtml(p);return d.textContent}
+
+/* ---------- clicks ---------- */
+var TABK={tasks:"ttab",meet:"mtab",br:"btab",cm:"ctab",w:"wtab"};
+window.addEventListener("click",function(ev){
+  if(!ev.target||!ev.target.closest||ev.target.closest("[data-stop]"))return;var t=ev.target.closest("[data-act]");if(!t)return;
+  var a=t.dataset.act,H=CLK6[a];if(!H)return;
+  ev.preventDefault();ev.stopImmediatePropagation();H(t,t.dataset);
+},true);
+function refreshMeet(id){if(view==="meetings")fillMeetings();loadWidgets();if(id&&!$("#modal").hidden&&X6.cur&&String(X6.cur.id)===String(id))openMeeting(id)}
+var CLK6={
+  x6tab:function(t,d){var k=TABK[d.g];if(!k)return;X6[k]=d.t;if(d.g==="w"){loadWidgets();return}if(d.g==="meet")X6.mf={};render()},
+  t6start:function(t,d){timerAct("time.start",{taskId:d.id},t)},
+  t6pause:function(t,d){pauseForm(d.sid)},
+  t6resume:function(t,d){timerAct("time.resume",{sessionId:d.sid},t)},
+  t6stop:function(t,d){stopForm(d.sid)},
+  t6complete:function(t,d){confirmBox("Mark this task done?","The timer stops and the task moves to Done.","Mark done",function(){api6("time.complete",{taskId:d.id}).then(function(r){if(!r.ok){errTo(r);return}toast("Task done");afterTime()})})},
+  t6manual:function(t,d){manualForm(d.id)},
+  t6adjust:function(t,d){var s=X6.sessCache[d.sid];if(s)manualForm(s.taskId,s)},
+  t6withdraw:function(t,d){api6("time.manual.withdraw",{sessionId:d.sid}).then(function(r){if(!r.ok){errTo(r);return}toast("Withdrawn");fillTasksTab();afterTime()})},
+  t6approveAll:function(){var k=(X6.appr||[]).map(function(x){return x.key});if(k.length)decide(k,"approve")},
+  t6dec:function(t,d){if(d.d==="approve"){decide([d.k],"approve");return}
+    openModal('<h2>Reject time</h2><form id="x6rej" data-k="'+esc(d.k)+'">'+lbl("Why? The employee sees this.",'<textarea class="input" id="rj6" maxlength="300" required></textarea>')+'<div class="err" id="x6rej_err"></div><div class="foot"><button type="button" class="btn" data-act="close">Cancel</button><button class="btn danger" type="submit">Reject</button></div></form>')},
+  /* meetings */
+  m6new:function(){meetingForm(null)},
+  m6open:function(t,d){openMeeting(d.id)},
+  m6rsvp:function(t,d){busy(t,true);api6("meetings.rsvp",{id:d.id,response:d.r}).then(function(r){busy(t,false);if(!r.ok){errTo(r);return}toast({accepted:"Accepted",declined:"Declined",tentative:"Marked as maybe"}[d.r]);refreshMeet(d.id)})},
+  m6cal:function(t,d){var ym=X6.calM||today().slice(0,7),y=+ym.slice(0,4),m=+ym.slice(5,7)-1+(+d.n),x=new Date(y,m,1);X6.calM=x.getFullYear()+"-"+pad(x.getMonth()+1);fillMeetings()},
+  m6day:function(t,d){meetingForm(null,d.d)},
+  m6ext:function(){$("#mf_ext").insertAdjacentHTML("beforeend",extRow())},
+  rmExp:function(t){var r=t.closest(".mf_x");if(r)r.remove()},
+  m6att:function(t,d){var marks=q6("select.ma").map(function(s){return {participantId:s.id.slice(3),attendance:s.value}});
+    busy(t,true);api6("meetings.attendance",{id:d.id,marks:marks}).then(function(r){busy(t,false);if(!r.ok){errTo(r);return}toast(r.marked+" marked")})},
+  m6cancel:function(t,d){var m=X6.cur||{};openModal('<h2>Cancel meeting</h2><form id="x6mcan" data-id="'+esc(d.id)+'">'+lbl("Reason (sent to everyone)",'<input class="input" id="mc_r" required minlength="3" maxlength="300">')+
+    (m.seriesId?lbl("Cancel",sel("mc_s",[["this","Only this meeting"],["following","This and the following"],["series","All meetings in the series"]],"this")):'')+'<div class="err" id="x6mcan_err"></div><div class="foot"><button type="button" class="btn" data-act="close">Keep it</button><button class="btn danger" type="submit">Cancel meeting</button></div></form>')},
+  m6edit:function(){if(X6.cur)meetingForm(X6.cur)},
+  m6done:function(t,d){api6("meetings.complete",{id:d.id}).then(function(r){if(!r.ok){errTo(r);return}toast("Marked completed");refreshMeet(d.id)})},
+  m6follow:function(){var m=X6.cur;if(!m)return;var c={title:"Follow-up: "+m.title,category:m.category,date:(m.minutes&&m.minutes.followUp)||addDays(today(),7),locationType:m.locationType,platform:m.platform,roomId:m.roomId,branchId:m.branchId,
+      participants:(m.participants||[]).filter(function(p){return p.role!=="organizer"}),reminders:m.reminders||[1440,15],agenda:[],visibility:m.visibility,clientId:m.clientId,clientName:m.clientName,clientCompany:m.clientCompany,departments:[],description:"Follow-up to "+m.title+" on "+fmtDate(m.date)+"."};meetingForm(c)},
+  m6addact:function(){$("#mn_acts").insertAdjacentHTML("beforeend",actRow())},
+  m6saveacts:function(t,d){busy(t,true);api6("meetings.actions.save",{meetingId:d.id,items:actData()}).then(function(r){busy(t,false);if(!r.ok){errTo(r);return}toast("Action items saved");X6.cur=r.meeting;openMeeting(d.id)})},
+  m6tasks:function(t,d){busy(t,true);api6("meetings.actions.save",{meetingId:d.id,items:actData()}).then(function(r){if(!r.ok){busy(t,false);errTo(r);return}
+    var ids=(r.meeting.actions||[]).filter(function(a){return !a.taskId}).map(function(a){return a.id});
+    if(!ids.length){busy(t,false);toast("Every action item already has a task");return}
+    api6("meetings.actions.toTasks",{meetingId:d.id,itemIds:ids}).then(function(x){busy(t,false);if(!x.ok){errTo(x);return}
+      toast(x.created.length+" task"+(x.created.length===1?"":"s")+" created"+(x.refused.length?", "+x.refused.length+" skipped: "+(x.refused[0].reason||""):""));reload6();openMeeting(d.id)})})},
+  m6min:function(t,d){var pub=d.p==="1",go6=function(){busy(t,true);api6("meetings.minutes.save",{meetingId:d.id,summary:$("#mn_sum").value.trim(),discussion:lines6("mn_dis"),decisions:lines6("mn_dec"),followUp:$("#mn_fu").value,publish:pub}).then(function(r){busy(t,false);if(!r.ok){errTo(r);return}toast(pub?"Minutes published":"Draft saved");openMeeting(d.id)})};
+    if(pub)confirmBox("Publish the minutes?","Everyone in the meeting can read them. You can still correct them for 48 hours.","Publish",go6);else go6()},
+  a6del:function(t,d){confirmBox("Remove this file?","It will no longer be available.","Remove",function(){api6("att.delete",{id:d.id}).then(function(r){if(!r.ok){errTo(r);return}var b=$("#x6att");if(b)attList(b.dataset.ot,b.dataset.oid,true)})})},
+  /* branches */
+  b6new:function(){branchForm()},
+  b6open:function(t,d){openBranch(d.id)},
+  b6edit:function(){if(X6.curB)branchForm(X6.curB)},
+  b6deact:function(){var b=X6.curB;openModal('<h2>Deactivate '+esc(b.name)+'</h2><p class="muted" style="margin:0 0 10px">Move or transfer everyone first. History stays in reports.</p><form id="x6deact" data-id="'+b.id+'">'+lbl("Reason",'<input class="input" id="bd_r" required minlength="5" maxlength="300">')+'<div class="err" id="x6deact_err"></div><div class="foot"><button type="button" class="btn" data-act="close">Cancel</button><button class="btn danger" type="submit">Deactivate</button></div></form>')},
+  b6react:function(){api6("branches.reactivate",{id:X6.curB.id}).then(function(r){if(!r.ok){errTo(r);return}closeModal();toast("Branch active again");reload6().then(fillBranches)})},
+  b6ho:function(){var b=X6.curB;confirmBox("Make "+b.name+" the head office?","Company-wide defaults and new employees without a branch will use it.","Make head office",function(){api6("branches.setHeadOffice",{id:b.id}).then(function(r){if(!r.ok){errTo(r);return}toast("Head office changed");reload6().then(fillBranches)})})},
+  b6room:function(t,d){var b=X6.curB,r=d.id?(b.rooms||[]).filter(function(x){return x.id===d.id})[0]:{name:"",capacity:6,facilities:[],status:"active"};if(!r)return;
+    form6("x6room",d.id?"Edit room":"Add room",fld("Room name","rm_n",r.name,"text",'required maxlength="80"')+fld("Seats","rm_c",r.capacity,"number",'min="1" max="500"')+fld("Facilities (comma separated)","rm_f",(r.facilities||[]).join(", "),"text")+(d.id?lbl("Status",sel("rm_s",[["active","In use"],["inactive","Not in use"]],r.status)):''),"Save room");
+    var f=$("#x6room");f.dataset.id=d.id||"";f.dataset.b=b.id},
+  b6tcancel:function(t,d){confirmBox("Cancel this transfer?","The employee stays in the current branch.","Cancel transfer",function(){api6("transfers.cancel",{id:d.id}).then(function(r){if(!r.ok){errTo(r);return}toast("Transfer cancelled");fillBranches()})})},
+  b6dept:function(t,d){form6("x6dept",d.id?"Rename department":"Add department",fld("Department name","dp_n",d.n||"","text",'required maxlength="80"')+(d.id?'<p class="muted" style="font-size:13px">Employees in this department are updated too.</p>':''));$("#x6dept").dataset.id=d.id||""},
+  b6desig:function(){api6("org.departments.list").then(function(r){form6("x6desig","Add designation",fld("Designation","dg_n","","text",'required maxlength="80"')+lbl("Department",sel("dg_d",[["","Any department"]].concat((r.items||[]).map(function(x){return [x.id,x.name]})),"")))})},
+  b6transfer:function(t,d){transferForm(d.id)},
+  t6prev:function(){var f=$("#x6tf");api6("transfers.preview",tfData(f)).then(function(r){var b=$("#tf_prev");if(!r.ok){errTo(r,$("#tf_err"));return}$("#tf_err").textContent="";
+    b.innerHTML='<b>'+esc(r.from.name)+' → '+esc(r.to.name)+'</b> '+(r.applyNow?'(starts now)':'(scheduled)')+'<ul><li>'+r.openTasks.length+' open task'+(r.openTasks.length===1?'':'s')+' stay with the employee'+(r.openTasks.length?': '+r.openTasks.slice(0,5).map(function(x){return esc(x.title)}).join(', '):'')+'</li><li>'+r.futureMeetings+' future meetings are kept</li><li>'+r.pendingLeave+' leave requests waiting</li>'+(r.pendingTime?'<li>'+r.pendingTime+' time entries waiting for approval</li>':'')+(r.runningTimers?'<li>'+r.runningTimers+' running timer will be stopped</li>':'')+'</ul>'})},
+  b6sec:function(t,d){form6("x6sec","Give access to another branch",lbl("Branch",sel("sc_b",v6branches().map(function(b){return [b.id,b.name]}),""))+'<div class="grid2">'+fld("From","sc_f",today(),"date","required")+fld("Until (optional)","sc_t","","date")+'</div>'+fld("Reason","sc_r","","text",'required minlength="3" maxlength="300"'),"Add access");$("#x6sec").dataset.eid=d.id},
+  b6secend:function(t,d){confirmBox("End this access?","The employee stops appearing in that branch from today.","End access",function(){api6("emp.secondary.end",{id:d.id,to:today()}).then(function(r){if(!r.ok){errTo(r);return}fillProfBranch()})})},
+  /* messages */
+  c6prev:function(t){var d=csData();busy(t,true);api6("notify.audience.preview",d).then(function(p){busy(t,false);if(!p.ok){errTo(p,$("#cs_err"));return}$("#cs_err").textContent="";$("#cs_prev").innerHTML=prevHtml(p)})},
+  c6retry:function(t){var ids=(X6.hist||[]).filter(function(x){return x.status==="failed"}).map(function(x){return x.id});if(!ids.length){toast("No failed messages on this page");return}
+    api6("notify.deliveries.retry",{ids:ids}).then(function(r){if(!r.ok){errTo(r);return}toast(r.retried.length+" sent again"+(r.refused.length?", "+r.refused.length+" cannot be retried":""));fillComms()})},
+  c6export:function(){var f=X6.hf||{};v6download("notify.deliveries.export",{status:f.status,channel:f.channel,from:f.from,to:f.to},"messages-"+today()+".csv")},
+  c6d:function(t,d){api6("notify.deliveries.get",{id:d.id}).then(function(r){if(!r.ok){errTo(r);return}var x=r.delivery;
+    openModal('<h2>'+esc(x.label||"Message")+'</h2><dl class="dl"><dt>To</dt><dd>'+esc(x.name)+' <span class="mono">'+esc(x.to)+'</span></dd><dt>Channel</dt><dd>'+esc(x.channel)+'</dd><dt>Status</dt><dd>'+esc(x.status)+(x.skip?' ('+esc(SKIP6[x.skip]||x.skip)+')':'')+'</dd>'+(x.error?'<dt>Error</dt><dd>'+esc(x.error)+'</dd>':'')+(x.template?'<dt>Template</dt><dd>'+esc(x.template)+'</dd>':'')+(x.providerId?'<dt>Provider ID</dt><dd class="mono">'+esc(x.providerId)+'</dd>':'')+'<dt>Queued</dt><dd>'+dshort(x.queued)+' '+hhmm(x.queued)+'</dd></dl><div class="quote">'+esc(x.rendered||"")+'</div>'+
+      ((x.fallbacks||[]).length?'<h3 class="subh">Fallback</h3>'+x.fallbacks.map(function(y){return '<div class="celeb"><span>'+esc(y.channel)+'</span>'+pill("gray",y.status)+'</div>'}).join(""):'')+'<div class="foot"><button class="btn primary" data-act="close">Close</button></div>')})},
+  c6sync:function(t){busy(t,true);api6("notify.templates.sync",{}).then(function(r){busy(t,false);if(!r.ok){errTo(r);return}toast(r.updated+" templates updated");fillComms()})},
+  c6tpl:function(t,d){tplForm(d.id)},
+  c6var:function(t,d){var b=$("#tp_body");if(!b)return;var s=b.selectionStart||b.value.length,v="{{"+d.v+"}}";b.value=b.value.slice(0,s)+v+b.value.slice(b.selectionEnd||s);b.focus();b.selectionStart=b.selectionEnd=s+v.length;tpPrev()},
+  c6submit:function(t,d){busy(t,true);api6("notify.templates.submit",{id:d.id}).then(function(r){busy(t,false);if(!r.ok){errTo(r,$("#tp_err"));return}closeModal();toast("Sent to WhatsApp. Approval usually takes a few minutes to a day.");fillComms()})},
+  c6test:function(t,d){busy(t,true);api6("notify.providers.test",{channel:d.ch}).then(function(r){busy(t,false);if(!r.ok){errTo(r);fillComms();return}toast("Connection works");fillComms()})},
+  c6toggle:function(t,d){var on=d.on==="1",go6=function(){api6("notify.providers.toggle",{channel:d.ch,enabled:on}).then(function(r){if(!r.ok){errTo(r);return}toast(on?"Switched on":"Switched off"+(r.cancelled?", "+r.cancelled+" waiting messages cancelled":""));fillComms()})};
+    if(on)go6();else confirmBox("Switch off "+(d.ch==="sms"?"SMS":"WhatsApp")+"?","Messages waiting to go out on this channel are cancelled.","Switch off",go6)},
+  c6cancel:function(t,d){confirmBox("Cancel this message?","Nobody receives it.","Cancel message",function(){api6("notify.campaigns.cancel",{id:d.id}).then(function(r){if(!r.ok){errTo(r);return}toast("Cancelled");fillComms()})})},
+  /* reports */
+  r6pick:function(t,d){X6.rp.report=d.id;X6.rp.page=1;X6.rp.sort="";q6("#x6rp .x6rlist .nav").forEach(function(b){b.classList.toggle("on",b.dataset.id===d.id)});runReport()},
+  r6export:function(){var c=X6.rp||{};v6download("reports.export",{report:c.report,from:c.from,to:c.to,branchId:c.branchId,dept:c.dept,sort:c.sort},(c.report||"report")+"-"+today()+".csv")},
+  r6sort:function(t,d){var c=X6.rp;c.sort=c.sort===d.k?"-"+d.k:d.k;c.page=1;runReport()},
+  r6page:function(t,d){var c=X6.rp;c.page=Math.max(1,(c.page||1)+(+d.n));runReport()},
+  /* settings and dashboard */
+  cal6on:function(t,d){busy(t,true);api6("cal.connect",{provider:d.p}).then(function(r){busy(t,false);if(!r.ok){errTo(r);return}location.href=r.authUrl})},
+  cal6off:function(t,d){confirmBox("Disconnect this calendar?","New meetings stop appearing there. Meetings already added stay unless you remove them now.","Disconnect",function(){api6("cal.disconnect",{provider:d.p,removeEvents:false}).then(function(r){if(!r.ok){errTo(r);return}toast("Disconnected");fillCal()})})},
+  h6refresh:function(){fillHealth()},
+  w6cust:function(){var hid=((me.prefs||{}).dash||{}).hidden||[];
+    openModal('<h2>Customise dashboard</h2><form id="x6cust"><p class="muted" style="margin:0 0 10px">Choose the cards you want to see. This is saved to your login.</p>'+WID6.filter(function(w){return w.on()}).map(function(w){return chk("wc_"+w.id,w.t,hid.indexOf(w.id)<0,' class="wc6" value="'+w.id+'"')}).join("")+'<div class="foot"><button type="button" class="btn" data-act="close">Cancel</button><button class="btn primary" type="submit">Save</button></div></form>')},
+  w6go:function(t,d){if(d.tab)X6[TABK[d.g]]=d.tab;go(d.v)},
+  i6open:function(t,d){api6("notify.inbox.read",{ids:[d.id]});var x=(X6.inbox.items||[]).filter(function(i){return i.id===d.id})[0];if(x)x.read=true;closeModal();if(d.v&&allowed(d.v))go(d.v);drawBell()},
+  i6all:function(){api6("notify.inbox.read",{all:true}).then(function(){X6.inbox.items.forEach(function(i){i.read=true});X6.inbox.unread=0;drawBell();loadWidgets()})}
+};
+
+/* ---------- change / input ---------- */
+document.addEventListener("change",function(ev){
+  var el=ev.target,id=el.id||"",c=el.classList,h=true;
+  if(/^mf_(cat|loc|date|br|start|end|room)$/.test(id))mfSync();
+  else if(c.contains("mf_p")){clearTimeout(X6.confT);X6.confT=setTimeout(mfConflicts,400)}
+  else if(c.contains("mf_dept")){q6('#mf_people .x6pp[data-dept="'+el.value.replace(/"/g,'\\"')+'"] input').forEach(function(i){i.checked=el.checked});clearTimeout(X6.confT);X6.confT=setTimeout(mfConflicts,400)}
+  else if(id==="u_role")uBrSync();
+  else if(id==="cs_ch")csTpl();
+  else if(id==="cs_tpl")csVars();
+  else if(c.contains("ev6")){var k=el.dataset.k,row=q6('.ev6[data-k="'+k+'"]'),g=function(f){var x=row.filter(function(i){return i.dataset.f===f})[0];return x&&x.checked};
+    var en=row.filter(function(i){return i.dataset.f==="enabled"})[0];
+    api6("notify.events.save",{key:k,enabled:en.disabled?true:en.checked,channels:["whatsapp","sms"].filter(g),fallbackSms:g("fallbackSms"),quietHours:g("quietHours")}).then(function(r){if(!r.ok){errTo(r);el.checked=!el.checked;return}toast("Saved")})}
+  else if(id==="ch_st"||id==="ch_ch"||id==="ch_from"){X6.hf=X6.hf||{};X6.hf[{ch_st:"status",ch_ch:"channel",ch_from:"from"}[id]]=el.value;fillComms()}
+  else if(id==="x6file"&&el.files[0]){var fl=el.files[0];if(fl.size>10485760){toast("Files can be up to 10 MB");el.value="";return}
+    var rd=new FileReader();rd.onload=function(){toast("Uploading…");api6("att.upload",{ownerType:el.dataset.ot,ownerId:el.dataset.oid,name:fl.name,data:rd.result}).then(function(r){if(!r.ok){errTo(r);return}toast("File attached");attList(el.dataset.ot,el.dataset.oid,true)})};rd.readAsDataURL(fl)}
+  else if(id==="x6logemp"){X6.logEmp=el.value;fillTasksTab()}
+  else if(id==="x6logfrom"){X6.logFrom=el.value;fillTasksTab()}
+  else if(/^r6(from|to|br|dept)$/.test(id)){var m={r6from:"from",r6to:"to",r6br:"branchId",r6dept:"dept"};X6.rp[m[id]]=el.value;X6.rp.page=1;runReport()}
+  else if(/^x6m(cat|br|emp)$/.test(id)){X6.mf=X6.mf||{};X6.mf[{x6mcat:"category",x6mbr:"branchId",x6memp:"empId"}[id]]=el.value;fillMeetings()}
+  else if(id==="al_wa"||id==="al_sms"){api6("notify.contact.optin",{channel:id==="al_wa"?"whatsapp":"sms",on:el.checked}).then(function(r){if(!r.ok){errTo(r);el.checked=!el.checked;return}toast(el.checked?"You will get these messages":"Switched off")})}
+  else if(id==="x6polbr")fillPolicy(el.value);
+  else if(id==="x6empbr"){X6.empBranch=el.value;var b=$("#empBody");if(b)b.innerHTML=empRows();applyRole&&applyRole($("#main"))}
+  else h=false;
+  if(h)ev.stopImmediatePropagation();
+},true);
+document.addEventListener("input",function(ev){
+  var el=ev.target;
+  if(el.id==="mf_q"){var q=el.value.trim().toLowerCase();q6("#mf_people .x6pp").forEach(function(p){p.hidden=q&&p.dataset.n.indexOf(q)<0});ev.stopImmediatePropagation()}
+  else if(el.id==="tp_body"||el.id==="tp_sub"){clearTimeout(X6.tpT);X6.tpT=setTimeout(tpPrev,400);ev.stopImmediatePropagation()}
+},true);
+
+/* ---------- profile: branch, history, secondary access, transfer ---------- */
+function profBranchPanel(){
+  if(!v6on("branches")||!profileId)return;var e=emp(profileId);if(!e)return;
+  var main=$("#main"),ft=main.querySelector("footer");
+  var h='<div class="panel x6pb" id="x6pb" style="margin-top:16px"><div class="panel-h"><h2>Branch</h2><div class="actions">'+
+    (v6can("emp.transfer")&&v6multi()&&rk()>=3?'<button class="btn sm" data-act="b6sec" data-id="'+e.id+'">Give access to another branch</button><button class="btn sm primary" data-act="b6transfer" data-id="'+e.id+'">Transfer</button>':'')+'</div></div><div id="x6pbb" class="muted">'+esc(bname(e.branchId)||"—")+'</div></div>';
+  if(ft)ft.insertAdjacentHTML("beforebegin",h);else main.insertAdjacentHTML("beforeend",h);
+  fillProfBranch();
+}
+function fillProfBranch(){var box=$("#x6pbb");if(!box)return;
+  api6("emp.assignments",{empId:profileId}).then(function(r){if(!r.ok){return}
+    var P=r.items.filter(function(a){return a.kind==="primary"&&a.status!=="cancelled"}),S2=r.items.filter(function(a){return a.kind==="secondary"&&a.status==="active"});
+    box.innerHTML='<div class="tablewrap"><table class="stk"><thead><tr><th>Branch</th><th>From</th><th>To</th><th>Department</th><th>Reason</th></tr></thead><tbody>'+P.map(function(a){return '<tr><td class="first"><b>'+esc(a.branch)+'</b> '+(a.to?'':pill("good","Now"))+(a.status==="scheduled"?pill("cyan","Scheduled"):'')+'</td><td class="num">'+fmtDate(a.from)+'</td><td class="num">'+(a.to?fmtDate(a.to):'—')+'</td><td>'+esc(a.dept)+'</td><td>'+esc(a.reason)+'</td></tr>'}).join("")+'</tbody></table></div>'+
+      (S2.length?'<h3 class="subh">Also works in</h3>'+S2.map(function(a){return '<div class="celeb"><b>'+esc(a.branch)+'</b><span class="muted">'+fmtDate(a.from)+(a.to?' – '+fmtDate(a.to):'')+' '+(rk()>=3&&v6can("emp.transfer")?'<button class="btn sm ghost" data-act="b6secend" data-id="'+a.id+'">End</button>':'')+'</span></div>'}).join(""):'')})}
+
+/* ---------- settings panels ---------- */
+SETM["My alerts"]=["Personal","bell","Phone number, WhatsApp and SMS alerts"];
+SETM["Calendar connection"]=["Personal","cal","Meetings in your Google or Outlook calendar"];
+SETM["Task time rules"]=["Work","timer","Auto-stop, manual time and approvals"];
+SETM["System health"]=["System","database","Background worker, queued jobs and failures"];
+(function(){var o=VIEWS.settings;VIEWS.settings=function(){var h=o(),x="";
+  if(v6on("notify")&&me.empId)x+='<div class="panel" style="margin-top:16px"><h2>My alerts</h2><div id="x6alerts">'+loading6()+'</div></div>';
+  if(v6on("calsync")&&v6on("meetings"))x+='<div class="panel" style="margin-top:16px"><h2>Calendar connection</h2><div id="x6cal">'+loading6()+'</div></div>';
+  if(v6on("timetrack")&&v6can("time.policy"))x+='<div class="panel" style="margin-top:16px"><h2>Task time rules</h2><div id="x6polb">'+loading6()+'</div></div>';
+  if(v6rep()&&v6can("system.health"))x+='<div class="panel" style="margin-top:16px"><h2>System health</h2><div id="x6health">'+loading6()+'</div></div>';
+  return h+x}})();
+function fillSettings6(){if($("#x6alerts"))fillAlerts();if($("#x6cal"))fillCal();if($("#x6polb"))fillPolicy("");if($("#x6health"))fillHealth()}
+var GRPL={attendance:"Attendance",leave:"Leave",tasks:"Tasks",meetings:"Meetings",time:"Task time",celebrations:"Birthdays and anniversaries",announcements:"Announcements",general:"Account and general"};
+function fillAlerts(){api6("notify.prefs.get").then(function(r){var box=$("#x6alerts");if(!box)return;if(!r.ok){box.textContent=errTo(r);return}var c=r.contact,p=c.prefs||{},g=p.groups||{},mand=c.mandatoryGroups||[];
+  box.innerHTML='<p class="muted" style="margin:0 0 10px;max-width:70ch">We send WhatsApp or SMS only when you switch it on. Reply STOP on WhatsApp or SMS at any time to stop. In-app alerts are always on.</p>'+
+   '<form id="x6phf" class="toolbar">'+fld("Mobile number","al_ph",c.phone||"","tel",'placeholder="+91 98765 43210" autocomplete="tel"')+'<button class="btn" type="submit">'+(c.verified?"Change and verify":"Send code")+'</button>'+(c.verified?pill("good","Verified"):c.phone?pill("warn","Not verified"):'')+'</form>'+
+   '<form id="x6otp" class="toolbar" hidden>'+fld("6-digit code","al_code","","text",'inputmode="numeric" maxlength="6" autocomplete="one-time-code"')+'<button class="btn primary" type="submit">Verify</button></form>'+
+   '<div class="x6chips" style="margin:8px 0">'+(c.channels.whatsapp?chk("al_wa","WhatsApp messages",c.whatsapp,c.verified?'':' disabled'):'')+(c.channels.sms?chk("al_sms","SMS messages",c.sms,c.verified?'':' disabled'):'')+(!c.channels.whatsapp&&!c.channels.sms?'<span class="muted">Your company has not set up WhatsApp or SMS yet.</span>':'')+'</div>'+
+   '<form id="x6pref"><h3 class="subh">What to send me</h3><div class="x6chips">'+(c.groups||[]).map(function(k){var m=mand.indexOf(k)>-1;return '<label class="chip"><input type="checkbox" class="al_g" value="'+k+'"'+(g[k]!==false||m?' checked':'')+(m?' disabled title="Always sent"':'')+'><span>'+esc(GRPL[k]||k)+'</span></label>'}).join("")+'</div>'+
+   '<div class="grid2">'+lbl("Try first",sel("al_first",[["whatsapp","WhatsApp"],["sms","SMS"]],(p.order||["whatsapp"])[0]))+'<div class="grid2" style="gap:8px">'+fld("Quiet from","al_qf",(p.quiet||{}).from||"21:00","time")+fld("Quiet until","al_qt",(p.quiet||{}).to||"08:00","time")+'</div></div><div class="err" id="al_err"></div><div class="foot"><button class="btn primary" type="submit">Save alert settings</button></div></form>';
+  X6.alC=c})}
+function fillCal(){api6("cal.connections").then(function(r){var box=$("#x6cal");if(!box)return;if(!r.ok){box.textContent=errTo(r);return}
+  var by={};r.items.forEach(function(c){by[c.provider]=c});var L={google:"Google Calendar",microsoft:"Outlook / Microsoft 365"},keys=Object.keys(r.available||{});
+  box.innerHTML='<p class="muted" style="margin:0 0 10px;max-width:70ch">Meetings you organise or join are added to your calendar, and replies there come back here. Everyone else still gets an e-mail invitation.</p>'+
+   keys.map(function(k){var c=by[k];return '<div class="celeb"><span><b>'+esc(L[k]||k)+'</b>'+(c?' <span class="muted">'+esc(c.email||"")+'</span> '+pill(c.status==="active"?"good":"bad",c.status==="active"?"Connected":"Needs attention")+(c.lastSync?' <small class="muted">last sync '+dshort(c.lastSync)+' '+hhmm(c.lastSync)+'</small>':'')+(c.error?'<div class="err">'+esc(c.error)+'</div>':''):'')+'</span>'+
+     (!r.available[k]?'<span class="muted">Not set up by the administrator</span>':c&&c.status==="active"?'<button class="btn sm" data-act="cal6off" data-p="'+k+'">Disconnect</button>':'<button class="btn sm primary" data-act="cal6on" data-p="'+k+'">'+(c?"Reconnect":"Connect")+'</button>')+'</div>'}).join("")})}
+var POLL6=[["pauseOnLogout","Pause the timer when someone signs out","b"],["stopAtMidnight","Stop timers at midnight","b"],["maxSessionHours","Longest session (hours)","n"],["autoStopGraceMin","Stop a timer this many minutes after the working day ends","n"],["allowManual","Allow manual time entries","b"],["manualMaxDaysBack","Manual time can go back this many days","n"],["requireApprovalForManual","Manual time needs approval","b"],["requireCheckIn","Timer only after checking in for the day","b"],["blockOnLeave","No timer on days of approved full-day leave","b"],["overrunWarnPct","Warn when this % of the estimate is used","n"]];
+function fillPolicy(bid){api6("time.policy.get",{branchId:bid}).then(function(r){var box=$("#x6polb");if(!box)return;if(!r.ok){box.textContent=errTo(r);return}var v=r.effective,own=r.own||{};
+  box.innerHTML=(v6multi()?'<div class="toolbar">'+lbl("Rules for",sel("x6polbr",[["","Whole company"]].concat(v6branches().map(function(b){return [b.id,b.name]})),bid))+'</div>':'')+
+   '<form id="x6pol" data-b="'+esc(bid||"")+'">'+POLL6.map(function(p){var cur=v[p[0]],mark=bid&&own[p[0]]!=null?' <small class="muted">(set for this branch)</small>':'';
+     return p[2]==="b"?'<label class="modrow"><input type="checkbox" data-k="'+p[0]+'"'+(cur?' checked':'')+'><span><b>'+esc(p[1])+'</b>'+mark+'</span></label>':'<label class="field"><span>'+esc(p[1])+mark+'</span><input class="input" type="number" data-k="'+p[0]+'" value="'+esc(cur)+'" style="max-width:140px"></label>'}).join("")+
+   '<div class="err" id="x6pol_err"></div><div class="foot"><button class="btn primary" type="submit">Save time rules</button></div></form>'})}
+function fillHealth(){api6("system.health").then(function(r){var box=$("#x6health");if(!box)return;if(!r.ok){box.textContent=errTo(r);return}var w=r.worker,j=r.jobs,n=r.notifications;
+  box.innerHTML='<dl class="dl"><dt>Background worker</dt><dd>'+(w.ok?pill("good","Running"):pill("bad","Not running"))+(w.secondsAgo!=null?' last seen '+Math.round(w.secondsAgo/60)+' min ago':' never seen')+'</dd><dt>Jobs waiting</dt><dd>'+j.queued+'</dd><dt>Jobs failed (24 h)</dt><dd>'+j.failed24h+'</dd><dt>Messages waiting</dt><dd>'+n.queued+'</dd><dt>Messages failed (24 h)</dt><dd>'+n.failed24h+'</dd></dl>'+
+   (w.ok?'':'<p class="muted" style="max-width:70ch">Reminders, WhatsApp/SMS and calendar sync need the worker. Run <span class="mono">python manage.py hub_tick</span> every minute from cron, or keep <span class="mono">python manage.py hub_worker</span> running.</p>')+
+   ((j.recentFailures||[]).length?'<h3 class="subh">Recent failures</h3>'+j.recentFailures.map(function(f){return '<div class="celeb"><b class="mono">'+esc(f.kind)+'</b><span class="muted" style="font-size:12px">'+esc(f.error)+'</span></div>'}).join(""):'')+
+   '<div class="foot"><button class="btn sm" data-act="h6refresh">Refresh</button></div>'})}
+
+/* ---------- dashboard widgets ---------- */
+var WID6=[
+  {id:"meetings",t:"Meetings",on:function(){return v6on("meetings")}},
+  {id:"mytime",t:"My task time",on:function(){return v6on("timetrack")&&!!me.empId}},
+  {id:"inbox",t:"Latest alerts",on:function(){return v6rep()}},
+  {id:"branches",t:"Branches today",on:function(){return v6multi()&&v6can("branch.view")&&rk()>=3}},
+  {id:"workload",t:"Team workload",on:function(){return v6on("timetrack")&&v6can("time.view_scope")}}
+];
+function dashMount(){
+  if(view!=="dashboard")return;var top=$("#main .top");if(!top||$("#x6dash"))return;
+  var hid=((me.prefs||{}).dash||{}).hidden||[],L=WID6.filter(function(w){return w.on()&&hid.indexOf(w.id)<0});if(!WID6.some(function(w){return w.on()}))return;
+  top.insertAdjacentHTML("afterend",'<div id="x6dash" class="x6dash">'+L.map(function(w){return '<div class="panel dc x6w" id="x6w_'+w.id+'" data-w="'+w.id+'"><div class="panel-h">'+h2i({meetings:"cal",mytime:"timer",inbox:"bell",branches:"briefcase",workload:"users"}[w.id],w.t)+'</div><div class="x6wb">'+'<span class="muted">Loading…</span></div></div>'}).join("")+
+    '<div class="x6wfoot"><button class="btn sm ghost" data-act="w6cust">Customise</button></div></div>');
+  loadWidgets();
+}
+function wBody(id,h,extra){var p=$("#x6w_"+id);if(!p)return;p.querySelector(".x6wb").innerHTML=h;if(extra!=null){var hd=p.querySelector(".panel-h"),x=hd.querySelector(".x6wx");if(x)x.remove();hd.insertAdjacentHTML("beforeend",'<span class="x6wx">'+extra+'</span>')}}
+function loadWidgets(){
+  if(view!=="dashboard"||!$("#x6dash"))return;
+  if($("#x6w_meetings"))api6("meetings.widget",{tab:X6.wtab}).then(function(r){if(!r.ok){wBody("meetings",'<span class="muted">'+esc(r.error)+'</span>');return}
+    var c=r.counts||{},n=r.nextUp,tl=[["today","Today",c.today],["upcoming","Upcoming",c.upcoming],["completed","Done",c.completed],["cancelled","Cancelled",c.cancelled]];
+    wBody("meetings",(n?'<div class="x6next">Next: <b>'+esc(n.private?"Busy":n.title)+'</b> '+esc(n.date===today()?n.startLocal:fmtDate(n.date)+" "+n.startLocal)+(canJoin(n)?' <a class="btn sm primary" href="'+esc(n.joinUrl)+'" target="_blank" rel="noopener noreferrer" data-stop="1">Join</a>':'')+'</div>':'')+tabs6("w",r.tab,tl)+
+      (r.items.length?r.items.map(function(m){return mItem(m,true)}).join(""):'<div class="emptyx"><b>Nothing here</b><small>'+(r.tab==="today"?"No meetings today.":"No meetings in this list.")+'</small></div>'),
+      '<button class="btn sm" data-act="m6new">New</button> <button class="btn sm pillb" data-act="w6go" data-v="meetings">All '+IC9.chev+'</button>')});
+  if($("#x6w_mytime"))api6("time.summary").then(function(r){if(!r.ok){wBody("mytime",'<span class="muted">'+esc(r.error)+'</span>');return}
+    var td=r.today,wk=r.week,dn=r.doneThisWeek,pc=function(a,b){return b?Math.min(100,Math.round(a/b*100)):0};
+    var run=X6.state&&X6.state.running;
+    wBody("mytime",(run?'<div class="x6next"><span class="x6dot on"></span> Working on <b>'+esc(run.task)+'</b> <b class="num x6clk" data-sid="'+run.id+'">'+clk(tLive(run))+'</b></div>':'')+
+      '<div class="x6row"><span>Today</span><b class="num">'+dur(td.task)+'</b><small class="muted">of '+dur(td.attendance)+' at work</small></div><div class="x6meter"><i style="width:'+pc(td.task,td.attendance)+'%"></i></div>'+
+      '<div class="x6row"><span>This week</span><b class="num">'+dur(wk.task)+'</b><small class="muted">of '+dur(wk.attendance)+' at work</small></div><div class="x6meter"><i style="width:'+pc(wk.task,wk.attendance)+'%"></i></div>'+
+      '<div class="x6row"><span>Done this week</span><b class="num">'+dn.tasks+' tasks</b><small class="muted">'+(dn.efficiency==null?'no estimates':'efficiency '+dn.efficiency+'%')+'</small></div>'+
+      (r.pendingApprovals?'<button class="btn sm primary" data-act="w6go" data-v="tasks" data-g="tasks" data-tab="approvals" style="margin-top:8px">'+r.pendingApprovals+' time entr'+(r.pendingApprovals===1?'y':'ies')+' to approve</button>':''),
+      '<button class="btn sm pillb" data-act="w6go" data-v="tasks" data-g="tasks" data-tab="tracker">Tracker '+IC9.chev+'</button>')});
+  if($("#x6w_inbox"))api6("notify.inbox",{size:6}).then(function(r){if(!r.ok)return;X6.inbox={items:r.items,unread:r.unread};drawBell();
+    wBody("inbox",r.items.length?r.items.map(function(x){return '<button class="orow'+(x.read?'':' x6un')+'" data-act="i6open" data-id="'+x.id+'" data-v="'+esc(x.link)+'"><span class="pnm"><b>'+esc(x.title)+'</b><small>'+esc(x.text)+'</small></span><small class="muted num">'+dshort(x.at)+'</small></button>'}).join(""):'<div class="emptyx good"><b>All caught up</b><small>New alerts about your work appear here.</small></div>',
+      r.unread?'<button class="btn sm ghost" data-act="i6all">Mark all read</button>':'')});
+  if($("#x6w_branches"))api6("branches.overview").then(function(r){if(!r.ok){wBody("branches",'<span class="muted">'+esc(r.error)+'</span>');return}
+    wBody("branches",'<div class="tablewrap"><table class="stk"><thead><tr><th>Branch</th><th>Present</th><th>Late</th><th>On leave</th><th>Open tasks</th><th>Meetings</th></tr></thead><tbody>'+r.items.map(function(b){return '<tr class="click" data-act="b6open" data-id="'+b.id+'"><td class="first"><b>'+esc(b.name)+'</b> <small class="muted">'+esc(b.code)+'</small></td><td class="num" data-label="Present">'+b.present+' / '+b.headcount+'</td><td class="num" data-label="Late">'+b.late+'</td><td class="num" data-label="On leave">'+b.onLeave+'</td><td class="num" data-label="Open tasks">'+b.openTasks+'</td><td class="num" data-label="Meetings">'+b.meetingsToday+(b.notifyFailed?' '+pill("bad",b.notifyFailed+" failed alerts"):'')+'</td></tr>'}).join("")+'</tbody></table></div>')});
+  if($("#x6w_workload"))api6("time.workload",{days:5}).then(function(r){if(!r.ok){wBody("workload",'<span class="muted">'+esc(r.error)+'</span>');return}
+    wBody("workload",r.items.length?'<div class="dpl">'+r.items.slice(0,8).map(function(x){var p=x.pct==null?0:x.pct,tone=p>100?"bad":p>85?"warn":"good";return '<div class="dpr"><div class="dpt"><b>'+esc(x.name)+'</b><span class="muted" style="font-size:12px">'+esc(x.dept)+'</span><span class="dpv">'+(x.pct==null?'—':p+'%')+'</span></div><div class="dpb t-'+tone+'"><i style="width:'+Math.min(100,p)+'%"></i></div></div>'}).join("")+'</div><small class="muted">Planned task hours against free hours, next '+r.days+' working days.</small>':'<div class="emptyx"><b>No estimates yet</b><small>Add an estimated time to tasks to see workload.</small></div>')});
+}
+
+/* ---------- bell: merge in-app alerts ---------- */
+(function(){var o=notifs;notifs=function(){var L=o();if(!X6.inbox)return L;
+  (X6.inbox.items||[]).filter(function(x){return !x.read}).slice(0,8).reverse().forEach(function(x){L.unshift({t:x.title||x.text,v:x.link&&allowed(x.link)?x.link:"dashboard",c:"accent",iid:x.id})});return L}})();
+window.addEventListener("click",function(ev){var t=ev.target.closest&&ev.target.closest('[data-act="bell"],.hbell');if(!t)return;
+  var ids=(X6.inbox.items||[]).filter(function(x){return !x.read}).map(function(x){return x.id});
+  if(ids.length)setTimeout(function(){api6("notify.inbox.read",{ids:ids}).then(function(){X6.inbox.items.forEach(function(x){if(ids.indexOf(x.id)>-1)x.read=true});X6.inbox.unread=Math.max(0,X6.inbox.unread-ids.length)})},1200);
+},true);
+window.addEventListener("click",function(ev){if(ev.target.closest&&ev.target.closest('[data-act="logout"]')){X6.state=null;X6.inbox={items:[],unread:0};var b=$("#x6bar");if(b)b.hidden=true}},true);
+function inboxLoad(){if(!db||!me)return;api6("notify.inbox",{size:10,unread:1}).then(function(r){if(r.ok){X6.inbox={items:r.items,unread:r.unread};drawBell()}})}
+function poll6(){if(!db||!me||halted||document.hidden)return;timerLoad();inboxLoad();if(view==="dashboard")loadWidgets()}
+setInterval(poll6,60000);
+window.addEventListener("focus",function(){clearTimeout(X6.focT);X6.focT=setTimeout(poll6,300)});
+
+/* ---------- render hooks ---------- */
+(function(){var o=afterRender;afterRender=function(){o();
+  if(view==="tasks"&&v6on("timetrack")){var top=$("#main .top");if(top&&!$("#main .x6tabs"))top.insertAdjacentHTML("afterend",tasksTabs());if(X6.ttab!=="board")fillTasksTab()}
+  else if(view==="meetings")fillMeetings();
+  else if(view==="branches")fillBranches();
+  else if(view==="comms")fillComms();
+  else if(view==="reports6")fillReports();
+  else if(view==="dashboard")dashMount();
+  else if(view==="settings")fillSettings6();
+  else if(view==="profile")profBranchPanel();
+  else if(view==="employees"&&v6multi()){var s=$("#empDeptSel");if(s&&!$("#x6empbr"))s.insertAdjacentHTML("afterend",sel("x6empbr",[["","All branches"]].concat(v6branches().map(function(b){return [b.id,b.name]})),X6.empBranch,'style="max-width:220px" aria-label="Branch"'))}
+  drawTimer();
+}})();
+(function(){var o=showApp;showApp=function(){
+  var h=location.hash||"",m=/^#meetings\/(\d+)/.exec(h),c=/^#settings\?cal=([\w-]+)/.exec(h);
+  o();timerLoad();inboxLoad();
+  if(m&&v6on("meetings")){view="meetings";render();openMeeting(m[1])}
+  else if(c){view="settings";render();toast(c[1]==="ok"?"Calendar connected":"Calendar was not connected: "+c[1].replace(/_/g," "))}
+  if(m||c)try{history.replaceState(null,"",location.pathname+location.search)}catch(e){}
+}})();
+/* ===== v6 end ===== */
 /* ---------- boot ---------- */
 function showLogin(){
   applyLoginBrand();

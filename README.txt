@@ -29,6 +29,40 @@ PUT IT ON A SERVER (Hostinger VPS, or any Python host)
        (set it up as a systemd service so it restarts), and put Nginx in front with a free Let's Encrypt SSL.
   Keep DJANGO_DEBUG unset (off) on a real server.
 
+RELEASE 6: BRANCHES, MEETINGS, TASK TIME, WHATSAPP/SMS (Django only)
+  Design and test documents: docs/release-v6/. All five features are OFF until switched on in Settings > Modules
+  (and, in SaaS mode, included in the company's plan). With them off the app looks and works as before.
+  Upgrade steps:
+    1. Back up data/ (or HUB_DATA_DIR).  pip install -r requirements.txt   (adds "cryptography")
+    2. python manage.py migrate
+         Creates the new tables, a "Head Office" branch, puts every employee in it from their joining date,
+         and builds the department and designation lists from the existing employee records.
+       SaaS:  python manage.py migrate_tenants --backup      (--only <slug>, --dry-run also available)
+    3. Start the background worker. Reminders, WhatsApp/SMS, calendar sync, auto-stop of timers and scheduled
+       transfers need it. Either keep this running (systemd, Restart=always):
+         .venv/bin/python manage.py hub_worker
+       or run this every minute from cron:
+         * * * * * cd /srv/assertive-hub && .venv/bin/python manage.py hub_tick
+       Settings > System health shows whether the worker is running.
+  Environment variables (server only, never in the page):
+    HUB_ENC_KEYS          Encryption key(s) for stored WhatsApp/SMS/calendar secrets, comma separated, newest first
+                          (Fernet keys: python -c "from cryptography.fernet import Fernet;print(Fernet.generate_key().decode())").
+                          If unset, a key is created in DATA_DIR/enc.key - back that file up with the database,
+                          the secrets cannot be read without it.
+    HUB_PUBLIC_HOST       Public host name used in links in messages and calendar invitations (e.g. hub.yourdomain.com).
+    HUB_EMAIL_HOST/PORT/USER/PASSWORD/TLS, HUB_EMAIL_FROM   Mail server for meeting invitations (.ics) and e-mail alerts.
+    HUB_GOOGLE_CLIENT_ID, HUB_GOOGLE_CLIENT_SECRET   Google Calendar sync (optional).
+    HUB_MS_CLIENT_ID, HUB_MS_CLIENT_SECRET           Outlook / Microsoft 365 sync (optional).
+      Redirect URI to register:  https://<your host>/oauth/google/callback  and  /oauth/microsoft/callback
+      (SaaS: one URI on the main domain, https://<BASE_DOMAIN>/oauth/<provider>/callback, serves every company).
+  WhatsApp (Meta Cloud API) and SMS (MSG91, DLT) are set up in Messages > WhatsApp and SMS set-up. That page shows the
+  webhook address (https://<host>/hooks/whatsapp/<token>, /hooks/sms/<token>) to paste into Meta / MSG91 for delivery
+  reports and STOP replies. Templates must be approved by Meta (WhatsApp) or registered on DLT (SMS) before they send.
+  People get WhatsApp/SMS only after verifying their number and opting in (Settings > My alerts). In-app alerts always work.
+  New roles (Users page): HR admin and Branch admin (super admin can grant) and Branch manager. Each sees only the
+  branches ticked on their login. Every rule is checked on the server.
+  Tests: python manage.py test core   (94 tests, including the pre-release permission behaviour).
+
 Leave
   Employees and managers request leave under Leave: full day (one or more days), half day (first or second half),
   1 hour or 2 hours, with a reason. Managers approve their team's requests; admins and the super admin approve anyone's.
