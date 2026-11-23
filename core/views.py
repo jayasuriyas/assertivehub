@@ -26,7 +26,8 @@ GEN = {
     'invoices': (2, 2, False), 'payslips': (3, 3, True), 'checklists': (3, 3, True), 'rota': (2, 2, True),
 }
 THEME_IDS = ['indigo', 'emerald', 'sunset', 'rose', 'ocean', 'graphite']
-RANK = {'superadmin': 4, 'admin': 3, 'manager': 2, 'employee': 1}
+RANK = {'superadmin': 4, 'admin': 3, 'hradmin': 3, 'branchadmin': 3, 'branchmgr': 2, 'manager': 2, 'employee': 1}
+MGR_ROLES = ('manager', 'branchmgr')
 APP_HTML = Path(__file__).resolve().parent / 'app' / 'index.html'
 
 
@@ -66,8 +67,21 @@ def me_view(u):
 
 def user_pub(u):
     p = prof(u)
+    from .models import UserBranchScope
     return {'id': str(u.pk), 'user': u.username, 'role': p.role, 'empId': p.emp_id, 'active': u.is_active,
-            'created': u.date_joined.strftime('%Y-%m-%d')}
+            'created': u.date_joined.strftime('%Y-%m-%d'),
+            'branches': [str(x) for x in UserBranchScope.objects.filter(user=u).values_list('branch_id', flat=True)]}
+
+
+def timezone_local(dt):
+    from django.utils import timezone as _tz
+    return _tz.localtime(dt).strftime('%Y-%m-%d %H:%M:%S')
+
+
+def _short(d):
+    if not isinstance(d, dict):
+        return ''
+    return ', '.join('%s=%s' % (k, str(v)[:30]) for k, v in list(d.items())[:4])
 
 
 def active_supers(exclude_pk=None, count_deleted=False):
@@ -143,7 +157,7 @@ def view_for(u):
     rank = rank_of(u)
     me = prof(u).emp_id
     uid = str(u.pk)
-    db['peers'] = [{'id': e.get('id'), 'name': e.get('name', ''), 'designation': e.get('designation', ''), 'dept': e.get('dept', ''), 'empId': e.get('empId', '')} for e in db['employees'] if e.get('status', 'Active') == 'Active' and not e.get('core') and e.get('id')]
+    db['peers'] = [{'id': e.get('id'), 'name': e.get('name', ''), 'designation': e.get('designation', ''), 'dept': e.get('dept', ''), 'empId': e.get('empId', ''), 'branchId': e.get('branchId', '')} for e in db['employees'] if e.get('status', 'Active') == 'Active' and not e.get('core') and e.get('id')]
     db['notes'] = [n for n in db['notes'] if str(n.get('uid', first_super_id())) == uid]
     for gc, (gw, gr, gown) in GEN.items():
         if rank < gr:
@@ -159,21 +173,45 @@ def view_for(u):
         for gc in GEN:
             if not saas_hooks.collection_ok(gc):
                 db[gc] = []
-    if rank >= 3:
-        return db
+    sc = _scope(u)
+    if rank >= 3 and sc.all:
+        return _v6_extend(db, u, sc)
+    if rank >= 3:  # HR admin / branch admin: only their branches (enforced here, not in the screens)
+        emps, prim = sc.emps, sc.primary
+        db['employees'] = [e for e in db['employees'] if e.get('id') in emps]
+        if role_of(u) == 'branchadmin':
+            for e in db['employees']:
+                if e.get('id') != me:
+                    e.pop('ctc', None)
+        db['tasks'] = [t for t in db['tasks'] if t.get('eid') in emps]
+        for k in ('reviews', 'leaves', 'attreqs'):
+            db[k] = [r for r in db[k] if r.get('eid') in prim]
+        db['ratings'] = [r for r in db['ratings'] if r.get('from') in prim or r.get('to') in prim]
+        for gc, (gw, gr, gown) in GEN.items():
+            if gown:
+                db[gc] = [r for r in db[gc] if r.get('eid') in prim]
+        db['events'] = [x for x in db['events'] if not x.get('branchIds') or set(map(str, x['branchIds'])) & sc.branches]
+        db['notices'] = [x for x in db['notices'] if not (x.get('audience') or {}).get('branches') or set(map(str, x['audience']['branches'])) & sc.branches]
+        db['attendance'] = {d: {e: r for e, r in m.items() if e in prim} for d, m in db['attendance'].items() if any(e in prim for e in m)}
+        return _v6_extend(db, u, sc)
     if isinstance(db.get('settings'), dict):
         db['settings'] = {k: v for k, v in db['settings'].items() if k not in ('devices', 'lastBackup')}
     if rank == 2:
-        scope = team_of(me)
+        scope = {k: True for k in sc.emps}
         if me:
             scope[me] = True
+        prim = set(sc.primary) | ({me} if me else set())
     else:
         scope = {me: True} if me else {}
+        prim = set(scope)
     db['employees'] = [e for e in db['employees'] if e.get('id') in scope]
     db['tasks'] = [t for t in db['tasks'] if t.get('eid') in scope]
-    db['reviews'] = [r for r in db['reviews'] if r.get('eid') in scope]
-    db['leaves'] = [r for r in db['leaves'] if r.get('eid') in scope]
-    db['attreqs'] = [r for r in db['attreqs'] if r.get('eid') in scope]
+    db['reviews'] = [r for r in db['reviews'] if r.get('eid') in prim]
+    db['leaves'] = [r for r in db['leaves'] if r.get('eid') in prim]
+    db['attreqs'] = [r for r in db['attreqs'] if r.get('eid') in prim]
+    mb = _scope_own_branches(me)
+    db['events'] = [x for x in db['events'] if not x.get('branchIds') or set(map(str, x['branchIds'])) & (mb | sc.branches)]
+    db['notices'] = [x for x in db['notices'] if not (x.get('audience') or {}).get('branches') or set(map(str, x['audience']['branches'])) & (mb | sc.branches)]
     db['ratings'] = [r for r in db['ratings'] if r.get('from') == me or r.get('to') in scope] if rank == 2 else [r for r in db['ratings'] if r.get('from') == me]
     if rank == 2 and (db.get('settings') or {}).get('ratingsAnon'):
         db['ratings'] = [dict(r, **{'from': '', 'id': 'rt_anon_%d_%s' % (i, r.get('month', ''))}) if r.get('from') != me else r for i, r in enumerate(db['ratings'])]
@@ -184,10 +222,31 @@ def view_for(u):
         db['agenda'] = []
     att = {}
     for d, m in db['attendance'].items():
-        row = {e: r for e, r in m.items() if e in scope}
+        row = {e: r for e, r in m.items() if e in prim}
         if row:
             att[d] = row
     db['attendance'] = att
+    return _v6_extend(db, u, sc)
+
+
+def _scope(u):
+    from .v6.scope import scope_for
+    return scope_for(u)
+
+
+def _scope_own_branches(me):
+    from .v6.scope import own_branches
+    return own_branches(me)
+
+
+def _v6_extend(db, u, sc):
+    """Small read-only v6 data for the screens. Heavy v6 data has its own endpoints (never in `load`)."""
+    from .v6 import base as v6base, branches as v6b, worktime as v6w
+    db['branches'] = v6b.load_payload(u)
+    db['myScope'] = {'all': sc.all, 'branches': sorted(sc.branches), 'me': sc.me}
+    db['v6'] = {m: v6base.module_on(m) for m in v6base.V6_MODULES}
+    db['v6caps'] = sorted(k for k in v6base.CAPS if v6base.can(u, k))
+    db['taskTime'] = v6w.load_payload([t.get('id') for t in db['tasks'] if t.get('id')]) if db['v6'].get('timetrack') else {}
     return db
 
 
@@ -204,8 +263,13 @@ def can_set(c, new, old, u, scope, team):
     role = role_of(u)
     admin = RANK[role] >= 3
     me = prof(u).emp_id
+    sc = _scope(u)
+    if admin and not sc.all and not _admin_scope_ok(c, new, old, sc):
+        return None
     if c == 'employees':
         if admin:
+            if role == 'branchadmin' and old is not None:
+                new['ctc'] = old.get('ctc', 0)
             return new
         if role in ('employee', 'manager') and old and me and old.get('id') == me:
             f = dict(old)
@@ -217,7 +281,7 @@ def can_set(c, new, old, u, scope, team):
     if c == 'tasks':
         if admin:
             return new
-        if role == 'manager':
+        if role in MGR_ROLES:
             if new.get('eid') not in scope:
                 return None
             if old and old.get('eid') not in scope:
@@ -238,7 +302,7 @@ def can_set(c, new, old, u, scope, team):
     if c == 'reviews':
         if admin:
             return new
-        if role == 'manager' and new.get('eid') in team and (not old or old.get('eid') in team):
+        if role in MGR_ROLES and new.get('eid') in team and (not old or old.get('eid') in team):
             return new
         return None
     if c == 'ratings':
@@ -306,17 +370,17 @@ def can_set(c, new, old, u, scope, team):
             return f
         if not old or old.get('status') != 'Pending' or old.get('eid') != eid or st_new not in ('Approved', 'Rejected'):
             return None
-        if not (admin or (role == 'manager' and eid in team)):
+        if not (admin or (role in MGR_ROLES and eid in team)):
             return None
         f = dict(old)
         f.update(status=st_new, by=u.username, decidedOn=datetime.date.today().isoformat(), note=str(new.get('note', ''))[:300])
         return f
     if c in ('clients', 'testimonials', 'agenda'):
-        return new if (admin or role == 'manager') else None
+        return new if (admin or role in MGR_ROLES) else None
     if c == 'events':
         if admin:
             return new
-        if role == 'manager' and new.get('type') != 'holiday' and (old or {}).get('type') != 'holiday':
+        if role in MGR_ROLES and new.get('type') != 'holiday' and (old or {}).get('type') != 'holiday':
             return new
         return None
     if c == 'notes':
@@ -327,7 +391,27 @@ def can_set(c, new, old, u, scope, team):
     return None
 
 
+def _admin_scope_ok(c, new, old, sc):
+    """HR admins and branch admins may only touch records of employees in their branches."""
+    if c == 'employees':
+        return old is None or old.get('id') in sc.primary
+    if c == 'tasks':
+        return (new or {}).get('eid') in sc.emps and (old is None or old.get('eid') in sc.emps)
+    if c in ('reviews', 'leaves', 'attreqs') or (c in GEN and GEN[c][2]):
+        return (new or old or {}).get('eid') in sc.primary and (old is None or old.get('eid') in sc.primary)
+    if c == 'events':
+        bs = [str(x) for x in ((new or {}).get('branchIds') or [])]
+        ob = [str(x) for x in ((old or {}).get('branchIds') or [])]
+        return bool(bs) and set(bs) <= sc.branches and (old is None or (bool(ob) and set(ob) <= sc.branches))
+    if c == 'notices':
+        bs = [str(x) for x in (((new or old) or {}).get('audience') or {}).get('branches') or []]
+        return bool(bs) and set(bs) <= sc.branches
+    return True
+
+
 def can_del(c, old, u, scope, team):
+    if rank_of(u) >= 3 and not _scope(u).all and not _admin_scope_ok(c, None, old, _scope(u)):
+        return False
     if c in GEN:
         if c == 'rota' and rank_of(u) == 2 and old.get('eid') not in scope:
             return False
@@ -337,9 +421,11 @@ def can_del(c, old, u, scope, team):
     if c in ('employees', 'clients', 'testimonials', 'agenda'):
         return admin
     if c == 'tasks':
-        return admin or (role == 'manager' and old.get('eid') in scope)
+        if _task_has_time(old.get('id')):
+            return False  # EC-T04: tasks with logged time are kept for reports
+        return admin or (role in MGR_ROLES and old.get('eid') in scope)
     if c == 'reviews':
-        return admin or (role == 'manager' and old.get('eid') in team)
+        return admin or (role in MGR_ROLES and old.get('eid') in team)
     if c == 'attreqs':
         me = prof(u).emp_id
         return admin or bool(me and old.get('eid') == me and old.get('status') in ('Pending', 'Cancelled'))
@@ -350,7 +436,7 @@ def can_del(c, old, u, scope, team):
         me = prof(u).emp_id
         return admin or bool(me and old.get('eid') == me and old.get('status') in ('Pending', 'Cancelled'))
     if c == 'events':
-        return admin or (role == 'manager' and old.get('type') != 'holiday')
+        return admin or (role in MGR_ROLES and old.get('type') != 'holiday')
     if c == 'notes':
         return str(old.get('uid', first_super_id())) == str(u.pk)
     return False
@@ -401,6 +487,8 @@ def op_rec(c, op, kind, u, scope, team):
         return False
     r = Record.objects.filter(coll=c, rid=new['id']).first()
     old = r.data if r else None
+    if not _v6_prepare(c, new, old, u):
+        return False
     if settings.SAAS:
         if not saas_hooks.collection_ok(c):
             return False
@@ -422,21 +510,129 @@ def op_rec(c, op, kind, u, scope, team):
             EVT.append((c, 'new', final))
         elif old.get('status') == 'Pending' and st not in ('Pending', 'Cancelled'):
             EVT.append((c, 'decided', final))
+    _v6_after(c, final, old, u)
     return True
+
+
+SERVER_FIELDS = {'employees': ('branchId',), 'tasks': ('createdBy', 'createdAt', 'branchId', 'src', 'att'), 'leaves': ('branchId',)}
+
+
+def _task_has_time(tid):
+    from .models import WorkSession
+    return bool(tid) and WorkSession.objects.filter(task_rid=tid).exclude(status='void').exists()
+
+
+def _v6_prepare(c, new, old, u):
+    """Validate v6 fields and keep server-owned fields (FR-PLT-12): an old browser tab or a crafted request cannot change them."""
+    for k in SERVER_FIELDS.get(c, ()):
+        if old is not None:
+            if k in old:
+                new[k] = old[k]
+            else:
+                new.pop(k, None)
+        elif not (c == 'employees' and k == 'branchId'):
+            new.pop(k, None)
+    if c == 'tasks':
+        for k, lo, hi in (('est', 5, 59999), ('dailyMin', 15, 1440)):
+            v = new.get(k)
+            if v in ('', None):
+                new.pop(k, None)
+                continue
+            if isinstance(v, bool) or not isinstance(v, (int, float)) or int(v) != v or not lo <= v <= hi:
+                return False
+            new[k] = int(v)
+        if new.get('start') not in (None, '') and not re.match(r'^\d{4}-\d{2}-\d{2}$', str(new['start'])):
+            return False
+        if new.get('start') and new.get('due') and str(new['start']) > str(new['due']):
+            return False
+        for k in ('timeRequired', 'allowManual'):
+            if k in new and not isinstance(new[k], bool):
+                return False
+        if 'dept' in new:
+            new['dept'] = str(new.get('dept') or '')[:80]
+    return True
+
+
+def _v6_after(c, final, old, u):
+    """Branch assignment, timers and notifications that follow a legacy save. Never breaks the save itself."""
+    import logging
+    try:
+        with transaction.atomic():
+            from .v6 import branches as v6b, notify as v6n, worktime as v6w
+            rid = final.get('id')
+            if c == 'employees':
+                r = Record.objects.get(coll='employees', rid=rid)
+                if old is None:
+                    sc = _scope(u)
+                    want = str(final.get('branchId') or '')
+                    br = v6b.branch_by_id(want) if want and (sc.all or want in sc.branches) else None
+                    if br is None or br.status != 'active':
+                        br = (v6b.branch_by_id(sorted(sc.branches)[0]) if (not sc.all and sc.branches) else None) or v6b.head_office()
+                    r.data = dict(r.data, branchId=str(br.pk))
+                    r.save(update_fields=['data'])
+                    v6b.initial_assignment(rid, r.data, br)
+                    if final.get('status', 'Active') == 'Active':
+                        v6n.emit('employee.welcome', 'employee', rid, 'welcome', [rid], {})
+                else:
+                    if str(old.get('phone', '')) != str(final.get('phone', '')):
+                        v6n.phone_changed(rid, final.get('phone'))
+                    if old.get('status', 'Active') == 'Active' and final.get('status', 'Active') != 'Active':
+                        v6w.stop_all_for_emp(rid, 'inactive')
+            elif c == 'tasks':
+                r = Record.objects.get(coll='tasks', rid=rid)
+                d = dict(r.data)
+                changed = False
+                if old is None:
+                    d.update(createdBy=str(u.pk), createdAt=time.strftime('%Y-%m-%dT%H:%M:%S'))
+                    changed = True
+                if old is None or old.get('eid') != d.get('eid'):
+                    e = Record.objects.filter(coll='employees', rid=d.get('eid', '')).first()
+                    ed = e.data if e else {}
+                    d['branchId'] = str(ed.get('branchId') or v6b.head_office().pk)
+                    if not d.get('dept'):
+                        d['dept'] = str(ed.get('dept', ''))[:80]
+                    changed = True
+                if changed:
+                    r.data = d
+                    r.save(update_fields=['data'])
+                if old is not None and old.get('eid') != d.get('eid'):
+                    v6w.stop_open_for_task(rid, 'reassigned', except_emp=d.get('eid'))
+                if old is None or old.get('eid') != d.get('eid'):
+                    v6n.task_assigned(d, rid)
+                if d.get('status') == 'done' and (old is None or old.get('status') != 'done'):
+                    v6w.stop_open_for_task(rid, 'completed')
+                    v6n.task_completed(d, rid)
+            elif c == 'leaves':
+                if old is None:
+                    e = Record.objects.filter(coll='employees', rid=final.get('eid', '')).first()
+                    r = Record.objects.get(coll='leaves', rid=rid)
+                    r.data = dict(r.data, branchId=str(((e.data if e else {}) or {}).get('branchId') or ''))
+                    r.save(update_fields=['data'])
+                    v6n.leave_event('new', final)
+                elif old.get('status') == 'Pending' and final.get('status') in ('Approved', 'Rejected'):
+                    v6n.leave_event('decided', final)
+                elif final.get('status') == 'Cancelled':
+                    v6n.cancel_jobs('leave.submitted', rid)
+            elif c == 'notices' and old is None and (final.get('sendVia') or (final.get('audience') or {}).get('branches')):
+                v6n.notice_published(final, u)
+    except Exception:
+        logging.getLogger('hub.v6').exception('v6 follow-up for %s failed', c)
 
 
 def op_att(op, kind, u, team):
     d, e = str(op.get('date', '')), str(op.get('eid', ''))
     if not re.match(r'^\d{4}-\d{2}-\d{2}$', d) or not ID_RE.match(e):
         return False
-    if rank_of(u) < 3 and not (role_of(u) == 'manager' and e in team):
+    if rank_of(u) < 3 and not (role_of(u) in MGR_ROLES and e in team):
+        return False
+    if rank_of(u) >= 3 and not _scope(u).sees(e, primary_only=True):
         return False
     er = Record.objects.filter(coll='employees', rid=e).first()
     if er and (er.data or {}).get('core') and kind != 'del':
         return False
     ex = Attendance.objects.filter(day=d, eid=e).first()
     exd = ex.data if ex else None
-    if role_of(u) == 'manager':
+    if role_of(u) in MGR_ROLES:
         if exd and exd.get('br') not in ('self', 'device') and not (d == datetime.date.today().isoformat() and exd.get('br') == 'manager'):
             return False
         if kind == 'del':
@@ -449,7 +645,10 @@ def op_att(op, kind, u, team):
         return False
     p = [[str(x[0]), str(x[1])] for x in (r.get('p') or []) if isinstance(x, list) and len(x) >= 2]
     from .punch import flat
-    Attendance.objects.update_or_create(day=d, eid=e, defaults={'data': {'s': r['s'], 'p': p, 'tl': flat(p), 'by': u.username, 'br': role_of(u)}})
+    rec = {'s': r['s'], 'p': p, 'tl': flat(p), 'by': u.username, 'br': 'manager' if role_of(u) in MGR_ROLES else ('admin' if rank_of(u) == 3 else role_of(u))}
+    if er and (er.data or {}).get('branchId'):
+        rec['b'] = str(er.data['branchId'])
+    Attendance.objects.update_or_create(day=d, eid=e, defaults={'data': rec})
     return True
 
 
@@ -573,6 +772,8 @@ def apply_ops(ops, u):
     me = prof(u).emp_id
     team = team_of(me)
     scope = dict(team)
+    if role_of(u) == 'branchmgr':
+        scope.update({k: True for k in _scope(u).emps})
     if me:
         scope[me] = True
     ap = rj = 0
@@ -670,7 +871,7 @@ def api(request):
     del AUDIT[:]
     del PENDING_FAILS[:]
     try:
-        if a != 'status' and a != 'load' and a != 'users' and a != 'audit' and not post:
+        if a != 'status' and a != 'load' and a != 'users' and a != 'audit' and not post and not ('.' in a and _v6_is_read(a)):
             fail('POST required.', 405)
         if settings.SAAS:
             blk = saas_hooks.block(a, post)
@@ -678,9 +879,14 @@ def api(request):
                 fail(blk[1], blk[0])
         with transaction.atomic(using=saas_tenancy.alias() if settings.SAAS else 'default'):
             out = handle(request, a)
-        return JsonResponse(out)
+        return out if isinstance(out, HttpResponse) else JsonResponse(out)
     except ApiError as e:
-        return JsonResponse({'ok': False, 'error': e.msg}, status=e.code)
+        o = {'ok': False, 'error': e.msg}
+        if getattr(e, 'err', None):
+            o['code'] = e.err
+            if e.details:
+                o['details'] = e.details
+        return JsonResponse(o, status=e.code)
     finally:
         if PENDING_FAILS:
             now = time.time()
@@ -691,6 +897,11 @@ def api(request):
         del EVT[:]
         del AUDIT[:]
         del PENDING_FAILS[:]
+
+
+def _v6_is_read(a):
+    from .v6 import base as v6base
+    return v6base.is_read(a)
 
 
 def punch_actions(request, a, b):
@@ -718,6 +929,8 @@ def punch_actions(request, a, b):
     if a == 'selfie':
         if rank_of(u) == 2 and str(b.get('eid', '')) not in team_of(prof(u).emp_id):
             fail('Not your team.', 403)
+        if rank_of(u) == 3 and not _scope(u).sees(str(b.get('eid', '')), primary_only=True):
+            fail('No picture.', 404)
         img = punch.selfie_data(str(b.get('date', '')), str(b.get('eid', '')), str(b.get('time', '')))
         if not img:
             fail('No picture.', 404)
@@ -771,6 +984,13 @@ def handle(request, a):
         return {'ok': True, 'me': me_view(found)}
 
     if a == 'logout':
+        if request.user.is_authenticated:
+            try:
+                with transaction.atomic():
+                    from .v6 import worktime as v6w
+                    v6w.on_logout(request.user)
+            except Exception:
+                pass
         dj_logout(request)
         return {'ok': True}
 
@@ -824,15 +1044,23 @@ def handle(request, a):
         return {'ok': True}
 
     if a == 'audit':
-        need_role(request, 3)
-        return {'ok': True, 'log': list(reversed(cget('audit', [])[-400:]))}
+        u = need_role(request, 3)
+        sc = _scope(u)
+        from .models import AuditEvent
+        q = AuditEvent.objects.order_by('-at')
+        if not sc.all:
+            q = q.filter(branch_id__in=[int(x) for x in sc.branches if x.isdigit()])
+        v6 = [[timezone_local(e.at), e.actor_name, e.entity_type, e.action, (e.entity_id + ' ' + _short(e.after))[:200]] for e in q[:400]]
+        legacy = list(reversed(cget('audit', [])[-400:])) if sc.all else []
+        return {'ok': True, 'log': sorted(v6 + legacy, key=lambda r: r[0], reverse=True)[:600]}
 
     if a == 'users':
         u = need_role(request, 3)
         f = cget('forgot', {})
         out, fg = [], []
+        sc = _scope(u)
         for x in User.objects.order_by('pk'):
-            if rank_of(u) >= 4 or rank_of(x) <= 2:
+            if rank_of(u) >= 4 or (rank_of(x) <= 2 and (sc.all or prof(x).emp_id in sc.primary)):
                 out.append(user_pub(x))
                 if str(x.pk) in f:
                     fg.append({'id': str(x.pk), 'user': x.username, 'at': time.strftime('%Y-%m-%d %H:%M', time.localtime(float(f[str(x.pk)])))})
@@ -851,6 +1079,9 @@ def handle(request, a):
             fail('User not found.', 404)
         if ex and mr < 4 and rank_of(ex) > 2:
             fail('You cannot change this user.', 403)
+        msc = _scope(me)
+        if ex and not msc.all and prof(ex).emp_id not in msc.primary:
+            fail('You cannot change this user.', 403)
         user = str(b.get('user', '')).strip()
         check_name(user, ex.pk if ex else None)
         emp = str(b.get('empId', ''))
@@ -859,6 +1090,8 @@ def handle(request, a):
         if emp:
             if not Record.objects.filter(coll='employees', rid=emp).exists():
                 fail('That employee record does not exist.')
+            if not msc.all and emp not in msc.primary:
+                fail('That employee is not in your branches.', 403)
             if Profile.objects.filter(emp_id=emp).exclude(user=ex).exists():
                 fail('That employee already has a login.')
         pw = str(b.get('pass', ''))
@@ -880,6 +1113,12 @@ def handle(request, a):
         p = prof(x)
         p.role, p.emp_id = role, emp
         p.save()
+        from .models import UserBranchScope
+        if role in ('hradmin', 'branchadmin', 'branchmgr'):
+            from .v6.branches import set_user_branches
+            set_user_branches(me, x, b.get('branches') or [])
+        else:
+            UserBranchScope.objects.filter(user=x).delete()
         LoginFail.objects.filter(name=user.lower()).delete()
         if pw:
             f = cget('forgot', {})
@@ -902,6 +1141,8 @@ def handle(request, a):
             fail('You cannot delete your own login.')
         if rank_of(me) < 4 and rank_of(x) > 2:
             fail('You cannot delete this user.', 403)
+        if not _scope(me).all and prof(x).emp_id not in _scope(me).primary:
+            fail('You cannot delete this user.', 403)
         if active_supers(exclude_pk=x.pk) < 1:
             fail('There must always be at least one active super admin.')
         revoke_sessions(x.pk)
@@ -915,16 +1156,25 @@ def handle(request, a):
             fail('User not found.', 404)
         if rank_of(me) < 4 and rank_of(x) > 2:
             fail('You cannot change this user.', 403)
+        if not _scope(me).all and prof(x).emp_id not in _scope(me).primary:
+            fail('You cannot change this user.', 403)
         revoke_sessions(x.pk)
         return {'ok': True}
 
     if a == 'prefs':
         u = need_auth(request)
-        theme, mode = str(b.get('theme', '')), str(b.get('mode', ''))
-        if theme not in THEME_IDS or mode not in ('auto', 'light', 'dark'):
-            fail('Invalid choice.')
         p = prof(u)
-        p.prefs = {'theme': theme, 'mode': mode}
+        cur = dict(p.prefs or {})
+        if 'theme' in b or 'mode' in b:
+            theme, mode = str(b.get('theme', '')), str(b.get('mode', ''))
+            if theme not in THEME_IDS + ['blue'] or mode not in ('auto', 'light', 'dark'):
+                fail('Invalid choice.')
+            cur.update(theme=theme, mode=mode)
+        if 'dash' in b:
+            dsh = b.get('dash') if isinstance(b.get('dash'), dict) else {}
+            ids = lambda k: [str(x)[:20] for x in (dsh.get(k) or []) if re.match(r'^[a-z0-9_]{1,20}$', str(x))][:30]
+            cur['dash'] = {'order': ids('order'), 'hidden': ids('hidden')}
+        p.prefs = cur  # merged, so theme and dashboard layout never wipe each other (FR-PLT-11)
         p.save()
         return {'ok': True}
 
@@ -946,6 +1196,10 @@ def handle(request, a):
             from django.contrib.auth import update_session_auth_hash
             update_session_auth_hash(request, u)
         return {'ok': True, 'user': u.username, 'me': me_view(u)}
+
+    if '.' in a:
+        from .v6 import base as v6base
+        return v6base.dispatch(request, a, b)
 
     fail('Unknown action.', 404)
 

@@ -6,16 +6,16 @@ GST_RATE = 18            # percent, added on top of the price
 TRIAL_DAYS = 14
 YEAR_MONTHS_PAID = 10    # a yearly plan costs 10 months (2 months free)
 
-CORE = ['attendance', 'leave', 'tasks', 'clients', 'calendar', 'performance', 'review', 'workrep', 'ratings']
-EXTRA1 = ['notices', 'documents', 'assets', 'checklists', 'rota', 'checkin']
+CORE = ['attendance', 'leave', 'tasks', 'clients', 'calendar', 'performance', 'review', 'workrep', 'ratings', 'meetings', 'timetrack']
+EXTRA1 = ['notices', 'documents', 'assets', 'checklists', 'rota', 'checkin', 'notify', 'calsync', 'branches']
 EXTRA2 = ['payroll', 'recruitment', 'invoices', 'biometric']
 
 PLANS = {
-    'starter':  {'name': 'Starter',  'month': 999,  'emp': 15,  'modules': CORE,
+    'starter':  {'name': 'Starter',  'month': 999,  'emp': 15, 'branches': 1,  'modules': CORE,
                  'blurb': 'Attendance, leave, tasks, clients, ratings and reports'},
-    'business': {'name': 'Business', 'month': 2499, 'emp': 50,  'modules': CORE + EXTRA1,
+    'business': {'name': 'Business', 'month': 2499, 'emp': 50,  'branches': 3, 'modules': CORE + EXTRA1,
                  'blurb': 'Everything in Starter plus notice board, documents, assets, onboarding, shift rota and GPS/selfie/QR check-in'},
-    'pro':      {'name': 'Pro',      'month': 4999, 'emp': 150, 'modules': CORE + EXTRA1 + EXTRA2,
+    'pro':      {'name': 'Pro',      'month': 4999, 'emp': 150, 'branches': None, 'modules': CORE + EXTRA1 + EXTRA2,
                  'blurb': 'Everything, including payroll (PF, ESI), biometric device attendance, recruitment and invoices'},
 }
 TRIAL_PLAN = 'pro'       # during the free trial people can try everything

@@ -67,6 +67,12 @@ def shift_for(eid, day, emp):
     """(start, grace) in minutes for this person on this day."""
     st = _cget('settings', {}) or {}
     start, grace = st.get('workStart') or '09:00', int(st.get('graceMin') if st.get('graceMin') is not None else 15)
+    bid = str((emp or {}).get('branchId') or '')
+    if bid.isdigit():  # v6: branch working hours come before the company default (FR-BR-12)
+        from .models import Branch
+        br = Branch.objects.filter(pk=int(bid)).first()
+        if br and mins(br.work_start) is not None:
+            start = br.work_start
     sid = None
     ro = Record.objects.filter(coll='rota', rid='ro_%s_%s' % (eid, day)).first()
     if ro and ro.data.get('shift') not in (None, '', 'off'):
@@ -139,7 +145,17 @@ def record_punch(eid, when, source, photo_name=None):
     rec = {'s': status, 'p': _pairs(tl), 'tl': tl, 'by': 'check-in' if source == 'self' else 'biometric', 'br': source}
     if sf:
         rec['sf'] = sf
+    if emp.get('branchId'):
+        rec['b'] = str(emp['branchId'])
     Attendance.objects.update_or_create(day=day, eid=eid, defaults={'data': rec})
+    if status == 'L' and len(tl) == 1:
+        try:
+            from django.db import transaction
+            with transaction.atomic():
+                from .v6 import notify
+                notify.emit('attendance.late', 'attendance', '%s:%s' % (eid, day), 'late', [eid], {'day': day, 'kind': 'punched_late', 'shift_start': '%02d:%02d' % (start // 60, start % 60)})
+        except Exception:
+            pass
     return rec, (len(tl) % 2 == 1)
 
 
@@ -152,6 +168,9 @@ def check_in(u, emp_id, body):
     now = datetime.datetime.now()
     if st.get('gps'):
         sites = [s for s in (st.get('sites') or []) if isinstance(s, dict)]
+        from .v6.scope import own_branches
+        mine = own_branches(emp_id)
+        sites = [s for s in sites if not s.get('branchId') or str(s['branchId']) in mine]  # v6: a site can belong to a branch
         try:
             lat, lng, acc = float(body.get('lat')), float(body.get('lng')), float(body.get('acc') or 0)
         except (TypeError, ValueError):
