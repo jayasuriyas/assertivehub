@@ -73,6 +73,8 @@ Start with the messages people actually want: leave decisions, new tasks, meetin
 
 
 def seed(apps, schema_editor):
+    if schema_editor.connection.alias != 'default':  # platform database only, never a company database
+        return
     Post = apps.get_model('saas', 'Post')
     for slug, title, tag, excerpt, body in POSTS:
         Post.objects.get_or_create(slug=slug, defaults={'title': title, 'tag': tag, 'excerpt': excerpt, 'body': body, 'author': 'Assertive Hub team', 'published': False})

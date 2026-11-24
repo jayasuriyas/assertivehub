@@ -41,7 +41,7 @@ def forwards(apps, schema_editor):
         if not d.get('branchId'):
             d['branchId'] = str(ho.pk)
             r.data = d
-            r.save(update_fields=['data'])
+            r.save(using=db, update_fields=['data'])
         for src, bag in ((d.get('dept'), depts), (d.get('designation'), desigs)):
             v = str(src or '').strip()
             if v:
@@ -60,7 +60,7 @@ def forwards(apps, schema_editor):
         v = str((r.data or {}).get('dept') or '').strip()
         if v and canon.get(v.lower()) and canon[v.lower()] != r.data.get('dept'):
             r.data = dict(r.data, dept=canon[v.lower()])
-            r.save(update_fields=['data'])
+            r.save(using=db, update_fields=['data'])
 
 
 def backwards(apps, schema_editor):
