@@ -48,6 +48,21 @@ Sales page: https://assertivehub.in   Owner panel: https://assertivehub.in/owner
   payment (adds days), suspend/resume, and "Open as admin" for support (a 5-minute one-time link, logged).
 - Demo payments: set HUB_DEMO_PAY=1 WITHOUT Razorpay keys to try the flow without real money. Never use it in production.
 
+4b. PUBLIC WEBSITE (assertivehub.in and www.assertivehub.in)
+- Pages: Home, About, Products (+ one page per product area at /products/<area>), Features (plan-by-plan table), Pricing,
+  Contact, Book a demo, FAQs, Blog, Log in (type your company name -> sent to yourcompany.assertivehub.in; "forgot address"
+  e-mails the workspace address to the sign-up e-mail), Sign up, Terms, Privacy, plus /sitemap.xml and /robots.txt.
+- Prices, plan names and which plan has which feature come from saas/plans.py, so the website never disagrees with billing.
+- Words (product areas, FAQs, "built for" list, testimonials) are in saas/site_content.py. TESTIMONIALS is empty on purpose:
+  add only real quotes you have permission to publish; the section appears once there is at least one.
+- No JavaScript and a strict Content-Security-Policy on every public page.
+- Contact and demo requests are saved and listed in Owner panel > Leads (mark contacted/closed, private notes).
+  Set HUB_OWNER_EMAIL to get an e-mail for each new one. Spam protection: hidden honeypot field + 5 per hour per network.
+- Blog: Owner panel > Blog. Write in plain text (blank line = paragraph, "## " heading, "- " bullet, **bold**, [text](https://...)).
+  Three starter articles are included as DRAFTS - read, edit and tick Published.
+- Optional settings shown on the Contact page: HUB_CONTACT_EMAIL, HUB_CONTACT_PHONE, HUB_SELLER_ADDRESS.
+- Tests: HUB_SAAS=1 HUB_BASE_DOMAIN=example.test python manage.py test saas
+
 5. BEFORE YOU SELL (not done by code)
 - Replace the bracketed parts of /terms and /privacy with a lawyer's text (DPDP Act 2023: you are a processor for the employee data).
 - Ask your CA about SAC, invoice format, and TDS/GST filing. Keep the Razorpay reports for GST returns.

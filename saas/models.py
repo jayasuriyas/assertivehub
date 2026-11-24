@@ -51,3 +51,33 @@ class OwnerLog(models.Model):
     who = models.CharField(max_length=60)
     action = models.CharField(max_length=60)
     slug = models.CharField(max_length=30, blank=True, default='')
+
+
+class Lead(models.Model):
+    """A contact-form message or a demo request from the public website."""
+    kind = models.CharField(max_length=10)                     # contact, demo
+    name = models.CharField(max_length=80)
+    email = models.CharField(max_length=120)
+    phone = models.CharField(max_length=20, blank=True, default='')
+    company = models.CharField(max_length=120, blank=True, default='')
+    team_size = models.CharField(max_length=10, blank=True, default='')
+    topic = models.CharField(max_length=40, blank=True, default='')
+    preferred = models.CharField(max_length=40, blank=True, default='')   # demo: preferred date/time, free text
+    message = models.TextField(blank=True, default='')
+    status = models.CharField(max_length=10, default='new')     # new, contacted, closed
+    note = models.TextField(blank=True, default='')
+    ip = models.CharField(max_length=45, blank=True, default='')
+    created = models.DateTimeField(auto_now_add=True)
+
+
+class Post(models.Model):
+    """A blog post. Body is plain text: blank line = new paragraph, '## ' heading, '- ' bullet, **bold**, [text](https://link)."""
+    slug = models.SlugField(max_length=80, unique=True)
+    title = models.CharField(max_length=150)
+    excerpt = models.CharField(max_length=300, blank=True, default='')
+    body = models.TextField()
+    tag = models.CharField(max_length=30, blank=True, default='')
+    author = models.CharField(max_length=60, blank=True, default='')
+    published = models.BooleanField(default=False)
+    published_at = models.DateTimeField(null=True, blank=True)
+    updated = models.DateTimeField(auto_now=True)

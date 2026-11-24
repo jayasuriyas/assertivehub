@@ -15,39 +15,12 @@ from . import plans, tenancy, mail
 from .models import Tenant, SignupAttempt
 
 E_ = html.escape
-CSS = """<style>
-:root{--bg:#f6f7fb;--card:#fff;--tx:#161a2b;--mu:#667;--ac:#4f46e5;--bd:#e3e6f0}
-@media(prefers-color-scheme:dark){:root{--bg:#0f1220;--card:#181c30;--tx:#eef0fa;--mu:#9aa1c0;--ac:#8b85ff;--bd:#2a3050}}
-*{box-sizing:border-box}body{margin:0;font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--tx)}
-.w{max-width:1040px;margin:0 auto;padding:0 18px}header{display:flex;justify-content:space-between;align-items:center;padding:18px 0}
-a{color:var(--ac)}.b{display:inline-block;background:var(--ac);color:#fff;text-decoration:none;padding:11px 20px;border-radius:10px;font-weight:600;border:0;cursor:pointer;font-size:16px}
-.b.o{background:transparent;color:var(--ac);border:1.5px solid var(--ac)}h1{font-size:clamp(28px,5vw,46px);line-height:1.15;margin:.4em 0}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}.c{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:22px}
-.pr{font-size:32px;font-weight:700}.mu{color:var(--mu)}ul.t{padding-left:18px;margin:10px 0}.hero{padding:30px 0 20px;max-width:720px}
-label{display:block;font-weight:600;margin:14px 0 4px;font-size:14px}input,select{width:100%;padding:11px 12px;border-radius:9px;border:1px solid var(--bd);background:var(--card);color:var(--tx);font-size:16px}
-.err{background:#fee;color:#a11;padding:10px 12px;border-radius:9px;margin:10px 0}footer{padding:30px 0;color:var(--mu);font-size:14px}.tag{font-size:12px;background:var(--ac);color:#fff;border-radius:99px;padding:2px 10px;margin-left:6px}
-</style>"""
 
 
-def page(title, body, code=200):
-    h = '<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>%s</title>%s<body><div class="w"><header><a href="/" style="text-decoration:none;color:var(--tx);font-weight:800;font-size:20px">%s</a><span><a href="/owner/" class="mu" style="font-size:13px;margin-right:14px">Owner</a><a class="b" href="/signup">Start free trial</a></span></header>%s<footer>Made in India. Prices in INR, GST extra. <a href="/terms">Terms</a> · <a href="/privacy">Privacy</a></footer></div></body></html>' % (E_(title), CSS, E_(plans.PRODUCT), body)
-    return HttpResponse(h, status=code)
-
-
-def home(request):
-    cards = ''
-    for k, p in plans.PLANS.items():
-        feats = ''.join('<li>%s</li>' % x for x in ['Up to %d employees' % p['emp'], p['blurb']])
-        cards += '<div class="c"><h3>%s%s</h3><div class="pr">₹%s<span class="mu" style="font-size:15px;font-weight:400"> /month</span></div><div class="mu">+ 18%% GST · ₹%s/year</div><ul class="t">%s</ul><a class="b o" href="/signup?plan=%s">Try %s free</a></div>' % (
-            p['name'], '<span class="tag">Popular</span>' if k == 'business' else '', format(p['month'], ','), format(p['month'] * plans.YEAR_MONTHS_PAID, ','), feats, k, p['name'])
-    body = '''<div class="hero"><h1>HR and work management for creative agencies, in one place</h1>
-<p class="mu" style="font-size:18px">Attendance, leave, tasks, clients, monthly team ratings, reports, payroll and more. Every company gets its own private space at <b>yourname.%s</b>. Works on phone and desktop.</p>
-<p><a class="b" href="/signup">Start %d-day free trial</a> <span class="mu" style="margin-left:10px">No card needed</span></p></div>
-<div class="grid">%s</div>
-<div class="grid" style="margin-top:22px"><div class="c"><b>Private by design</b><p class="mu">Your company data lives in its own separate database. Data stays on servers in India.</p></div>
-<div class="c"><b>Pay in rupees</b><p class="mu">UPI, cards and netbanking through Razorpay. GST invoice for every payment.</p></div>
-<div class="c"><b>Switch modules on or off</b><p class="mu">Show your team only what they need.</p></div></div>''' % (E_(settings.BASE_DOMAIN), plans.TRIAL_DAYS, cards)
-    return page(plans.PRODUCT, body)
+def page(title, body, code=200, request=None):
+    """Older platform pages (sign-up, legal, owner panel) inside the new website layout."""
+    from . import site
+    return site.render(request, title, body, status=code, noindex=title in ('Owner', 'Sign up'))
 
 
 def _base_url(request, slug):
@@ -94,13 +67,13 @@ def _ip(request):
 
 def signup(request):
     if request.method != 'POST':
-        return page('Sign up', _form({'plan': request.GET.get('plan', 'business')}, '', get_token(request)))
+        return page('Sign up', _form({'plan': request.GET.get('plan', 'business'), 'company': request.GET.get('company', '')[:80]}, '', get_token(request)), request=request)
     v = {k: request.POST.get(k, '').strip() for k in ['company', 'slug', 'owner', 'email', 'phone', 'state', 'user', 'pw', 'plan']}
     v['slug'] = v['slug'].lower()
     v['user'] = v['user'].lower()
 
     def bad(m):
-        return page('Sign up', _form(v, m, get_token(request)), 400)
+        return page('Sign up', _form(v, m, get_token(request)), 400, request=request)
     ip = _ip(request)
     SignupAttempt.objects.filter(at__lt=time.time() - 3600).delete()
     if SignupAttempt.objects.filter(ip=ip).count() >= 5:
@@ -159,7 +132,7 @@ LEGAL = """<div class="c" style="max-width:760px;margin:0 auto"><div class="err"
 
 def terms(request):
     n = E_(plans.PRODUCT)
-    return page('Terms', LEGAL % ('''<h2>Terms of Service</h2>
+    return page('Terms', request=request, body=LEGAL % ('''<h2>Terms of Service</h2>
 <p>These terms are between [Your registered company name], [address], India ("we") and the business that creates a workspace ("you").</p>
 <h3>1. The service</h3><p>%s is a web application for HR and work management. It is provided to businesses, not consumers.</p>
 <h3>2. Trial and payment</h3><p>New workspaces get a %d-day free trial. After that a paid plan is needed. Prices are in Indian rupees and GST at 18%% is added. Payments are made through Razorpay. We issue a GST invoice for every payment.</p>
@@ -173,7 +146,7 @@ def terms(request):
 
 
 def privacy(request):
-    return page('Privacy', LEGAL % '''<h2>Privacy Policy</h2>
+    return page('Privacy', request=request, body=LEGAL % '''<h2>Privacy Policy</h2>
 <p>This policy follows the Digital Personal Data Protection Act, 2023 (India).</p>
 <h3>Who is responsible</h3><p>For employee data you enter, your company decides why and how it is used (the data fiduciary). We process it for you on our servers in India.</p>
 <h3>What we collect</h3><p>From the person who signs up: name, email, mobile number, state and GSTIN if given. Inside a workspace: whatever your company enters, such as employee details, attendance, leave, ratings, salary and documents.</p>
