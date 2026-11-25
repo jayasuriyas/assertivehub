@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#ffffff">
 <link rel="manifest" href="manifest.webmanifest">
-<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="apple-touch-icon" href="icon-180.png"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -85,7 +85,7 @@ textarea.input{resize:vertical;min-height:70px}
 .app{display:grid;grid-template-columns:220px minmax(0,1fr);gap:20px;max-width:1280px;margin:0 auto;padding-block:16px 40px;align-items:start}
 .side{position:sticky;top:16px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:4px}
 .brand{display:flex;align-items:center;gap:10px;padding:4px 6px 12px;border-bottom:1px solid var(--line);margin-bottom:8px}
-.brand-mark{width:32px;height:32px;border-radius:9px;background:var(--accent);color:var(--accent-fg);display:grid;place-items:center;font-family:var(--f-display);font-weight:700}
+.brand-mark{width:32px;height:32px;border-radius:9px;background:#0f1115;color:#ececec;display:grid;place-items:center;font-family:var(--f-display);font-weight:700;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)}.brand-mark .ahm{width:72%;height:72%}
 .brand b{font-family:var(--f-display);font-size:15px;line-height:1.1;display:block}
 .brand small{color:var(--muted);font-size:11px}
 .nav{border:0;background:transparent;text-align:left;padding:9px 10px;border-radius:8px;display:flex;gap:10px;align-items:center;font-weight:500;color:var(--muted)}
@@ -1091,12 +1091,12 @@ body.mmopen{overflow:hidden}
 </div>
 
 <div id="app" class="app" hidden>
-  <div class="mtop"><span id="brandMark2"><div class="brand-mark">A</div></span><b id="brandName2">Assertive Innovations</b>
+  <div class="mtop"><span id="brandMark2"><div class="brand-mark"><svg class="ahm" viewBox="12 10 76 78" aria-hidden="true"><path d="M54.4 80.4 78.7 66.2V33.8L50 17.4 21.3 33.8V63l9.7 5.6c6 3.5 15 4.4 15-6.6V42" fill="none" stroke="currentColor" stroke-width="9.6" stroke-linejoin="round"/><path fill="currentColor" d="M49.7 33.3 64 41.7v10.9l-13.2-7.4h-9.6l-5.8 6.4V41.4z"/></svg></div></span><b id="brandName2">Assertive Innovations</b>
     <button class="btn sm" data-act="nav" data-v="settings" aria-label="Settings" title="Settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></button>
     <button class="btn sm" data-act="theme" aria-label="Switch light or dark" title="Light or dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
     <button class="btn sm" data-act="logout" aria-label="Sign out" title="Sign out"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg></button></div>
   <aside class="side">
-    <div class="brand"><span id="brandMark"><div class="brand-mark">A</div></span><div class="bn"><b id="brandName">Assertive Innovations</b><small id="roleLine">Admin panel</small></div></div>
+    <div class="brand"><span id="brandMark"><div class="brand-mark"><svg class="ahm" viewBox="12 10 76 78" aria-hidden="true"><path d="M54.4 80.4 78.7 66.2V33.8L50 17.4 21.3 33.8V63l9.7 5.6c6 3.5 15 4.4 15-6.6V42" fill="none" stroke="currentColor" stroke-width="9.6" stroke-linejoin="round"/><path fill="currentColor" d="M49.7 33.3 64 41.7v10.9l-13.2-7.4h-9.6l-5.8 6.4V41.4z"/></svg></div></span><div class="bn"><b id="brandName">Assertive Innovations</b><small id="roleLine">Admin panel</small></div></div>
     <button class="navtoggle" id="navToggle" data-act="navToggle" type="button"><b>«</b><span>Minimise menu</span></button>
     <div id="nav" style="display:contents"></div>
     <div class="side-foot">
@@ -1932,7 +1932,7 @@ try{window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change",
 function logoUrl(forDark){var L=S().logo||{};return forDark?(L.dark||L.light||""):(L.light||L.dark||"")}
 function applyBrand(){
   var u=logoUrl(effDark()),co=db?db.company:"";
-  ["brandMark","brandMark2"].forEach(function(id){var el=$("#"+id);if(!el)return;el.innerHTML=u?'<img class="brand-logo" alt="'+esc(co)+'" src="'+u+'">':'<div class="brand-mark">'+esc((co||"A").charAt(0).toUpperCase())+'</div>'});
+  ["brandMark","brandMark2"].forEach(function(id){var el=$("#"+id);if(!el)return;el.innerHTML=u?'<img class="brand-logo" alt="'+esc(co)+'" src="'+u+'">':'<div class="brand-mark">'+ahMark()+'</div>'});
   var side=$("#app .brand");if(side)side.classList.toggle("haslogo",!!u);
   var m=$("#app .mtop");if(m)m.classList.toggle("haslogo",!!u);
   if(db){try{lsSet("ah.brand",jc({l:(S().logo||{}).light||"",d:(S().logo||{}).dark||"",n:co}));lsSet("ah.footer",jc(footerCfg()))}catch(e){}}
@@ -2744,7 +2744,7 @@ function iconPanel(){
 }
 function applyBrand(){
   var co=db?db.company:"",dk=effDark(),wide=logoUrl(dk),ic=iconUrl(dk),small=navMin&&window.innerWidth>900;
-  function mark(u,cls){return u?'<img class="brand-logo'+(cls||"")+'" alt="'+esc(co)+'" src="'+u+'">':'<div class="brand-mark">'+esc((co||"A").charAt(0).toUpperCase())+'</div>'}
+  function mark(u,cls){return u?'<img class="brand-logo'+(cls||"")+'" alt="'+esc(co)+'" src="'+u+'">':'<div class="brand-mark">'+ahMark()+'</div>'}
   var a=$("#brandMark");if(a)a.innerHTML=mark(small?ic:wide,small?" isicon":"");
   var m2=$("#brandMark2");if(m2)m2.innerHTML=mark(hasIcon()?ic:wide,hasIcon()?" isicon":"");
   var side=$("#app .brand");if(side)side.classList.toggle("haslogo",!!(small?ic:wide)&&!small);
@@ -4157,6 +4157,7 @@ document.addEventListener("submit",function(ev){
 });
 
 /* ===== v6 start: branches, meetings, task time, notifications (docs/release-v6). Server enforces every rule; this only draws. ===== */
+function ahMark(){return '<svg class="ahm" viewBox="12 10 76 78" aria-hidden="true"><path d="M54.4 80.4 78.7 66.2V33.8L50 17.4 21.3 33.8V63l9.7 5.6c6 3.5 15 4.4 15-6.6V42" fill="none" stroke="currentColor" stroke-width="9.6" stroke-linejoin="round"/><path fill="currentColor" d="M49.7 33.3 64 41.7v10.9l-13.2-7.4h-9.6l-5.8 6.4V41.4z"/></svg>'}
 var X6={off:0,state:null,inbox:{items:[],unread:0},wtab:"today",ttab:"board",mtab:"my",empBranch:"",pend:null,timerT:null,pollT:null,rooms:{}};
 function v6on(m){return !!(db&&db.v6&&db.v6[m])}
 function v6can(c){return !!(db&&db.v6caps&&db.v6caps.indexOf(c)>-1)}

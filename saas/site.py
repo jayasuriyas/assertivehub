@@ -49,6 +49,10 @@ ICO = {
 }
 
 
+MARK = ('<svg viewBox="12 10 76 78" aria-hidden="true"><path d="M54.4 80.4 78.7 66.2V33.8L50 17.4 21.3 33.8V63l9.7 5.6c6 3.5 15 4.4 15-6.6V42" fill="none" stroke="currentColor" '
+        'stroke-width="9.6" stroke-linejoin="round"/><path fill="currentColor" d="M49.7 33.3 64 41.7v10.9l-13.2-7.4h-9.6l-5.8 6.4V41.4z"/></svg>')
+
+
 def ic(name, cls='i'):
     return '<svg class="%s" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">%s</svg>' % (cls, ICO.get(name, ICO['spark']))
 
@@ -71,8 +75,8 @@ img,svg{max-width:100%}
 .hd{position:sticky;top:0;z-index:40;background:rgba(251,250,255,.82);backdrop-filter:saturate(1.4) blur(14px);-webkit-backdrop-filter:saturate(1.4) blur(14px);border-bottom:1px solid transparent}
 .hd .w{display:flex;align-items:center;gap:20px;height:74px}
 .logo{display:flex;align-items:center;gap:9px;font-weight:800;font-size:19px;color:var(--ink);letter-spacing:-.01em}.logo:hover{text-decoration:none}
-.logo i{width:26px;height:26px;border-radius:50%;background:conic-gradient(from 200deg,var(--ac),var(--pk),var(--or),var(--ac));display:inline-flex;align-items:center;justify-content:center}
-.logo i:after{content:"";width:10px;height:10px;border-radius:50%;background:#fff}
+.logo i{width:32px;height:32px;border-radius:9px;background:#0f1115;color:#ececec;display:inline-flex;align-items:center;justify-content:center;flex:none}
+.logo i svg{width:72%;height:72%}
 .nav{margin:0 auto;display:flex;gap:2px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:5px;box-shadow:var(--sh2)}
 .nav a{color:var(--ink);font-size:14px;font-weight:500;padding:7px 14px;border-radius:999px}.nav a:hover{text-decoration:none;background:#f3f1fc}
 .nav a.on{color:var(--ac);font-weight:600}
@@ -249,9 +253,9 @@ def css(request):
 
 
 def favicon(request):
-    svg = ('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1">'
-           '<stop offset="0" stop-color="#5b3df5"/><stop offset=".6" stop-color="#ec4899"/><stop offset="1" stop-color="#fb923c"/></linearGradient></defs>'
-           '<circle cx="16" cy="16" r="15" fill="url(#g)"/><circle cx="16" cy="16" r="6" fill="#fff"/></svg>')
+    svg = ('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="22" fill="#0f1115"/>'
+           '<g transform="translate(10 9) scale(.8)" fill="#ececec"><path d="M54.4 80.4 78.7 66.2V33.8L50 17.4 21.3 33.8V63l9.7 5.6c6 3.5 15 4.4 15-6.6V42" fill="none" '
+           'stroke="#ececec" stroke-width="9.6" stroke-linejoin="round"/><path d="M49.7 33.3 64 41.7v10.9l-13.2-7.4h-9.6l-5.8 6.4V41.4z"/></g></svg>')
     r = HttpResponse(svg, content_type='image/svg+xml')
     r['Cache-Control'] = 'public, max-age=86400'
     return r
@@ -293,17 +297,17 @@ def layout(request, title, body, desc='', active='', wrap=True, noindex=False):
             '<meta property="og:type" content="website"><meta property="og:title" content="%s"><meta property="og:description" content="%s"><meta property="og:url" content="%s">'
             '<meta name="theme-color" content="#5b3df5"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/site.css?v=%s"></head>') % (
         E_(full), E_(desc), E_(canon), '<meta name="robots" content="noindex">' if noindex else '', E_(full), E_(desc), E_(canon), CSS_TAG)
-    hd = ('<a class="skip" href="#main">Skip to content</a><header class="hd"><div class="w"><a class="logo" href="/" aria-label="%s home"><i></i>%s</a>'
+    hd = ('<a class="skip" href="#main">Skip to content</a><header class="hd"><div class="w"><a class="logo" href="/" aria-label="%s home"><i>%s</i>%s</a>'
           '<nav class="nav" aria-label="Main">%s</nav><div class="hr"><a class="lk" href="/login">Log in</a><a class="btn sm" href="/signup">Start free trial</a>'
-          '<details class="mnav"><summary aria-label="Menu">%s</summary><div>%s</div></details></div></div></header>') % (P, P, nav, ic('menu'), mnav)
+          '<details class="mnav"><summary aria-label="Menu">%s</summary><div>%s</div></details></div></div></header>') % (P, MARK, P, nav, ic('menu'), mnav)
     areas = ''.join('<li><a href="/products/%s">%s</a></li>' % (a['key'], E_(a['title'])) for a in C.AREAS[:5])
-    ft = ('<footer class="ft"><div class="w"><div class="cols"><div><a class="logo" href="/"><i></i>%s</a><p class="mu" style="max-width:320px;font-size:14px">HR and work management for growing teams in India. '
+    ft = ('<footer class="ft"><div class="w"><div class="cols"><div><a class="logo" href="/"><i>%s</i>%s</a><p class="mu" style="max-width:320px;font-size:14px">HR and work management for growing teams in India. '
           'Every company gets its own private workspace at <b>yourcompany.%s</b>.</p><a class="btn sm" href="/demo">Book a demo</a></div>'
           '<div><h4>Product</h4><ul><li><a href="/products">Overview</a></li><li><a href="/features">Features</a></li><li><a href="/pricing">Pricing</a></li>%s</ul></div>'
           '<div><h4>Company</h4><ul><li><a href="/about">About us</a></li><li><a href="/blog">Blog</a></li><li><a href="/contact">Contact</a></li><li><a href="/faq">FAQs</a></li></ul></div>'
           '<div><h4>Get started</h4><ul><li><a href="/signup">Start free trial</a></li><li><a href="/login">Log in</a></li><li><a href="/demo">Book a demo</a></li><li><a href="/terms">Terms</a></li><li><a href="/privacy">Privacy</a></li></ul></div></div>'
           '<div class="bt"><span>© %d %s. Made in India. Prices in INR, GST extra.</span><span><a href="/terms">Terms</a> · <a href="/privacy">Privacy</a> · <a href="/sitemap.xml">Sitemap</a></span></div></div></footer>') % (
-        P, E_(settings.BASE_DOMAIN), areas, datetime.date.today().year, P)
+        MARK, P, E_(settings.BASE_DOMAIN), areas, datetime.date.today().year, P)
     main = '<main id="main">%s</main>' % (('<div class="w lg" style="padding:40px 24px 60px">%s</div>' % body) if wrap else body)
     return head + '<body>' + hd + main + ft + '</body></html>'
 
