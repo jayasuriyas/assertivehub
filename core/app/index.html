@@ -1037,6 +1037,25 @@ body.x6dro .x6dr{transform:none}body.x6dro .x6drbg{opacity:1;pointer-events:auto
   .mtop .mtb svg,.mtop .x6ib svg{width:19px;height:19px}
   .mhome{margin-top:-8px}.mhh{margin-bottom:12px}
 }
+
+/* phone menu: full screen list */
+.mmenu{position:fixed;inset:0;z-index:48;background:var(--bg);color:var(--fg);display:flex;flex-direction:column;overflow:hidden}
+.mmenu[hidden]{display:none}
+body.mmopen{overflow:hidden}
+.mmh{display:flex;align-items:center;justify-content:space-between;padding:calc(12px + env(safe-area-inset-top,0px)) 16px 12px;border-bottom:1px solid var(--line)}
+.mmh b{font-size:22px;letter-spacing:-.01em}
+.mmx{width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--fg);display:grid;place-items:center;cursor:pointer}.mmx .ic{width:18px;height:18px}
+.mmu{display:flex;align-items:center;gap:12px;width:calc(100% - 32px);margin:14px 16px 4px;padding:12px;border-radius:14px;border:1px solid var(--line);background:var(--surface);color:var(--fg);font:inherit;text-align:left;cursor:pointer}
+.mmu>span:nth-child(2){flex:1;min-width:0;display:flex;flex-direction:column}.mmu small{color:var(--muted);font-size:13px}
+.mmb{flex:1;overflow-y:auto;padding:4px 16px calc(24px + env(safe-area-inset-bottom,0px));-webkit-overflow-scrolling:touch}
+.mlg{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:18px 4px 6px}
+.mlb{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.mli{display:flex;align-items:center;gap:12px;width:100%;padding:13px 14px;background:none;border:0;border-bottom:1px solid var(--line);color:var(--fg);font:inherit;font-size:16px;text-align:left;cursor:pointer}
+.mli:last-child{border-bottom:0}.mli:active{background:var(--accent-soft)}
+.mli.on{color:var(--accent);font-weight:600}.mli.bad{color:var(--bad)}
+.mlic{width:22px;height:22px;display:grid;place-items:center;color:var(--accent);flex:none}.mli.bad .mlic{color:var(--bad)}.mlic svg{width:22px;height:22px}
+.mlt{flex:1;min-width:0}
+.mlch{color:var(--muted);display:grid}.mlch svg{width:16px;height:16px}
 /* ===== v6 styles end ===== */
 </style>
 </head>
@@ -5048,14 +5067,28 @@ function mPlus(){
   openModal('<h2>Quick add</h2><div class="msheet">'+(L.length?L.map(function(x){return '<button type="button" class="msi" data-act="'+x[0]+'" data-date="'+today()+'"><span class="msic">'+ic(x[1])+'</span><span><b>'+x[2]+'</b><small>'+x[3]+'</small></span></button>'}).join(""):'<p class="muted">Nothing to add from here.</p>')+'</div><div class="foot"><button class="btn" data-act="close">Close</button></div>');
 }
 function mMenu(){
-  var L=navFor().filter(function(n){return n[0]!=="dashboard"});
-  openModal('<h2>Menu</h2><div class="mgrid">'+L.map(function(n){return '<button type="button" class="mgi'+(view===n[0]?' on':'')+'" data-act="nav" data-v="'+n[0]+'">'+(ICONS[n[0]]||ICONS.dashboard)+'<span>'+esc(n[1])+'</span></button>'}).join("")+'</div><div class="foot mfoot"><button class="btn" data-act="theme">'+ic("moon")+' Light / dark</button><button class="btn danger" data-act="logout">Sign out</button><button class="btn" data-act="close">Close</button></div>');
+  var L=navFor(),used={},rows="";
+  var row=function(n){used[n[0]]=1;return '<button type="button" class="mli'+(view===n[0]?' on':'')+'" data-act="nav" data-v="'+n[0]+'"><span class="mlic">'+(ICONS[n[0]]||ICONS.dashboard)+'</span><span class="mlt">'+esc(n[1])+'</span><span class="mlch">'+IC9.chev+'</span></button>'};
+  NAVG.forEach(function(g){var it=L.filter(function(n){return g[1].indexOf(n[0])>-1&&!used[n[0]]});if(it.length)rows+='<div class="mlg">'+esc(g[0])+'</div><div class="mlb">'+it.map(row).join("")+'</div>'});
+  var rest=L.filter(function(n){return !used[n[0]]});if(rest.length)rows+='<div class="mlg">More</div><div class="mlb">'+rest.map(row).join("")+'</div>';
+  var e=myEmp();
+  rows+='<div class="mlg">Account</div><div class="mlb"><button type="button" class="mli" data-act="theme"><span class="mlic">'+ic("moon")+'</span><span class="mlt">Light / dark</span></button>'+
+    '<button type="button" class="mli bad" data-act="logout"><span class="mlic">'+ic("x")+'</span><span class="mlt">Sign out</span></button></div>';
+  var m=$("#mmenu");if(!m){m=document.createElement("div");m.id="mmenu";m.className="mmenu";m.setAttribute("role","dialog");m.setAttribute("aria-modal","true");m.setAttribute("aria-label","Menu");document.body.appendChild(m)}
+  m.innerHTML='<div class="mmh"><b>Menu</b><button type="button" class="mmx" data-act="m6menux" aria-label="Close menu">'+ic("x")+'</button></div>'+
+    (e?'<button type="button" class="mmu" data-act="m6me">'+avatar(e,44)+'<span><b>'+esc(e.name)+'</b><small>'+esc(RL[me.role]||me.role)+'</small></span><span class="mlch">'+IC9.chev+'</span></button>':'')+
+    '<div class="mmb">'+rows+'</div>';
+  m.hidden=false;document.body.classList.add("mmopen");var x=m.querySelector(".mmx");if(x)x.focus();
 }
+function mMenuClose(){var m=$("#mmenu");if(m)m.hidden=true;document.body.classList.remove("mmopen")}
+document.addEventListener("keydown",function(e){if(e.key==="Escape"&&$("#mmenu")&&!$("#mmenu").hidden)mMenuClose()});
 /* menu/quick-add clicks close the sheet first, then the app's own handler runs */
 window.addEventListener("click",function(ev){
   var t=ev.target&&ev.target.closest?ev.target.closest("[data-act]"):null;if(!t)return;var a=t.dataset.act;
   if(a==="m6plus"){ev.preventDefault();ev.stopImmediatePropagation();mPlus();return}
   if(a==="m6menu"){ev.preventDefault();ev.stopImmediatePropagation();mMenu();return}
+  if(a==="m6menux"){ev.preventDefault();ev.stopImmediatePropagation();mMenuClose();return}
+  if(t.closest("#mmenu")&&a!=="theme")mMenuClose();
   if(a==="m6me"){ev.preventDefault();ev.stopImmediatePropagation();closeModal();if(me.empId){profileId=me.empId;go("profile",me.empId)}else go("settings");return}
   if(t.closest(".msheet,.mgrid")&&a!=="close"){closeModal()}
   if(a==="nav"&&X6.dopen)closeDrawer();
