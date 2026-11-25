@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#ffffff">
 <link rel="manifest" href="manifest.webmanifest">
-<link rel="apple-touch-icon" href="icon-180.png"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-180.png?v=2"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=2">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -3459,7 +3459,7 @@ function applyBrand(){
   var co=db?db.company:"";
   ["brandMark","brandMark2"].forEach(function(id){var el=$("#"+id);if(el)el.innerHTML='<span class="pmark">'+PICON+'</span>'});
   var s=$("#roleLine");if(s)s.textContent="Assertive Hub";
-  try{var f=document.querySelector("link[rel=icon]");if(!f){f=document.createElement("link");f.rel="icon";document.head.appendChild(f)}f.href="icon-192.png"}catch(e){}
+  try{var f=document.querySelector("link[rel=icon]");if(!f){f=document.createElement("link");f.rel="icon";document.head.appendChild(f)}f.href="icon-192.png?v=2"}catch(e){}
   if(db){try{lsSet("ah.footer",jc(footerCfg()))}catch(e){}}
 }
 function applyLoginBrand(){var f=$("#loginFoot");if(f){var c=null;try{c=JSON.parse(lsGet("ah.footer")||"null")}catch(e){}f.innerHTML=footerInner(c||footerCfg(),"Assertive Hub")}}
