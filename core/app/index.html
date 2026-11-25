@@ -982,7 +982,7 @@ body.x6dro .x6dr{transform:none}body.x6dro .x6drbg{opacity:1;pointer-events:auto
   .v-dash #main>.top,.v-dash #main>.dgrid:first-of-type .greetc{display:none}
   .mhome{display:block;margin:-4px 0 18px}
   .mhh{display:flex;align-items:flex-start;gap:12px;margin-bottom:16px}.mhh>div{flex:1;min-width:0}
-  .mhh small{color:var(--muted);font-size:14px}.mhh h1{font-size:27px;line-height:1.15;margin:2px 0 6px;letter-spacing:-.02em}.mhh p{margin:0;color:var(--muted);font-size:14px;max-width:24ch}
+  .mhh small{color:var(--muted);font-size:14px}.mhh h1{font-size:27px;line-height:1.15;margin:2px 0 6px;letter-spacing:-.02em}.mhh p{margin:0;color:var(--muted);font-size:14px}
   .mav{background:none;border:0;padding:0;cursor:pointer;border-radius:50%;box-shadow:0 0 0 4px var(--accent-soft),0 10px 24px -10px var(--accent);flex:none}
   .mav .av,.mav img{width:64px!important;height:64px!important;border-radius:50%;font-size:22px}
   .mavi{width:64px;height:64px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,var(--accent),#ec4899);color:#fff;font-weight:800;font-size:24px}
@@ -1035,7 +1035,7 @@ body.x6dro .x6dr{transform:none}body.x6dro .x6drbg{opacity:1;pointer-events:auto
   .mtop #brandMark2 .brand-mark,.mtop #brandMark2 img{width:34px;height:34px;border-radius:10px}
   .mtop .x6ib,.mtop .mtb{width:38px;height:38px;min-width:38px;border-radius:50%;padding:0;display:inline-grid!important;place-items:center;color:var(--fg);background:var(--glass,var(--surface));border:1px solid var(--glass-line,var(--line));box-shadow:var(--glass-shadow,none)}
   .mtop .mtb svg,.mtop .x6ib svg{width:19px;height:19px}
-  .mhome{margin-top:-8px}.mhh{margin-bottom:12px}
+  .mhome{margin-top:20px}.mhh{margin-bottom:12px}
 }
 
 /* phone menu: full screen list */
@@ -1056,6 +1056,25 @@ body.mmopen{overflow:hidden}
 .mlic{width:22px;height:22px;display:grid;place-items:center;color:var(--accent);flex:none}.mli.bad .mlic{color:var(--bad)}.mlic svg{width:22px;height:22px}
 .mlt{flex:1;min-width:0}
 .mlch{color:var(--muted);display:grid}.mlch svg{width:16px;height:16px}
+/* phone: forms open full screen and scroll; inputs never wider than the screen */
+dl.dl dd .pill{display:inline-block;margin:0 4px 6px 0}
+dl.dl dd:has(.pill){padding-bottom:8px}
+@media(max-width:860px){
+  #main{min-width:0;overflow-x:clip}
+  .input,select.input,textarea.input{min-width:0;max-width:100%;box-sizing:border-box}
+  input[type=date].input,input[type=datetime-local].input,input[type=time].input,input[type=month].input{-webkit-appearance:none;appearance:none;display:block;width:100%;min-height:44px;text-align:left}
+  input.input::-webkit-date-and-time-value{text-align:left}
+  .modal-wrap{padding:0!important;align-items:stretch!important;overflow:hidden}
+  .modal{width:100%!important;max-width:none!important;height:100vh;height:100dvh;max-height:none!important;border:0!important;border-radius:0!important;
+    padding:calc(16px + env(safe-area-inset-top,0px)) 16px 0!important;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;
+    background:var(--surface)!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;box-shadow:none!important}
+  .modal::before{display:none!important}
+  .modal .foot{position:sticky;bottom:0;z-index:2;flex-wrap:wrap;margin:10px -16px 0!important;padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px));background:var(--surface);border-top:1px solid var(--line)}
+  .modal>:last-child:not(form):not(.foot){margin-bottom:calc(24px + env(safe-area-inset-bottom,0px))}
+  .modal:has(.msheet){height:auto;max-height:88dvh!important;margin-top:auto;border-radius:24px 24px 0 0!important;padding-bottom:calc(20px + env(safe-area-inset-bottom,0px))!important}
+  .modal-wrap:has(.msheet){align-items:end!important}
+  body:has(#modal:not([hidden])){overflow:hidden}
+}
 /* ===== v6 styles end ===== */
 </style>
 </head>
@@ -4157,7 +4176,7 @@ document.addEventListener("submit",function(ev){
 });
 
 /* ===== v6 start: branches, meetings, task time, notifications (docs/release-v6). Server enforces every rule; this only draws. ===== */
-function ahMark(){return '<img class="ahm" src="logo.png" alt="">'}
+function ahMark(){return '<svg class="ahm" viewBox="12 10 76 78" aria-hidden="true"><path d="M54.4 80.4 78.7 66.2V33.8L50 17.4 21.3 33.8V63l9.7 5.6c6 3.5 15 4.4 15-6.6V42" fill="none" stroke="currentColor" stroke-width="9.6" stroke-linejoin="round"/><path fill="currentColor" d="M49.7 33.3 64 41.7v10.9l-13.2-7.4h-9.6l-5.8 6.4V41.4z"/></svg>'}
 var X6={off:0,state:null,inbox:{items:[],unread:0},wtab:"today",ttab:"board",mtab:"my",empBranch:"",pend:null,timerT:null,pollT:null,rooms:{}};
 function v6on(m){return !!(db&&db.v6&&db.v6[m])}
 function v6can(c){return !!(db&&db.v6caps&&db.v6caps.indexOf(c)>-1)}
