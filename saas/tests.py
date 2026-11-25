@@ -50,7 +50,7 @@ class Website(TestCase):
 
     def test_css_and_favicon(self):
         self.assertEqual(self.get('/site.css')['Content-Type'], 'text/css; charset=utf-8')
-        self.assertEqual(self.get('/favicon.svg')['Content-Type'], 'image/svg+xml')
+        self.assertEqual(self.get('/logo.png')['Content-Type'], 'image/png')
 
     def test_contact_creates_lead(self):
         with mock.patch('saas.site.mail.send') as m, mock.patch.dict('os.environ', {'HUB_OWNER_EMAIL': 'owner@example.com'}):

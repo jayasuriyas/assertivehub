@@ -22,6 +22,7 @@ urlpatterns = [
     path('robots.txt', site.robots),
     path('site.css', site.css),
     path('favicon.svg', site.favicon),
+    path('logo.png', site.favicon),
     path('signup', pviews.signup),
     path('check', pviews.check),
     path('terms', pviews.terms),

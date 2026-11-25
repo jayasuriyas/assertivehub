@@ -49,8 +49,7 @@ ICO = {
 }
 
 
-MARK = ('<svg viewBox="12 10 76 78" aria-hidden="true"><path d="M54.4 80.4 78.7 66.2V33.8L50 17.4 21.3 33.8V63l9.7 5.6c6 3.5 15 4.4 15-6.6V42" fill="none" stroke="currentColor" '
-        'stroke-width="9.6" stroke-linejoin="round"/><path fill="currentColor" d="M49.7 33.3 64 41.7v10.9l-13.2-7.4h-9.6l-5.8 6.4V41.4z"/></svg>')
+MARK = '<img src="/logo.png" alt="">'
 
 
 def ic(name, cls='i'):
@@ -76,7 +75,7 @@ img,svg{max-width:100%}
 .hd .w{display:flex;align-items:center;gap:20px;height:74px}
 .logo{display:flex;align-items:center;gap:9px;font-weight:800;font-size:19px;color:var(--ink);letter-spacing:-.01em}.logo:hover{text-decoration:none}
 .logo i{width:32px;height:32px;border-radius:9px;background:#0f1115;color:#ececec;display:inline-flex;align-items:center;justify-content:center;flex:none}
-.logo i svg{width:72%;height:72%}
+.logo i{overflow:hidden}.logo i img{width:100%;height:100%;display:block}
 .nav{margin:0 auto;display:flex;gap:2px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:5px;box-shadow:var(--sh2)}
 .nav a{color:var(--ink);font-size:14px;font-weight:500;padding:7px 14px;border-radius:999px}.nav a:hover{text-decoration:none;background:#f3f1fc}
 .nav a.on{color:var(--ac);font-weight:600}
@@ -253,10 +252,9 @@ def css(request):
 
 
 def favicon(request):
-    svg = ('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="22" fill="#0f1115"/>'
-           '<g transform="translate(10 9) scale(.8)" fill="#ececec"><path d="M54.4 80.4 78.7 66.2V33.8L50 17.4 21.3 33.8V63l9.7 5.6c6 3.5 15 4.4 15-6.6V42" fill="none" '
-           'stroke="#ececec" stroke-width="9.6" stroke-linejoin="round"/><path d="M49.7 33.3 64 41.7v10.9l-13.2-7.4h-9.6l-5.8 6.4V41.4z"/></g></svg>')
-    r = HttpResponse(svg, content_type='image/svg+xml')
+    """Assertive Hub logo (PNG) for the website header, footer and browser tab."""
+    from pathlib import Path
+    r = HttpResponse((Path(__file__).resolve().parent.parent / 'core' / 'app' / 'logo.png').read_bytes(), content_type='image/png')
     r['Cache-Control'] = 'public, max-age=86400'
     return r
 
@@ -295,7 +293,7 @@ def layout(request, title, body, desc='', active='', wrap=True, noindex=False):
     head = ('<!doctype html><html lang="en-IN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
             '<title>%s</title><meta name="description" content="%s"><link rel="canonical" href="%s">%s'
             '<meta property="og:type" content="website"><meta property="og:title" content="%s"><meta property="og:description" content="%s"><meta property="og:url" content="%s">'
-            '<meta name="theme-color" content="#5b3df5"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/site.css?v=%s"></head>') % (
+            '<meta name="theme-color" content="#5b3df5"><link rel="icon" href="/logo.png" type="image/png"><link rel="stylesheet" href="/site.css?v=%s"></head>') % (
         E_(full), E_(desc), E_(canon), '<meta name="robots" content="noindex">' if noindex else '', E_(full), E_(desc), E_(canon), CSS_TAG)
     hd = ('<a class="skip" href="#main">Skip to content</a><header class="hd"><div class="w"><a class="logo" href="/" aria-label="%s home"><i>%s</i>%s</a>'
           '<nav class="nav" aria-label="Main">%s</nav><div class="hr"><a class="lk" href="/login">Log in</a><a class="btn sm" href="/signup">Start free trial</a>'

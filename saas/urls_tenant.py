@@ -13,6 +13,7 @@ urlpatterns = [
     path('icon-512.png', views.asset, {'name': 'icon-512.png'}),
     path('icon-maskable-512.png', views.asset, {'name': 'icon-maskable-512.png'}),
     path('icon-180.png', views.asset, {'name': 'icon-180.png'}),
+    path('logo.png', views.asset, {'name': 'logo.png'}),
     path('iclock/cdata', punch.adms_cdata),
     path('iclock/getrequest', punch.adms_getrequest),
     path('device/punch', punch.device_punch),

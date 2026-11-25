@@ -1213,7 +1213,7 @@ def index(request):
     return r
 
 
-ASSETS = {'sw.js': 'application/javascript', 'icon-192.png': 'image/png', 'icon-512.png': 'image/png', 'icon-maskable-512.png': 'image/png', 'icon-180.png': 'image/png'}
+ASSETS = {'sw.js': 'application/javascript', 'icon-192.png': 'image/png', 'icon-512.png': 'image/png', 'icon-maskable-512.png': 'image/png', 'icon-180.png': 'image/png', 'logo.png': 'image/png'}
 
 
 def asset(request, name):
